@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "878596649357",
+    "firebase_url": "https://moneypig-prod.firebaseio.com",
+    "project_id": "moneypig-prod",
+    "storage_bucket": "moneypig-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878596649357:android:47cc46af28097e8e",
+        "android_client_info": {
+          "package_name": "com.knyu.moneypig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878596649357-iukj2oup37g3bco6mca17q1rn29rs3mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqenT6MGGME76inXtmWINhVwqpcKljcI4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
