@@ -1,28 +1,31 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
+
 import React, {Component} from 'react'
 import { ScrollView, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
-import theme from '../../theme';
+import theme from '../../theme'
 
 type Props = {}
-class Home extends Component<Props> {
-
-  onTabBarScroll = () => {
-
-  }
-
+class Drawer extends Component<Props> {
+  
   render() {
-    const { navigation } = this.props
     return (
-      <View style={styles.container} >
-        <Text>Hello</Text>
-      </View>
+      <ScrollView style={{backgroundColor: theme.color.blue4}} >
+        <DrawerItems {...this.props} />
+      </ScrollView>
     );
   }
 }
 
 
 
-export default Home
+export default (Drawer)
 
 const styles = StyleSheet.create({
   container: {

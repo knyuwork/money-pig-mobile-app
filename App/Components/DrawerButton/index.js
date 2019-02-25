@@ -22,7 +22,7 @@ export default class DrawerButton extends Component<Props> {
       <TouchableOpacity 
         style={{marginLeft: 16}}
         onPress={() => this.props.navigation.openDrawer()}>
-        <Icon color={navigationOptions.headerTintColor} size={30} name={'menu'} />
+        <Icon color={navigationOptions.tintColor} size={30} name={'menu'} />
       </TouchableOpacity>
     );
   }
