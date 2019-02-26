@@ -7,12 +7,12 @@ import Drawer from '../Containers/Drawer'
 
 const AppNavigator = createDrawerNavigator(
   {
-    main: {
+    octopus: {
       screen: MainAppNavigator,
     },
   },
   {
-    initialRouteName: 'main',
+    initialRouteName: 'octopus',
     headerMode: 'screen',
     contentComponent: props => <Drawer {...props} />
   }

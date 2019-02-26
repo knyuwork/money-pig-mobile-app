@@ -18,11 +18,11 @@ class Drawer extends Component<Props> {
   
   render() {
     return (
-      <SafeAreaView>
-        <View>
+      <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
+        <View style={{paddingVertical: 16}}>
           <Image style={{width: 100, height: 100}} source={appIcon} />
         </View>
-        <ScrollView >
+        <ScrollView style={{backgroundColor: '#fff', flex: 1}}>
           <DrawerItems {...this.props} />
         </ScrollView>
       </SafeAreaView>
@@ -36,7 +36,8 @@ export default (Drawer)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: theme.color.blue4
   },
   header: {
     flexDirection: 'row',
