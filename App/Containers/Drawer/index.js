@@ -11,14 +11,21 @@ import { ScrollView, Text, StyleSheet, View, Image, Dimensions } from 'react-nat
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import theme from '../../theme'
 
+import appIcon from '../../Images/app-icon.png'
+
 type Props = {}
 class Drawer extends Component<Props> {
   
   render() {
     return (
-      <ScrollView style={{backgroundColor: theme.color.blue4}} >
-        <DrawerItems {...this.props} />
-      </ScrollView>
+      <SafeAreaView>
+        <View>
+          <Image style={{width: 100, height: 100}} source={appIcon} />
+        </View>
+        <ScrollView >
+          <DrawerItems {...this.props} />
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }

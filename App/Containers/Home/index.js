@@ -5,6 +5,14 @@ import theme from '../../theme';
 
 type Props = {}
 class Home extends Component<Props> {
+  static navigationOptions = (props) => ({
+    headerStyle: {
+      backgroundColor: theme.color.blue4,
+    },
+    title: 'SHOPPY',
+    headerTintColor: '#FFF',
+    headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />
+  })
 
   onTabBarScroll = () => {
 

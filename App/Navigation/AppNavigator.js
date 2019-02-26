@@ -2,26 +2,19 @@
 import React from 'react';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
 import theme from '../theme'
-import DrawerNavigator from './DrawerNavigator'
-import DrawerButton from '../Components/DrawerButton'
+import MainAppNavigator from './MainAppNavigator'
+import Drawer from '../Containers/Drawer'
 
-const AppNavigator = createStackNavigator(
+const AppNavigator = createDrawerNavigator(
   {
     main: {
-      screen: DrawerNavigator,
+      screen: MainAppNavigator,
     },
   },
   {
     initialRouteName: 'main',
-    headerMode: 'float',
-    defaultNavigationOptions: ({...props}) =>({
-      headerStyle: {
-        backgroundColor: theme.color.blue4,
-      },
-      title: 'SHOPPY',
-      headerTintColor: '#FFF',
-      headerLeft: ({ ...navigationOptions }) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
-    })
+    headerMode: 'screen',
+    contentComponent: props => <Drawer {...props} />
   }
 )
 
