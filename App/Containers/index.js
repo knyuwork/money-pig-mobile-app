@@ -1,15 +1,25 @@
 
 import React, {Component} from 'react';
 import { View, ActivityIndicator, Dimensions } from 'react-native';
+import Firebase from 'react-native-firebase'
 import AppNavigator from '../Navigation/AppNavigator'
 import { connect } from 'react-redux'
 import { SafeAreaView, createAppContainer } from 'react-navigation';
+
+import { loadAllRemoteConfig } from '../Redux/app/actions'
 import NavigationService from '../Navigation'
 
 const AppNavigatorContainer = createAppContainer(AppNavigator);
 const { width: screenWidth, height: screenHeight} = Dimensions.get('window')
 type Props = {}
 class RootContainer extends Component<Props> {
+
+  componentDidMount () {
+    if (__DEV__) {
+      Firebase.config().enableDeveloperMode()
+    }
+    this.props.loadAllRemoteConfig()
+  }
 
   renderLoading() {
     return (
@@ -42,4 +52,6 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(RootContainer);
+export default connect(mapStateToProps, {
+  loadAllRemoteConfig
+})(RootContainer);

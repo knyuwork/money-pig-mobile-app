@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import ModalDropdown from 'react-native-modal-dropdown'
 import { getNavigationProps, navigateToProductDetail } from '../../Helpers/NavigationHelper'
 import { getProductListById } from '../../Helpers/firebase/DatabaseHelper'
-import UIActions from '../../Redux/UserInterface/actions'
+import UIActions from '../../Redux/userInterface/actions'
 
 const { openChatroomPartnerModal } = UIActions
 

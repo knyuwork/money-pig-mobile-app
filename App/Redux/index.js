@@ -1,8 +1,14 @@
 import { combineReducers } from 'redux'
-import user from './User/reducer'
-import userInterface from './UserInterface/reducer'
+import { combineSagas } from '../Helpers/combineSaga'
+
+import userInterface from './userInterface/reducer'
+
+import { appSaga } from '../Redux/app/saga'
 
 export const rootReducer = combineReducers({
-  user,
   userInterface
 })
+
+export const rootSaga = combineSagas([
+  appSaga
+])
