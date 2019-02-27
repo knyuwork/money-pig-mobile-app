@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import { TouchableOpacity, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
+import Modal from 'react-native-modal';
+import DropDown, {
+  Select,
+  Option,
+  OptionList,
+} from 'react-native-selectme';
 import theme from '../../theme';
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
@@ -17,8 +23,13 @@ class Home extends Component<Props> {
     headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />
   })
 
+  state = {
+    showModal: false
+  }
+
   render() {
     const { navigation } = this.props
+    const { showModal } = this.state
     return (
       <View style={styles.container} >
         <View style={{width: '100%', alignItems: 'center'}}>
@@ -26,7 +37,11 @@ class Home extends Component<Props> {
             <Image source={CHILD_OCTOPUS_CARD} />
           </TouchableOpacity>
         </View>
-        <Text>Hello</Text>
+        <View>
+
+        </View>
+        <Modal isVisible={showModal}>
+        </Modal>
       </View>
     );
   }
