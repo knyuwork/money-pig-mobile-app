@@ -44,24 +44,23 @@ class Home extends Component<Props> {
   render() {
     const { navigation } = this.props
     return (
-      <View style={styles.container} >
+      <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <View style={{width: '100%', alignItems: 'center'}}>
           <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
             <Image source={CHILD_OCTOPUS_CARD} />
           </TouchableOpacity>
         </View>
         <View style={{flex: 1}}>
-          <AdmobBanner
-            size={"LARGE_BANNER"}
-            unitId={'ca-app-pub-8273861087920374/5118578430'}
-            request={request.build()}
-            onAdLoaded={() => {
-              console.log('Advert loaded');
-            }}
-          />
         </View>
+        <AdmobBanner
+          unitId={'ca-app-pub-8273861087920374/5118578430'}
+          request={request.build()}
+          onAdLoaded={() => {
+            console.log('Advert loaded');
+          }}
+        />
         { this.renderModal() }
-      </View>
+      </SafeAreaView>
     );
   }
 }
