@@ -3,12 +3,18 @@ import { TouchableOpacity, Text, StyleSheet, View, Image, Dimensions } from 'rea
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import Modal from 'react-native-modal';
 import ModalDropdown from 'react-native-modal-dropdown'
+import firebase from 'react-native-firebase'
 
 import theme from '../../theme';
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
 import STUDENT_OCTOPUS_CARD from '../../Images/octopus-student.jpg'
+
+const AdmobBanner = firebase.admob.Banner
+const AdRequest = firebase.admob.AdRequest;
+const request = new AdRequest();
+request.addKeyword('foobar');
 
 type Props = {}
 class Home extends Component<Props> {
@@ -28,7 +34,9 @@ class Home extends Component<Props> {
     const { showModal } = this.state
     return (
       <Modal isVisible={showModal}>
-        
+        <View>
+          <Text>test</Text>
+        </View>
       </Modal>
     )
   }
@@ -42,8 +50,15 @@ class Home extends Component<Props> {
             <Image source={CHILD_OCTOPUS_CARD} />
           </TouchableOpacity>
         </View>
-        <View>
-
+        <View style={{flex: 1}}>
+          <AdmobBanner
+            size={"LARGE_BANNER"}
+            unitId={'ca-app-pub-8273861087920374/5118578430'}
+            request={request.build()}
+            onAdLoaded={() => {
+              console.log('Advert loaded');
+            }}
+          />
         </View>
         { this.renderModal() }
       </View>
