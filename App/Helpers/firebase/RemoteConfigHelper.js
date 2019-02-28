@@ -23,3 +23,10 @@ export function getRemoteConfig (keyPrefix) {
     })
     .catch(console.error)
 }
+
+
+export function getAllRemoteConfig (keys) {
+  return firebase.config()
+          .getValues(keys)
+          .catch(console.error)
+}

@@ -10,7 +10,8 @@ const INITIAL_STATE = fromJS({
 
 const appReducer = handleActions(
   {
-    
+    [ACTION_TYPES.SET_APP_CONFIG]: (state, { payload: { appConfig } }) =>
+      state.set('appConfig', fromJS(appConfig)),
   },
   INITIAL_STATE
 )

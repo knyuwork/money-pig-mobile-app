@@ -6,8 +6,10 @@ import AppNavigator from '../Navigation/AppNavigator'
 import { connect } from 'react-redux'
 import { SafeAreaView, createAppContainer } from 'react-navigation';
 
-import { loadAllRemoteConfig } from '../Redux/app/actions'
+import { initializeApp } from '../Redux/app/actions'
+import { getAdmobAppId } from '../Redux/app/selectors'
 import NavigationService from '../Navigation'
+import { initializeAdmob } from '../Helpers/firebase/AdmobHelper'
 
 const AppNavigatorContainer = createAppContainer(AppNavigator);
 const { width: screenWidth, height: screenHeight} = Dimensions.get('window')
@@ -18,7 +20,7 @@ class RootContainer extends Component<Props> {
     if (__DEV__) {
       Firebase.config().enableDeveloperMode()
     }
-    this.props.loadAllRemoteConfig()
+    this.props.initializeApp()
   }
 
   renderLoading() {
@@ -48,10 +50,11 @@ class RootContainer extends Component<Props> {
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.userInterface.get('isLoading')
+    isLoading: state.userInterface.get('isLoading'),
+    admobAppId: getAdmobAppId(state)
   }
 }
 
 export default connect(mapStateToProps, {
-  loadAllRemoteConfig
+  initializeApp
 })(RootContainer);
