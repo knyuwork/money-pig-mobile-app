@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import ModalDropdown from 'react-native-modal-dropdown'
 import firebase from 'react-native-firebase'
 
-import RadioButton from '../../Components/RadioButton'
+import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme';
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
@@ -28,27 +28,32 @@ class Home extends Component<Props> {
   })
 
   state = {
-    showModal: false
+    showModal: false,
+    octopusSelectedIndex: 0
   }
 
   renderModal = () => {
-    const { showModal } = this.state
+    const { showModal, octopusSelectedIndex } = this.state
+    const contents = [
+      {
+        render: <Image source={ELDER_OCTOPUS_CARD} />
+      },
+      {
+        render: <Image source={STUDENT_OCTOPUS_CARD} />
+      },
+      {
+        render: <Image source={CHILD_OCTOPUS_CARD} />
+      }
+    ]
     return (
       <Modal
         isVisible={showModal} 
         onBackdropPress={() => this.setState({ showModal: false })}
       >
-        <View style={{flexDirection: 'column', backgroundColor: '#fff'}}>
-          <RadioButton>
-            <Image source={CHILD_OCTOPUS_CARD} />
-          </RadioButton>
-          <RadioButton>
-            <Image source={ELDER_OCTOPUS_CARD} />
-          </RadioButton>
-          <RadioButton>
-            <Image source={STUDENT_OCTOPUS_CARD} />
-          </RadioButton>
-        </View>
+        <RadioButtonGroup 
+          contents={contents}
+          activeIndex={octopusSelectedIndex}
+          onPress={index => this.setState({ octopusSelectedIndex: index })} />
       </Modal>
     )
   }
