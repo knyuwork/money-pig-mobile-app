@@ -23,7 +23,7 @@ class RadioButton extends Component<Props> {
         <View style={[styles.outterShell]}>
           { selected ? <View style={styles.dot}/> : null }
         </View>
-        <View style={{flex: 1}}>
+        <View>
           { children }
         </View>
       </TouchableOpacity>

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, Input, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import Modal from 'react-native-modal';
-import ModalDropdown from 'react-native-modal-dropdown'
+import Autocomplete from 'react-native-autocomplete-input'
 import firebase from 'react-native-firebase'
 
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
@@ -11,6 +11,18 @@ import theme from '../../theme';
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
 import STUDENT_OCTOPUS_CARD from '../../Images/octopus-student.jpg'
+
+const contents = [
+  {
+    render: <Image source={ELDER_OCTOPUS_CARD} />
+  },
+  {
+    render: <Image source={STUDENT_OCTOPUS_CARD} />
+  },
+  {
+    render: <Image source={CHILD_OCTOPUS_CARD} />
+  }
+]
 
 const AdmobBanner = firebase.admob.Banner
 const AdRequest = firebase.admob.AdRequest;
@@ -34,17 +46,6 @@ class Home extends Component<Props> {
 
   renderModal = () => {
     const { showModal, octopusSelectedIndex } = this.state
-    const contents = [
-      {
-        render: <Image source={ELDER_OCTOPUS_CARD} />
-      },
-      {
-        render: <Image source={STUDENT_OCTOPUS_CARD} />
-      },
-      {
-        render: <Image source={CHILD_OCTOPUS_CARD} />
-      }
-    ]
     return (
       <Modal
         isVisible={showModal} 
@@ -60,14 +61,18 @@ class Home extends Component<Props> {
 
   render() {
     const { navigation } = this.props
+    const { octopusSelectedIndex } = this.state
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <View style={{width: '100%', alignItems: 'center'}}>
           <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
-            <Image source={CHILD_OCTOPUS_CARD} />
+            { contents[octopusSelectedIndex].render }
           </TouchableOpacity>
         </View>
         <View style={{flex: 1}}>
+          <View>
+            <Autocomplete />
+          </View>
         </View>
         <AdmobBanner
           unitId={'ca-app-pub-8273861087920374/5118578430'}
