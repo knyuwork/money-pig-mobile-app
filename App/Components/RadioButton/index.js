@@ -11,19 +11,20 @@ import { Text, TouchableOpacity, Image, View, StyleSheet } from 'react-native'
 
 type Props = {
   options: Object,
-  navigationOptions: Object
+  navigationOptions: Object,
+  onPress: Function
 };
 class RadioButton extends Component<Props> {
 
   render() {
-    const { style, selected, children } = this.props
+    const { style, selected, children, onPress } = this.props
     return (
-      <View style={style} >
+      <TouchableOpacity style={[styles.defaultContainer, style]} onPress={onPress} >
         <View style={[styles.outterShell]}>
           { selected ? <View style={styles.dot}/> : null }
         </View>
         { children }
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -31,6 +32,11 @@ class RadioButton extends Component<Props> {
 export default RadioButton
 
 const styles = StyleSheet.create({
+  defaultContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   outterShell: {
     height: 24,
     width: 24,

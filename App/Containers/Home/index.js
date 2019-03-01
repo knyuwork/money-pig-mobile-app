@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import ModalDropdown from 'react-native-modal-dropdown'
 import firebase from 'react-native-firebase'
 
+import RadioButton from '../../Components/RadioButton'
 import theme from '../../theme';
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
@@ -33,9 +34,20 @@ class Home extends Component<Props> {
   renderModal = () => {
     const { showModal } = this.state
     return (
-      <Modal isVisible={showModal}>
-        <View>
-          <Text>test</Text>
+      <Modal
+        isVisible={showModal} 
+        onBackdropPress={() => this.setState({ showModal: false })}
+      >
+        <View style={{flexDirection: 'column', backgroundColor: '#fff'}}>
+          <RadioButton>
+            <Image source={CHILD_OCTOPUS_CARD} />
+          </RadioButton>
+          <RadioButton>
+            <Image source={ELDER_OCTOPUS_CARD} />
+          </RadioButton>
+          <RadioButton>
+            <Image source={STUDENT_OCTOPUS_CARD} />
+          </RadioButton>
         </View>
       </Modal>
     )
