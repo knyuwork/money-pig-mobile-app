@@ -15,7 +15,12 @@ const getAdmobAppId = state => {
   }
 }
 
+const getHKMTRApiDomain = state => {
+  return getAppConfig(state).get('hkmtrApiDomain')
+}
+
 export {
   getAppConfig,
-  getAdmobAppId
+  getAdmobAppId,
+  getHKMTRApiDomain
 }

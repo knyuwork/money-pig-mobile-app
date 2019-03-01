@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import { TouchableOpacity, Input, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
+import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
 import Autocomplete from 'react-native-autocomplete-input'
 import firebase from 'react-native-firebase'
 
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme';
+import { fetchMTRStationsMap } from '../../Redux/octopus/actions';
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
@@ -30,7 +32,7 @@ const request = new AdRequest();
 request.addKeyword('foobar');
 
 type Props = {}
-class Home extends Component<Props> {
+class Octopus extends Component<Props> {
   static navigationOptions = (props) => ({
     headerStyle: {
       backgroundColor: theme.color.blue4,
@@ -42,6 +44,10 @@ class Home extends Component<Props> {
   state = {
     showModal: false,
     octopusSelectedIndex: 0
+  }
+
+  componentDidMount() {
+    this.props.fetchMTRStationsMap()
   }
 
   renderModal = () => {
@@ -71,7 +77,7 @@ class Home extends Component<Props> {
         </View>
         <View style={{flex: 1}}>
           <View>
-            <Autocomplete />
+            <Autocomplete data={[]} />
           </View>
         </View>
         <AdmobBanner
@@ -89,7 +95,9 @@ class Home extends Component<Props> {
 
 
 
-export default Home
+export default connect(null, {
+  fetchMTRStationsMap
+})(Octopus)
 
 const styles = StyleSheet.create({
   container: {
