@@ -1,15 +1,18 @@
 
-
 const paths = {
-  stationsMap: '/stations',
-  prices: '/prices'
+  stationsMap: '/hkmtr/stations',
+  prices: '/hkmtr/prices'
 }
 
 export default {
   fetchHKMTRPrice: (apiDomain, station1, station2) => {
-    return fetch(`${apiDomain}${paths.prices}`)
+    return fetch(`${apiDomain}${paths.prices}/station1=${station1}&station2=${station2}`)
+            .then(res => res.json())
+            .catch((err) => console.log(err))
   },
   fetchHKMTRStationsMap: (apiDomain) => {
     return fetch(`${apiDomain}${paths.stationsMap}`)
+            .then(res => res.json())
+            .catch((err) => console.log(err))
   }
 } 

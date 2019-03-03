@@ -1,16 +1,14 @@
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { View, ActivityIndicator, Dimensions } from 'react-native';
 import Firebase from 'react-native-firebase'
 import AppNavigator from '../Navigation/AppNavigator'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { SafeAreaView, createAppContainer } from 'react-navigation';
 
 import { initializeApp } from '../Redux/app/actions'
-import { getAdmobAppId } from '../Redux/app/selectors'
 import NavigationService from '../Navigation'
-import { initializeAdmob } from '../Helpers/firebase/AdmobHelper'
-
 const AppNavigatorContainer = createAppContainer(AppNavigator);
 const { width: screenWidth, height: screenHeight} = Dimensions.get('window')
 type Props = {}
@@ -21,6 +19,11 @@ class RootContainer extends Component<Props> {
       Firebase.config().enableDeveloperMode()
     }
     this.props.initializeApp()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(this.Props)
+    console.log(nextProps)
   }
 
   renderLoading() {
@@ -38,23 +41,24 @@ class RootContainer extends Component<Props> {
     return (
       <View style={{flex: 1, backgroundColor: theme.color.blue5}}>
         <AppNavigatorContainer 
-            ref={navigatorRef => {
-              NavigationService.setTopLevelNavigator(navigatorRef);
-            }} />
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }} />
         { isLoading && this.renderLoading() }
       </View>
     );
   }
 }
 
-
-const mapStateToProps = state => {
-  return {
-    isLoading: state.userInterface.get('isLoading'),
-    admobAppId: getAdmobAppId(state)
-  }
-}
-
-export default connect(mapStateToProps, {
-  initializeApp
-})(RootContainer);
+export default compose(
+  connect(
+    state => {
+      return {
+        isLoading: state.userInterface.get('isLoading')
+      }
+    },
+    {
+      initializeApp
+    }
+  )
+)(RootContainer)

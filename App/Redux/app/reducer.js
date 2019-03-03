@@ -5,7 +5,7 @@ import { handleActions } from 'redux-actions'
 import { ACTION_TYPES } from './actions'
 
 const INITIAL_STATE = fromJS({
-  appConfig: null
+  appConfig: {}
 })
 
 const appReducer = handleActions(

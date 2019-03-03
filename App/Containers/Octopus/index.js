@@ -9,10 +9,14 @@ import firebase from 'react-native-firebase'
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme';
 import { fetchMTRStationsMap } from '../../Redux/octopus/actions';
+import { getHKMTRStationsMap, getStationsMapFetchingStatus } from '../../Redux/octopus/selectors';
+import actons from '../../Redux/userInterface/actions';
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
 import STUDENT_OCTOPUS_CARD from '../../Images/octopus-student.jpg'
+
+const { startLoading, endLoading } = actons
 
 const contents = [
   {
@@ -47,7 +51,8 @@ class Octopus extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.fetchMTRStationsMap()
+    // this.props.fetchMTRStationsMap()
+    // this.props.endLoading()
   }
 
   renderModal = () => {
@@ -65,9 +70,31 @@ class Octopus extends Component<Props> {
     )
   }
 
+  onSave = () => {
+    this.props.startLoading()
+    setTimeout(() => this.props.endLoading(), 2000) 
+    
+  }
+
+  renderAutoComplete = () => {
+    const { stationsMap } = this.props
+    const data = stationsMap? Object.values(stationsMap) : null
+    console.log(data)
+    return (
+      <Autocomplete 
+        containerStyle={styles.autoComplete} data={data} 
+        renderItem={item => (
+          <TouchableOpacity onPress={() => this.setState({ query: item })}>
+            <Text>{item}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    )
+  }
+
   render() {
-    const { navigation } = this.props
     const { octopusSelectedIndex } = this.state
+    const { stationsMap, isStationsMapFetching } = this.props
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <View style={{width: '100%', alignItems: 'center'}}>
@@ -75,16 +102,19 @@ class Octopus extends Component<Props> {
             { contents[octopusSelectedIndex].render }
           </TouchableOpacity>
         </View>
-        <View style={{flex: 1}}>
-          <View>
-            <Autocomplete data={[]} />
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <View style={{flexDirection: 'row'}}>
+            { this.renderAutoComplete() }
+            { this.renderAutoComplete() }
           </View>
+          <TouchableOpacity onPress={this.onSave} style={styles.button}>
+            <Text>Save</Text>
+          </TouchableOpacity>
         </View>
         <AdmobBanner
           unitId={'ca-app-pub-8273861087920374/5118578430'}
           request={request.build()}
           onAdLoaded={() => {
-            console.log('Advert loaded');
           }}
         />
         { this.renderModal() }
@@ -93,34 +123,29 @@ class Octopus extends Component<Props> {
   }
 }
 
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    stationsMap: {}, //getHKMTRStationsMap(state).toJS(),
+    isStationsMapFetching: false, // getStationsMapFetchingStatus(state)
+  }
+}
 
-
-export default connect(null, {
-  fetchMTRStationsMap
+export default connect(mapStateToProps, {
+  fetchMTRStationsMap, startLoading, endLoading
 })(Octopus)
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  header: {
-    flexDirection: 'row',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    backgroundColor: '#FF9789',
-    padding: 8
-  },
-  headerFont: {
-    color: '#FFF',
-    fontSize: 20,
-    paddingHorizontal: 16
-  },
-  itemContainer: {
+  autoComplete: {
+    flex: 1,
     marginHorizontal: 8
   },
-  image: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 8,
+  button: {
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: theme.color.blue5
   },
 });

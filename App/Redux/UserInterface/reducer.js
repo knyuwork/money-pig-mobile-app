@@ -1,26 +1,19 @@
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 import actions from './actions';
 
 
-const initState = new Map({
+const initState = fromJS({
   isLoading: false,
-  isShowChatroomPartnerModal: false
 });
 
-export default userReducer = (state = initState, action) => {
+export default userInterfaceReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.START_LOADING:
       return state
-              .set('isLoading', true)
+              .merge({isLoading: true})
     case actions.END_LOADING:
       return state
-              .set('isLoading', false)
-    case actions.OPEN_CHATROOM_PARTNER_MODAL:
-      return state
-              .set('isShowChatroomPartnerModal', true)
-    case actions.CLOSE_CHATROOM_PARTNER_MODAL:
-      return state
-              .set('isShowChatroomPartnerModal', false)
+              .merge({isLoading: false})
     default:
       return state;
   }

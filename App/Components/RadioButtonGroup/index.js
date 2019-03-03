@@ -17,7 +17,11 @@ class RadioButtonGroup extends Component<Props> {
       <View style={styles.container}>
         {
           contents.map((content, index) => 
-            <RadioButton selected={activeIndex === index} onPress={() => onPress(index)}>
+            <RadioButton
+              key={index}
+              selected={activeIndex === index}
+              onPress={() => onPress(index)}
+            >
               { content.render }
             </RadioButton>
           )

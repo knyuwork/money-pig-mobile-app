@@ -3,15 +3,16 @@ import { call, put, fork, select } from 'redux-saga/effects'
 
 import api from '../../../Helpers/api'
 import { getHKMTRApiDomain } from '../../app/selectors'
+import { setMTRStationsMap, toggleMTRStationsMapFetching } from '../../octopus/actions'
 
 export default function * fetchMTRStationsMap () {
   try {
-    console.log('reached')
+    yield put(toggleMTRStationsMapFetching())
     const state = yield select()
     const hkmtrApiDomain = getHKMTRApiDomain(state)
-    console.log(hkmtrApiDomain)
-    const res = yield call(api.fetchHKMTRStationsMap, hkmtrApiDomain)
-    console.log(res)
+    const stationsMap = yield call(api.fetchHKMTRStationsMap, hkmtrApiDomain)
+    yield put(setMTRStationsMap(stationsMap))
+    yield put(toggleMTRStationsMapFetching())
   } catch (error) {
     console.log(error)
   }
