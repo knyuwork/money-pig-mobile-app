@@ -21,11 +21,6 @@ class RootContainer extends Component<Props> {
     this.props.initializeApp()
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log(this.Props)
-    console.log(nextProps)
-  }
-
   renderLoading() {
     return (
       <View style={{width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>

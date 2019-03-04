@@ -10,10 +10,10 @@ export default userInterfaceReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.START_LOADING:
       return state
-              .merge({isLoading: true})
+              .set('isLoading', true )
     case actions.END_LOADING:
       return state
-              .merge({isLoading: false})
+              .merge('isLoading', false )
     default:
       return state;
   }

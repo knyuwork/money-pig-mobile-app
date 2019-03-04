@@ -47,12 +47,13 @@ class Octopus extends Component<Props> {
 
   state = {
     showModal: false,
-    octopusSelectedIndex: 0
+    octopusSelectedIndex: 0,
+    startStation: '',
+    endStation: ''
   }
 
   componentDidMount() {
-    // this.props.fetchMTRStationsMap()
-    // this.props.endLoading()
+    this.props.fetchMTRStationsMap()
   }
 
   renderModal = () => {
@@ -124,15 +125,14 @@ class Octopus extends Component<Props> {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
-    stationsMap: {}, //getHKMTRStationsMap(state).toJS(),
-    isStationsMapFetching: false, // getStationsMapFetchingStatus(state)
+    stationsMap: getHKMTRStationsMap(state).toJS(),
+    isStationsMapFetching: getStationsMapFetchingStatus(state)
   }
 }
 
 export default connect(mapStateToProps, {
-  fetchMTRStationsMap, startLoading, endLoading
+  fetchMTRStationsMap
 })(Octopus)
 
 const styles = StyleSheet.create({
