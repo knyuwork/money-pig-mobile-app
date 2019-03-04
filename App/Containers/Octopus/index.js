@@ -77,15 +77,23 @@ class Octopus extends Component<Props> {
     
   }
 
-  renderAutoComplete = () => {
+  renderAutoComplete = (stateKey) => {
     const { stationsMap } = this.props
-    const data = stationsMap? Object.values(stationsMap) : null
-    console.log(data)
+    const dataPool = stationsMap? Object.values(stationsMap) : []
+    const suggestion = []
+    dataPool.forEach(value => {
+      if (value.includes(this.state[stateKey])) {
+        suggestion.push(value)
+      }
+    })
+    console.log(suggestion)
     return (
       <Autocomplete 
-        containerStyle={styles.autoComplete} data={data} 
+        containerStyle={styles.autoComplete} data={suggestion}
+        onChangeText={text => this.setState({ [stateKey]: text })}
+        hideResults={this.state[stateKey].length === 0}
         renderItem={item => (
-          <TouchableOpacity onPress={() => this.setState({ query: item })}>
+          <TouchableOpacity onPress={() => this.setState({ [stateKey]: item })}>
             <Text>{item}</Text>
           </TouchableOpacity>
         )}
@@ -105,8 +113,8 @@ class Octopus extends Component<Props> {
         </View>
         <View style={{flex: 1, alignItems: 'center'}}>
           <View style={{flexDirection: 'row'}}>
-            { this.renderAutoComplete() }
-            { this.renderAutoComplete() }
+            { this.renderAutoComplete('startStation') }
+            { this.renderAutoComplete('endStation') }
           </View>
           <TouchableOpacity onPress={this.onSave} style={styles.button}>
             <Text>Save</Text>
