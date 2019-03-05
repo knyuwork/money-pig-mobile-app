@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, Input, Text, StyleSheet, View, Image, ScrollView } from 'react-native'
+import { TouchableOpacity, Input, Text, StyleSheet, View, Image, ScrollView, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
@@ -10,13 +10,12 @@ import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme';
 import { fetchMTRStationsMap } from '../../Redux/octopus/actions';
 import { getHKMTRStationsMap, getStationsMapFetchingStatus } from '../../Redux/octopus/selectors';
-import actons from '../../Redux/userInterface/actions';
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
 import STUDENT_OCTOPUS_CARD from '../../Images/octopus-student.jpg'
 
-const { startLoading, endLoading } = actons
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 const contents = [
   {
@@ -130,22 +129,29 @@ class Octopus extends Component<Props> {
     const { stationsMap, isStationsMapFetching } = this.props
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
-        <ScrollView containerStyle={{flex: 1}} keyboardShouldPersistTaps='handled' scrollEnabled={false}>
-          <View style={{width: '100%', alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
-              { contents[octopusSelectedIndex].render }
-            </TouchableOpacity>
-          </View>
-          <View style={{flex: 1, alignItems: 'center'}}>
-            <View style={{flexDirection: 'row'}}>
-              { this.renderAutoComplete('startStation') }
-              { this.renderAutoComplete('endStation') }
+        <View style={styles.content} >
+          <ScrollView
+            style={{ width: SCREEN_WIDTH }}
+            containerStyle={{ flex: 1 }}
+            keyboardShouldPersistTaps='handled'
+            scrollEnabled={false}
+          >
+            <View style={{width: '100%', alignItems: 'center'}}>
+              <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
+                { contents[octopusSelectedIndex].render }
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={this.onSave} style={styles.button}>
-              <Text>Save</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <View style={{flexDirection: 'row'}}>
+                { this.renderAutoComplete('startStation') }
+                { this.renderAutoComplete('endStation') }
+              </View>
+            </View>
+          </ScrollView>
+          <TouchableOpacity onPress={this.onSave} style={styles.button}>
+            <Text>Save</Text>
+          </TouchableOpacity>
+        </View>
         <AdmobBanner
           unitId={'ca-app-pub-8273861087920374/5118578430'}
           request={request.build()}
@@ -173,12 +179,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 8
+  },
   autoComplete: {
     flex: 1,
     marginHorizontal: 8
   },
   button: {
     padding: 16,
+    paddingVertical: 8,
     borderRadius: 16,
     backgroundColor: theme.color.blue5
   },
