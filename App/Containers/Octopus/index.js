@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, Input, Text, StyleSheet, View, Image, ScrollView, Dimensions } from 'react-native'
+import { TouchableOpacity, Input, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
 import Autocomplete from 'react-native-autocomplete-input'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import firebase from 'react-native-firebase'
 
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
@@ -108,33 +109,49 @@ class Octopus extends Component<Props> {
       })
     }
 
+    const labelText = stateKey == 'startStation'? '起點' : '終點'
+
     return (
-      <Autocomplete 
-        value={this.state[stateKey]}
-        containerStyle={styles.autoComplete} data={suggestion}
-        onChangeText={onChangeText}
-        hideResults={hideSuggestion}
-        onBlur={onBlur}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => onItemPressed(item)}>
-            <Text>{item}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      <View style={styles.autoComplete}>
+        <Text style={styles.labelText} >{labelText} :</Text>
+        <Autocomplete 
+          style={{
+            borderRadius: 8
+          }}
+          inputContainerStyle={{
+            borderRadius: 8
+          }}
+          listStyle={{
+            height: 150
+          }}
+          value={this.state[stateKey]}
+          // containerStyle={styles.autoComplete}
+          data={suggestion}
+          onChangeText={onChangeText}
+          hideResults={hideSuggestion}
+          onBlur={onBlur}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.suggestionItem}
+              onPress={() => onItemPressed(item)}
+            >
+              <Text>{item}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     )
   }
 
   render() {
     const { octopusSelectedIndex } = this.state
-    const { stationsMap, isStationsMapFetching } = this.props
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <View style={styles.content} >
-          <ScrollView
+          <KeyboardAwareScrollView
             style={{ width: SCREEN_WIDTH }}
             containerStyle={{ flex: 1 }}
             keyboardShouldPersistTaps='handled'
-            scrollEnabled={false}
           >
             <View style={{width: '100%', alignItems: 'center'}}>
               <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
@@ -147,7 +164,7 @@ class Octopus extends Component<Props> {
                 { this.renderAutoComplete('endStation') }
               </View>
             </View>
-          </ScrollView>
+          </KeyboardAwareScrollView>
           <TouchableOpacity onPress={this.onSave} style={styles.button}>
             <Text>Save</Text>
           </TouchableOpacity>
@@ -177,7 +194,8 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
   },
   content: {
     flex: 1,
@@ -188,10 +206,16 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 8
   },
+  labelText: {
+    fontSize: 18
+  },
   button: {
     padding: 16,
     paddingVertical: 8,
     borderRadius: 16,
     backgroundColor: theme.color.blue5
   },
+  suggestionItem: {
+    padding: 8
+  }
 });
