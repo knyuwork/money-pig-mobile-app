@@ -1,0 +1,135 @@
+diff --git a/node_modules/react-native-autocomplete-input/index.js b/node_modules/react-native-autocomplete-input/index.js
+index 35113bc..e78d230 100644
+--- a/node_modules/react-native-autocomplete-input/index.js
++++ b/node_modules/react-native-autocomplete-input/index.js
+@@ -1,14 +1,14 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+ import {
+-  ListView,
+   Platform,
+   StyleSheet,
+   Text,
+   TextInput,
+   View,
++  FlatList,
+   ViewPropTypes as RNViewPropTypes
+-} from 'react-native';
++} from 'react-native'
+ 
+ const ViewPropTypes = RNViewPropTypes || View.propTypes;
+ 
+@@ -95,14 +95,11 @@ class Autocomplete extends Component {
+   constructor(props) {
+     super(props);
+ 
+-    const ds = new ListView.DataSource({ rowHasChanged: props.rowHasChanged });
+-    this.state = { dataSource: ds.cloneWithRows(props.data) };
+     this.resultList = null;
+   }
+ 
+-  componentWillReceiveProps({ data }) {
+-    const dataSource = this.state.dataSource.cloneWithRows(data);
+-    this.setState({ dataSource });
++  state = {
++    isFocused: false
+   }
+ 
+   /**
+@@ -122,22 +119,24 @@ class Autocomplete extends Component {
+   }
+ 
+   renderResultList() {
+-    const { dataSource } = this.state;
+     const {
+       listStyle,
+       renderItem,
+       renderSeparator,
+       keyboardShouldPersistTaps,
+       onEndReached,
+-      onEndReachedThreshold
++      onEndReachedThreshold,
++      data,
++      keyExtractor
+     } = this.props;
+     
+     return (
+-      <ListView
++      <FlatList
+         ref={(resultList) => { this.resultList = resultList; }}
+-        dataSource={dataSource}
++        data={data}
+         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+-        renderRow={renderItem}
++        renderItem={renderItem}
++        keyExtractor={keyExtractor || ((item,index) => index.toString())}
+         renderSeparator={renderSeparator}
+         onEndReached={onEndReached}
+         onEndReachedThreshold={onEndReachedThreshold}
+@@ -146,29 +145,53 @@ class Autocomplete extends Component {
+     );
+   }
+ 
++  onFocus = () => {
++    const { onFocus } = this.props
++    this.setState({
++      isFocused: true
++    })
++    if (onFocus) {
++      onFocus(e)
++    }
++  }
++
++  onBlur = (e) => {
++    const { onBlur } = this.props
++    this.setState({
++      isFocused: false
++    })
++    if (onBlur) {
++      onBlur(e)
++    }
++  }
++
+   renderTextInput() {
+     const { onEndEditing, renderTextInput, style } = this.props;
++
+     const props = {
++      ...this.props,
+       style: [styles.input, style],
+       ref: ref => (this.textInput = ref),
+       onEndEditing: e => onEndEditing && onEndEditing(e),
+-      ...this.props
++      onFocus: this.onFocus,
++      onBlur: this.onBlur,
+     };
+ 
+     return renderTextInput(props);
+   }
+ 
+   render() {
+-    const { dataSource } = this.state;
+     const {
+       containerStyle,
+       hideResults,
+       inputContainerStyle,
+       listContainerStyle,
+       onShowResults,
+-      onStartShouldSetResponderCapture
++      onStartShouldSetResponderCapture,
++      data
+     } = this.props;
+-    const showResults = dataSource.getRowCount() > 0;
++    const { isFocused } = this.state;
++    const showResults = data.length > 0
+ 
+     // Notify listener if the suggestion will be shown.
+     onShowResults && onShowResults(showResults);
+@@ -178,7 +201,7 @@ class Autocomplete extends Component {
+         <View style={[styles.inputContainer, inputContainerStyle]}>
+           {this.renderTextInput()}
+         </View>
+-        {!hideResults && (
++        {!hideResults && isFocused && (
+           <View
+             style={listContainerStyle}
+             onStartShouldSetResponderCapture={onStartShouldSetResponderCapture}
