@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, Input, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, Input, Text, StyleSheet, View, Image, ScrollView } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
@@ -49,7 +49,8 @@ class Octopus extends Component<Props> {
     showModal: false,
     octopusSelectedIndex: 0,
     startStation: '',
-    endStation: ''
+    endStation: '',
+    hideSuggestion: true
   }
 
   componentDidMount() {
@@ -79,6 +80,7 @@ class Octopus extends Component<Props> {
 
   renderAutoComplete = (stateKey) => {
     const { stationsMap } = this.props
+    const { hideSuggestion } = this.state
     const dataPool = stationsMap? Object.values(stationsMap) : []
     const suggestion = []
     dataPool.forEach(value => {
@@ -86,14 +88,36 @@ class Octopus extends Component<Props> {
         suggestion.push(value)
       }
     })
-    console.log(suggestion)
+    
+    const onChangeText = text => {
+      this.setState({ 
+        [stateKey]: text,
+        hideSuggestion: false
+      })
+    }
+
+    const onBlur = () => {
+      this.setState({
+        hideSuggestion: true
+      })
+    }
+
+    const onItemPressed = (item) => {
+      this.setState({ 
+        [stateKey]: item,
+        hideSuggestion: true
+      })
+    }
+
     return (
       <Autocomplete 
+        value={this.state[stateKey]}
         containerStyle={styles.autoComplete} data={suggestion}
-        onChangeText={text => this.setState({ [stateKey]: text })}
-        hideResults={this.state[stateKey].length === 0}
-        renderItem={item => (
-          <TouchableOpacity onPress={() => this.setState({ [stateKey]: item })}>
+        onChangeText={onChangeText}
+        hideResults={hideSuggestion}
+        onBlur={onBlur}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => onItemPressed(item)}>
             <Text>{item}</Text>
           </TouchableOpacity>
         )}
@@ -106,20 +130,22 @@ class Octopus extends Component<Props> {
     const { stationsMap, isStationsMapFetching } = this.props
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
-        <View style={{width: '100%', alignItems: 'center'}}>
-          <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
-            { contents[octopusSelectedIndex].render }
-          </TouchableOpacity>
-        </View>
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <View style={{flexDirection: 'row'}}>
-            { this.renderAutoComplete('startStation') }
-            { this.renderAutoComplete('endStation') }
+        <ScrollView containerStyle={{flex: 1}} keyboardShouldPersistTaps='handled' scrollEnabled={false}>
+          <View style={{width: '100%', alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
+              { contents[octopusSelectedIndex].render }
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={this.onSave} style={styles.button}>
-            <Text>Save</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <View style={{flexDirection: 'row'}}>
+              { this.renderAutoComplete('startStation') }
+              { this.renderAutoComplete('endStation') }
+            </View>
+            <TouchableOpacity onPress={this.onSave} style={styles.button}>
+              <Text>Save</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
         <AdmobBanner
           unitId={'ca-app-pub-8273861087920374/5118578430'}
           request={request.build()}

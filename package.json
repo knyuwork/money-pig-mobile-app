@@ -16,6 +16,7 @@
     "apk": "cd android && ./gradlew assembleRelease",
     "rename": "node ./bin/rename.js",
     "start": "react-native start",
+    "postinstall": "patch-package",
     "test": "jest"
   },
   "jest": {

@@ -12,7 +12,6 @@ export default class App extends Component<Props> {
   render() {
     return (
       <Provider store={store}>
-        {/* <RootContainer/> */}
         <PersistGate loading={null} persistor={persistor}> 
           <RootContainer/>
         </PersistGate>
