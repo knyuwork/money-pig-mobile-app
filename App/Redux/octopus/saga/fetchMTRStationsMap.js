@@ -7,12 +7,10 @@ import { setMTRStationsMap, toggleMTRStationsMapFetching } from '../../octopus/a
 
 export default function * fetchMTRStationsMap () {
   try {
-    yield put(toggleMTRStationsMapFetching())
     const state = yield select()
     const hkmtrApiDomain = getHKMTRApiDomain(state)
     const stationsMap = yield call(api.fetchHKMTRStationsMap, hkmtrApiDomain)
-    yield put(setMTRStationsMap(stationsMap))
-    yield put(toggleMTRStationsMapFetching())
+    yield put(setMTRStationsMap(stationsMap || {}))
   } catch (error) {
     console.log(error)
   }

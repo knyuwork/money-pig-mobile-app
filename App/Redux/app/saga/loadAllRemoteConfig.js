@@ -20,6 +20,7 @@ export default function * loadAllRemoteConfig () {
       })
       appConfig = humps.camelizeKeys(appConfig)
       yield put(setAppConfig(appConfig))
+      console.log(appConfig)
     } else {
 
     }

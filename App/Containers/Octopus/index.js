@@ -8,9 +8,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import firebase from 'react-native-firebase'
 
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
-import theme from '../../theme';
-import { fetchMTRStationsMap } from '../../Redux/octopus/actions';
-import { getHKMTRStationsMap, getStationsMapFetchingStatus } from '../../Redux/octopus/selectors';
+import theme from '../../theme'
+import { getHKMTRStationsMap, getStationsMapFetchingStatus } from '../../Redux/octopus/selectors'
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
@@ -53,10 +52,6 @@ class Octopus extends Component<Props> {
     hideSuggestion: true
   }
 
-  componentDidMount() {
-    this.props.fetchMTRStationsMap()
-  }
-
   renderModal = () => {
     const { showModal, octopusSelectedIndex } = this.state
     return (
@@ -96,9 +91,9 @@ class Octopus extends Component<Props> {
       })
     }
 
-    const onBlur = () => {
+    const onFocus = () => {
       this.setState({
-        hideSuggestion: true
+        hideSuggestion: false
       })
     }
 
@@ -122,20 +117,21 @@ class Octopus extends Component<Props> {
             borderRadius: 8
           }}
           listStyle={{
-            height: 150
+            height: 150,
+
           }}
           value={this.state[stateKey]}
           // containerStyle={styles.autoComplete}
           data={suggestion}
           onChangeText={onChangeText}
           hideResults={hideSuggestion}
-          onBlur={onBlur}
+          onFocus={onFocus}
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.suggestionItem}
               onPress={() => onItemPressed(item)}
             >
-              <Text>{item}</Text>
+              <Text style={styles.suggestionText}>{item}</Text>
             </TouchableOpacity>
           )}
         />
@@ -181,16 +177,12 @@ class Octopus extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    stationsMap: getHKMTRStationsMap(state).toJS(),
-    isStationsMapFetching: getStationsMapFetchingStatus(state)
-  }
-}
+const mapStateToProps = state => ({
+  stationsMap: getHKMTRStationsMap(state).toJS(),
+  isStationsMapFetching: getStationsMapFetchingStatus(state)
+})
 
-export default connect(mapStateToProps, {
-  fetchMTRStationsMap
-})(Octopus)
+export default connect(mapStateToProps)(Octopus)
 
 const styles = StyleSheet.create({
   container: {
@@ -200,13 +192,17 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    padding: 8
+    padding: 12
   },
   autoComplete: {
     flex: 1,
     marginHorizontal: 8
   },
   labelText: {
+    fontSize: 18,
+    marginVertical: 8
+  },
+  suggestionText: {
     fontSize: 18
   },
   button: {

@@ -15,4 +15,4 @@ export default {
             .then(res => res.json())
             .catch((err) => console.log(err))
   }
-} 
+}
