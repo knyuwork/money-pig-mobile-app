@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, Input, Text, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, TextInput, Text, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
@@ -166,6 +166,7 @@ class Octopus extends Component<Props> {
                 { this.renderAutoComplete('startStation') }
                 { this.renderAutoComplete('endStation') }
               </View>
+              <TextInput />
             </View>
           </KeyboardAwareScrollView>
           <TouchableOpacity onPress={this.onSave} style={styles.button}>
