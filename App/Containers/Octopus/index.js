@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, Input, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, Input, Text, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
@@ -9,6 +9,7 @@ import firebase from 'react-native-firebase'
 
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme'
+import styles from './styles'
 import { getHKMTRStationsMap, getStationsMapFetchingStatus } from '../../Redux/octopus/selectors'
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
@@ -19,13 +20,13 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 const contents = [
   {
-    render: <Image source={ELDER_OCTOPUS_CARD} />
+    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={ELDER_OCTOPUS_CARD} />
   },
   {
-    render: <Image source={STUDENT_OCTOPUS_CARD} />
+    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={STUDENT_OCTOPUS_CARD} />
   },
   {
-    render: <Image source={CHILD_OCTOPUS_CARD} />
+    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={CHILD_OCTOPUS_CARD} />
   }
 ]
 
@@ -144,16 +145,22 @@ class Octopus extends Component<Props> {
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <View style={styles.content} >
+          <View style={styles.octopusContainer}>
+            <Text style={{ fontSize: 16, color: theme.color.blue2, marginRight: 16 }}>
+              你選擇摸擬的八達通: 
+            </Text>
+            <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
+              { contents[octopusSelectedIndex].render }
+            </TouchableOpacity>
+          </View>
           <KeyboardAwareScrollView
-            style={{ width: SCREEN_WIDTH }}
+            style={{
+              width: SCREEN_WIDTH,
+              padding: 12
+            }}
             containerStyle={{ flex: 1 }}
             keyboardShouldPersistTaps='handled'
           >
-            <View style={{width: '100%', alignItems: 'center'}}>
-              <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
-                { contents[octopusSelectedIndex].render }
-              </TouchableOpacity>
-            </View>
             <View style={{flex: 1, alignItems: 'center'}}>
               <View style={{flexDirection: 'row'}}>
                 { this.renderAutoComplete('startStation') }
@@ -183,35 +190,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(Octopus)
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 12
-  },
-  autoComplete: {
-    flex: 1,
-    marginHorizontal: 8
-  },
-  labelText: {
-    fontSize: 18,
-    marginVertical: 8
-  },
-  suggestionText: {
-    fontSize: 18
-  },
-  button: {
-    padding: 16,
-    paddingVertical: 8,
-    borderRadius: 16,
-    backgroundColor: theme.color.blue5
-  },
-  suggestionItem: {
-    padding: 8
-  }
-});
