@@ -4,6 +4,7 @@ import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
 import Autocomplete from 'react-native-autocomplete-input'
+import ActionButton from 'react-native-action-button'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import firebase from 'react-native-firebase'
 
@@ -69,9 +70,7 @@ class Octopus extends Component<Props> {
   }
 
   onSave = () => {
-    this.props.startLoading()
-    setTimeout(() => this.props.endLoading(), 2000) 
-    
+    // TODO
   }
 
   renderAutoComplete = (stateKey) => {
@@ -92,12 +91,6 @@ class Octopus extends Component<Props> {
       })
     }
 
-    const onFocus = () => {
-      this.setState({
-        hideSuggestion: false
-      })
-    }
-
     const onItemPressed = (item) => {
       this.setState({ 
         [stateKey]: item,
@@ -111,22 +104,16 @@ class Octopus extends Component<Props> {
       <View style={styles.autoComplete}>
         <Text style={styles.labelText} >{labelText} :</Text>
         <Autocomplete 
-          style={{
-            borderRadius: 8
-          }}
-          inputContainerStyle={{
-            borderRadius: 8
-          }}
+          style={{ borderRadius: 8 }}
+          inputContainerStyle={styles.inputStyle}
           listContainerStyle={{
             top: 48,
-            zIndex: 1,
             position: 'absolute',
             borderRadius: 8,
             width: '100%'
           }}
           listStyle={{
-            height: 150,
-            zIndex: 1,
+            maxHeight: 150,
             position: 'absolute',
             borderRadius: 8
           }}
@@ -135,7 +122,6 @@ class Octopus extends Component<Props> {
           data={suggestion}
           onChangeText={onChangeText}
           hideResults={hideSuggestion}
-          onFocus={onFocus}
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.suggestionItem}
@@ -149,18 +135,41 @@ class Octopus extends Component<Props> {
     )
   }
 
+  renderResult = () => {
+    return (
+      <View style={styles.resultContainer}>
+        <View style={{flex: 1, marginHorizontal: 8}}>
+          <Text style={styles.labelText} >成人票價: {}</Text>
+          <Text style={styles.labelText} >特惠票價: {}</Text>
+        </View>
+        <View style={{flexDirection: 'row', flex: 1, marginHorizontal: 8}}>
+          <Text style={styles.labelText} >節省: {}</Text>
+          <TextInput style={styles.inputStyle} />
+        </View>
+      </View>
+    )
+  }
+
   render() {
     const { octopusSelectedIndex } = this.state
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <View style={styles.content} >
-          <View style={styles.octopusContainer}>
-            <Text style={{ fontSize: 16, color: theme.color.blue2, marginRight: 16 }}>
-              你選擇摸擬的八達通: 
-            </Text>
-            <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
-              { contents[octopusSelectedIndex].render }
-            </TouchableOpacity>
+          <View style={{ backgroundColor: '#fff', paddingTop: 8}}>
+            <AdmobBanner
+              unitId={'ca-app-pub-8273861087920374/5118578430'}
+              request={request.build()}
+              onAdLoaded={() => {
+              }}
+            />
+            <View style={styles.octopusContainer}>
+              <Text style={{ fontSize: 16, color: theme.color.blue2, marginRight: 16 }}>
+                你選擇摸擬的八達通: 
+              </Text>
+              <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
+                { contents[octopusSelectedIndex].render }
+              </TouchableOpacity>
+            </View>
           </View>
           <KeyboardAwareScrollView
             style={{
@@ -170,36 +179,16 @@ class Octopus extends Component<Props> {
             containerStyle={{ flex: 1 }}
             keyboardShouldPersistTaps='handled'
           >
-            <View style={{flex: 1, justifyContent: 'center'}}>
-              <View style={{flexDirection: 'row'}}>
+            <View style={{justifyContent: 'center'}}>
+              <View style={{flexDirection: 'row', zIndex: 1}}>
                 { this.renderAutoComplete('startStation') }
                 { this.renderAutoComplete('endStation') }
               </View>
-              <View style={{flexDirection: 'row', zIndex: 0}}>
-                <View>
-                  <Text style={styles.labelText} >成人票價: {}</Text>
-                  <Text style={styles.labelText} >特惠票價: {}</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.labelText} >節省: {}</Text>
-                  <TextInput style={{
-                    backgroundColor: 'white',
-                    height: 40
-                  }} />
-                </View>
-              </View>
+              { this.renderResult() }
             </View>
           </KeyboardAwareScrollView>
-          <TouchableOpacity onPress={this.onSave} style={styles.button}>
-            <Text>Save</Text>
-          </TouchableOpacity>
+          <ActionButton buttonColor={theme.color.blue3} onPress={this.onSave} />
         </View>
-        <AdmobBanner
-          unitId={'ca-app-pub-8273861087920374/5118578430'}
-          request={request.build()}
-          onAdLoaded={() => {
-          }}
-        />
         { this.renderModal() }
       </SafeAreaView>
     );

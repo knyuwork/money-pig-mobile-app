@@ -14,6 +14,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   octopusContainer: {
+    marginVertical: 8,
     width: SCREEN_WIDTH,
     alignItems: 'center',
     justifyContent: 'center',
@@ -26,7 +27,8 @@ export default StyleSheet.create({
   },
   autoComplete: {
     flex: 1,
-    marginHorizontal: 8
+    marginHorizontal: 8,
+    zIndex: 1
   },
   labelText: {
     fontSize: 16,
@@ -34,9 +36,22 @@ export default StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold'
   },
+  suggestionItem: {
+    zIndex: 1
+  },
   suggestionText: {
     fontSize: 14,
     zIndex: 1
+  },
+  resultContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  inputStyle: {
+    backgroundColor: 'white',
+    height: 40,
+    flex: 1,
+    borderRadius: 8 
   },
   button: {
     padding: 16,
