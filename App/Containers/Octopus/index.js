@@ -117,13 +117,21 @@ class Octopus extends Component<Props> {
           inputContainerStyle={{
             borderRadius: 8
           }}
+          listContainerStyle={{
+            top: 48,
+            zIndex: 1,
+            position: 'absolute',
+            borderRadius: 8,
+            width: '100%'
+          }}
           listStyle={{
             height: 150,
-            zIndex: 10,
-            position: 'absolute'
+            zIndex: 1,
+            position: 'absolute',
+            borderRadius: 8
           }}
           value={this.state[stateKey]}
-          // containerStyle={styles.autoComplete}
+          // containerStyle={{ position: 'absolute', width: 150 }}
           data={suggestion}
           onChangeText={onChangeText}
           hideResults={hideSuggestion}
@@ -167,7 +175,7 @@ class Octopus extends Component<Props> {
                 { this.renderAutoComplete('startStation') }
                 { this.renderAutoComplete('endStation') }
               </View>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'row', zIndex: 0}}>
                 <View>
                   <Text style={styles.labelText} >成人票價: {}</Text>
                   <Text style={styles.labelText} >特惠票價: {}</Text>

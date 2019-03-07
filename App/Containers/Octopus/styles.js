@@ -35,7 +35,8 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
   suggestionText: {
-    fontSize: 14
+    fontSize: 14,
+    zIndex: 1
   },
   button: {
     padding: 16,
