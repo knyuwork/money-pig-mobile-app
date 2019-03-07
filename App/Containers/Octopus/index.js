@@ -119,7 +119,8 @@ class Octopus extends Component<Props> {
           }}
           listStyle={{
             height: 150,
-
+            zIndex: 10,
+            position: 'absolute'
           }}
           value={this.state[stateKey]}
           // containerStyle={styles.autoComplete}
@@ -161,12 +162,24 @@ class Octopus extends Component<Props> {
             containerStyle={{ flex: 1 }}
             keyboardShouldPersistTaps='handled'
           >
-            <View style={{flex: 1, alignItems: 'center'}}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
               <View style={{flexDirection: 'row'}}>
                 { this.renderAutoComplete('startStation') }
                 { this.renderAutoComplete('endStation') }
               </View>
-              <TextInput />
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={styles.labelText} >成人票價: {}</Text>
+                  <Text style={styles.labelText} >特惠票價: {}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.labelText} >節省: {}</Text>
+                  <TextInput style={{
+                    backgroundColor: 'white',
+                    height: 40
+                  }} />
+                </View>
+              </View>
             </View>
           </KeyboardAwareScrollView>
           <TouchableOpacity onPress={this.onSave} style={styles.button}>
