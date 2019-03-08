@@ -143,8 +143,11 @@ class Octopus extends Component<Props> {
           <Text style={styles.labelText} >特惠票價: HKD {}</Text>
         </View>
         <View style={{flexDirection: 'row', flex: 1, marginHorizontal: 8}}>
-          <Text style={styles.labelText} >節省: HKD {}</Text>
-          <TextInput style={styles.inputStyle} />
+          <Text style={styles.labelText} >節省:</Text>
+          <View style={{flexDirection: 'row', flex: 1}} >
+            <Text style={styles.labelText} >HKD </Text>
+            <TextInput style={styles.inputStyle} />
+          </View>
         </View>
       </View>
     )
@@ -193,7 +196,10 @@ class Octopus extends Component<Props> {
               </View>
               <View style={{flexDirection: 'row', marginHorizontal: 8, justifyContent: 'space-between'}}>
                 <Text style={[styles.labelText, { flex: 1 }]} >節省: HKD {}</Text>
-                <TextInput style={styles.inputStyle} />
+                <View style={{flexDirection: 'row', flex: 1}} >
+                  <Text style={styles.labelText} >HKD </Text>
+                  <TextInput style={styles.inputStyle} />
+                </View>
               </View>
               {/* { this.renderResult() } */}
               <View />
