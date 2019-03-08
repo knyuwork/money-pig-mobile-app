@@ -139,11 +139,11 @@ class Octopus extends Component<Props> {
     return (
       <View style={styles.resultContainer}>
         <View style={{flex: 1, marginHorizontal: 8}}>
-          <Text style={styles.labelText} >成人票價: {}</Text>
-          <Text style={styles.labelText} >特惠票價: {}</Text>
+          <Text style={styles.labelText} >成人票價: HKD {}</Text>
+          <Text style={styles.labelText} >特惠票價: HKD {}</Text>
         </View>
         <View style={{flexDirection: 'row', flex: 1, marginHorizontal: 8}}>
-          <Text style={styles.labelText} >節省: {}</Text>
+          <Text style={styles.labelText} >節省: HKD {}</Text>
           <TextInput style={styles.inputStyle} />
         </View>
       </View>
@@ -176,15 +176,27 @@ class Octopus extends Component<Props> {
               width: SCREEN_WIDTH,
               padding: 12
             }}
-            containerStyle={{ flex: 1 }}
+            contentContainerStyle={{ height: '100%' }}
             keyboardShouldPersistTaps='handled'
           >
-            <View style={{justifyContent: 'center'}}>
+            <View style={{
+              height: '100%', justifyContent: 'space-between'
+            }}>
               <View style={{flexDirection: 'row', zIndex: 1}}>
                 { this.renderAutoComplete('startStation') }
                 { this.renderAutoComplete('endStation') }
               </View>
-              { this.renderResult() }
+
+              <View style={{marginHorizontal: 8}}>
+                <Text style={styles.labelText} >成人票價: HKD {}</Text>
+                <Text style={styles.labelText} >特惠票價: HKD {}</Text>
+              </View>
+              <View style={{flexDirection: 'row', marginHorizontal: 8, justifyContent: 'space-between'}}>
+                <Text style={[styles.labelText, { flex: 1 }]} >節省: HKD {}</Text>
+                <TextInput style={styles.inputStyle} />
+              </View>
+              {/* { this.renderResult() } */}
+              <View />
             </View>
           </KeyboardAwareScrollView>
           <ActionButton buttonColor={theme.color.blue3} onPress={this.onSave} />
