@@ -11,7 +11,14 @@ import firebase from 'react-native-firebase'
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme'
 import styles from './styles'
-import { getHKMTRStationsMap, getStationsMapFetchingStatus } from '../../Redux/octopus/selectors'
+import { 
+  getHKMTRStationsMap,
+  getStationsMapFetchingStatus,
+  getPrice,
+  getMoneySaved,
+  getOctopusSelectedIndex
+} from '../../Redux/octopus/selectors'
+import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../Redux/octopus/actions'
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
@@ -38,24 +45,37 @@ request.addKeyword('foobar');
 
 type Props = {}
 class Octopus extends Component<Props> {
-  static navigationOptions = (props) => ({
-    headerStyle: {
-      backgroundColor: theme.color.blue4,
-    },
-    headerTintColor: '#FFF',
-    headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />
-  })
-
   state = {
     showModal: false,
-    octopusSelectedIndex: 0,
     startStation: '',
     endStation: '',
     hideSuggestion: true
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { startStation, endStation } = this.state
+    if (prevState.startStation !== startStation || prevState.endStation !== endStation) {
+      if ( startStation !== '' && endStation !== '') {
+        this.props.fetchPrice(startStation, endStation)
+      }
+    }
+  }
+
+  onOctopusSelected = index => {
+    this.props.setOctopusSelectedIndex(index)
+  }
+
+  onMoneySavedChange = (moneySaved) => {
+    this.props.setMoneySaved(moneySaved)
+  }
+
+  onSave = () => {
+    // TODO
+  }
+
   renderModal = () => {
-    const { showModal, octopusSelectedIndex } = this.state
+    const { showModal } = this.state
+    const { octopusSelectedIndex } = this.props
     return (
       <Modal
         isVisible={showModal} 
@@ -64,13 +84,9 @@ class Octopus extends Component<Props> {
         <RadioButtonGroup 
           contents={contents}
           activeIndex={octopusSelectedIndex}
-          onPress={index => this.setState({ octopusSelectedIndex: index })} />
+          onPress={this.onOctopusSelected} />
       </Modal>
     )
-  }
-
-  onSave = () => {
-    // TODO
   }
 
   renderAutoComplete = (stateKey) => {
@@ -118,7 +134,6 @@ class Octopus extends Component<Props> {
             borderRadius: 8
           }}
           value={this.state[stateKey]}
-          // containerStyle={{ position: 'absolute', width: 150 }}
           data={suggestion}
           onChangeText={onChangeText}
           hideResults={hideSuggestion}
@@ -135,75 +150,83 @@ class Octopus extends Component<Props> {
     )
   }
 
-  renderResult = () => {
+  renderOctopusSession = () => {
+    const { octopusSelectedIndex } = this.props
     return (
-      <View style={styles.resultContainer}>
-        <View style={{flex: 1, marginHorizontal: 8}}>
-          <Text style={styles.labelText} >成人票價: HKD {}</Text>
-          <Text style={styles.labelText} >特惠票價: HKD {}</Text>
-        </View>
-        <View style={{flexDirection: 'row', flex: 1, marginHorizontal: 8}}>
-          <Text style={styles.labelText} >節省:</Text>
-          <View style={{flexDirection: 'row', flex: 1}} >
-            <Text style={styles.labelText} >HKD </Text>
-            <TextInput style={styles.inputStyle} />
-          </View>
+      <View style={{ backgroundColor: '#fff', paddingTop: 8}}>
+        <AdmobBanner
+          unitId={'ca-app-pub-8273861087920374/5118578430'}
+          request={request.build()}
+          onAdLoaded={() => {
+          }}
+        />
+        <View style={styles.octopusContainer}>
+          <Text style={{ fontSize: 16, color: theme.color.blue2, marginRight: 16 }}>
+            你選擇摸擬的八達通: 
+          </Text>
+          <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
+            { contents[octopusSelectedIndex].render }
+          </TouchableOpacity>
         </View>
       </View>
     )
   }
 
+  renderContent = () => {
+    const { price, moneySaved, octopusSelectedIndex } = this.props
+    const { adult, elderly, children, student } = price
+    const priceList = [elderly, student, children]
+    const specialPrice = priceList[octopusSelectedIndex]
+    return (
+      <View style={{ height: '100%', justifyContent: 'space-between' }}>
+        <View style={{flexDirection: 'row', zIndex: 1}}>
+          { this.renderAutoComplete('startStation') }
+          { this.renderAutoComplete('endStation') }
+        </View>
+        <View style={{marginHorizontal: 8}}>
+          <View style={{flexDirection: 'row'}} >
+            <Text style={[styles.labelText, { flex: 1 }]} >成人票價:</Text>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={styles.labelText} >HKD ($)</Text>
+              <Text style={styles.labelText}>{adult}</Text>
+            </View>
+          </View>
+          <View style={{flexDirection: 'row'}} >
+            <Text style={[styles.labelText, { flex: 1 }]} >特惠票價:</Text>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={styles.labelText} >HKD ($)</Text>
+              <Text style={styles.labelText}>{specialPrice}</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.resultContainer}>
+          <Text style={[styles.labelText, { flex: 1 }]} >節省:</Text>
+          <View style={{flexDirection: 'row', flex: 1}} >
+            <Text style={[styles.labelText, { flex: 1 }]} >HKD ($)</Text>
+            <TextInput 
+              style={[styles.inputStyle, { flex: 1, padding: 8, textAlign: 'right' }]} 
+              value={moneySaved.toString()}
+              onChangeText={this.onMoneySavedChange}
+            />
+          </View>
+        </View>
+        <View />
+        <View />
+      </View>
+    )
+  }
+
   render() {
-    const { octopusSelectedIndex } = this.state
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <View style={styles.content} >
-          <View style={{ backgroundColor: '#fff', paddingTop: 8}}>
-            <AdmobBanner
-              unitId={'ca-app-pub-8273861087920374/5118578430'}
-              request={request.build()}
-              onAdLoaded={() => {
-              }}
-            />
-            <View style={styles.octopusContainer}>
-              <Text style={{ fontSize: 16, color: theme.color.blue2, marginRight: 16 }}>
-                你選擇摸擬的八達通: 
-              </Text>
-              <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
-                { contents[octopusSelectedIndex].render }
-              </TouchableOpacity>
-            </View>
-          </View>
+          { this.renderOctopusSession() }
           <KeyboardAwareScrollView
-            style={{
-              width: SCREEN_WIDTH,
-              padding: 12
-            }}
+            style={{ width: SCREEN_WIDTH, padding: 12 }}
             contentContainerStyle={{ height: '100%' }}
             keyboardShouldPersistTaps='handled'
           >
-            <View style={{
-              height: '100%', justifyContent: 'space-between'
-            }}>
-              <View style={{flexDirection: 'row', zIndex: 1}}>
-                { this.renderAutoComplete('startStation') }
-                { this.renderAutoComplete('endStation') }
-              </View>
-
-              <View style={{marginHorizontal: 8}}>
-                <Text style={styles.labelText} >成人票價: HKD {}</Text>
-                <Text style={styles.labelText} >特惠票價: HKD {}</Text>
-              </View>
-              <View style={{flexDirection: 'row', marginHorizontal: 8, justifyContent: 'space-between'}}>
-                <Text style={[styles.labelText, { flex: 1 }]} >節省: HKD {}</Text>
-                <View style={{flexDirection: 'row', flex: 1}} >
-                  <Text style={styles.labelText} >HKD </Text>
-                  <TextInput style={styles.inputStyle} />
-                </View>
-              </View>
-              {/* { this.renderResult() } */}
-              <View />
-            </View>
+            { this.renderContent() }
           </KeyboardAwareScrollView>
           <ActionButton buttonColor={theme.color.blue3} onPress={this.onSave} />
         </View>
@@ -214,8 +237,13 @@ class Octopus extends Component<Props> {
 }
 
 const mapStateToProps = state => ({
-  stationsMap: getHKMTRStationsMap(state).toJS(),
-  isStationsMapFetching: getStationsMapFetchingStatus(state)
+  stationsMap: getHKMTRStationsMap(state),
+  price: getPrice(state),
+  isStationsMapFetching: getStationsMapFetchingStatus(state),
+  moneySaved: getMoneySaved(state),
+  octopusSelectedIndex: getOctopusSelectedIndex(state)
 })
 
-export default connect(mapStateToProps)(Octopus)
+export default connect(mapStateToProps, {
+  fetchPrice, setMoneySaved, setOctopusSelectedIndex
+})(Octopus)

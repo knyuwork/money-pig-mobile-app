@@ -13,9 +13,9 @@ const AppNavigator = createStackNavigator(
         headerStyle: {
           backgroundColor: theme.color.blue4,
         },
-        title: 'SHOPPY',
+        title: '八達通模擬',
         headerTintColor: '#FFF',
-        headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
+        // headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
       }),
     },
   },

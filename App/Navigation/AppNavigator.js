@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
+import { createStackNavigator, createDrawerNavigator, createBottomTabNavigator } from 'react-navigation'
 import theme from '../theme'
 import MainAppNavigator from './MainAppNavigator'
 import Drawer from '../Containers/Drawer'
 
-const AppNavigator = createDrawerNavigator(
+const AppNavigator = createBottomTabNavigator(
   {
     octopus: {
       screen: MainAppNavigator,
@@ -14,7 +14,13 @@ const AppNavigator = createDrawerNavigator(
   {
     initialRouteName: 'octopus',
     headerMode: 'screen',
-    contentComponent: props => <Drawer {...props} />
+    tabBarOptions: {
+      activeTintColor: '#fff',
+      style: {
+        backgroundColor: theme.color.blue4
+      }
+    }
+    // contentComponent: props => <Drawer {...props} />
   }
 )
 

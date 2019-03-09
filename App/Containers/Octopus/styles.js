@@ -45,13 +45,16 @@ export default StyleSheet.create({
   },
   resultContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    marginHorizontal: 8,
+    justifyContent: 'space-between',
+    borderTopWidth: 1,
+    borderColor: theme.color.blue5,
+    paddingTop: 12
   },
   inputStyle: {
     backgroundColor: 'white',
     height: 40,
-    flex: 1,
-    borderRadius: 8 
+    borderRadius: 8,
   },
   button: {
     padding: 16,
