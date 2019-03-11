@@ -161,7 +161,9 @@ class Octopus extends Component<Props> {
         colors={['#944BED', '#EE8FFF']}
         style={{
           backgroundColor: theme.color.background2, 
-          paddingTop: 8
+          paddingTop: 8,
+          paddingBottom: 32,
+          marginBottom: -40
         }}
       >
         <AdmobBanner
@@ -230,9 +232,10 @@ class Octopus extends Component<Props> {
         <View style={styles.content} >
           { this.renderOctopusSession() }
           <KeyboardAwareScrollView
-            style={{ width: SCREEN_WIDTH, padding: 12 }}
+            style={{ width: SCREEN_WIDTH, padding: 8 }}
             contentContainerStyle={{ height: '100%' }}
             keyboardShouldPersistTaps='handled'
+            scrollEnabled={false}
           >
             { this.renderContent() }
           </KeyboardAwareScrollView>

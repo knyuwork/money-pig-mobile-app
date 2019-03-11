@@ -4,6 +4,7 @@ import { createStackNavigator, createDrawerNavigator, createBottomTabNavigator }
 import theme from '../theme'
 import MainAppNavigator from './MainAppNavigator'
 import Drawer from '../Containers/Drawer'
+import Icon from 'react-native-vector-icons/Feather'
 
 const AppNavigator = createBottomTabNavigator(
   {
@@ -14,6 +15,15 @@ const AppNavigator = createBottomTabNavigator(
   {
     initialRouteName: 'octopus',
     headerMode: 'screen',
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state
+        const iconNameMap = {
+          octopus: 'credit-card'
+        }
+        return <Icon name={iconNameMap[routeName]} size={24} color={tintColor} />;
+      },
+    }),
     tabBarOptions: {
       activeTintColor: '#fff',
       style: {

@@ -24,8 +24,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   octopusContainer: {
-    margin: 8,
-    // marginVertical: 8,
+    marginHorizontal: 16,
+    marginVertical: 8,
     borderRadius: 12,
     // width: SCREEN_WIDTH,
     alignItems: 'center',
