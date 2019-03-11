@@ -17,7 +17,7 @@ const AppNavigator = createBottomTabNavigator(
     tabBarOptions: {
       activeTintColor: '#fff',
       style: {
-        backgroundColor: theme.color.blue4
+        backgroundColor: theme.color.footer1
       }
     }
     // contentComponent: props => <Drawer {...props} />

@@ -154,6 +154,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-linear-gradient')
     compile project(':appcenter')
     compile project(':react-native-i18n')
   implementation project(':react-native-gesture-handler')

@@ -7,6 +7,7 @@ import Autocomplete from 'react-native-autocomplete-input'
 import ActionButton from 'react-native-action-button'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import firebase from 'react-native-firebase'
+import LinearGradient from 'react-native-linear-gradient'
 
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme'
@@ -115,9 +116,10 @@ class Octopus extends Component<Props> {
     }
 
     const labelText = stateKey == 'startStation'? '起點' : '終點'
+    const containerStyle = stateKey == 'startStation'? { marginRight: 8 } : { marginLeft: 8 }
 
     return (
-      <View style={styles.autoComplete}>
+      <View style={[styles.autoComplete, containerStyle]}>
         <Text style={styles.labelText} >{labelText} :</Text>
         <Autocomplete 
           style={{ borderRadius: 8 }}
@@ -133,6 +135,7 @@ class Octopus extends Component<Props> {
             position: 'absolute',
             borderRadius: 8
           }}
+          placeholder="請輸入"
           value={this.state[stateKey]}
           data={suggestion}
           onChangeText={onChangeText}
@@ -153,7 +156,14 @@ class Octopus extends Component<Props> {
   renderOctopusSession = () => {
     const { octopusSelectedIndex } = this.props
     return (
-      <View style={{ backgroundColor: '#fff', paddingTop: 8}}>
+      <LinearGradient 
+        start={{x: 0, y: 0}} end={{x: 0, y: 1}} 
+        colors={['#944BED', '#EE8FFF']}
+        style={{
+          backgroundColor: theme.color.background2, 
+          paddingTop: 8
+        }}
+      >
         <AdmobBanner
           unitId={'ca-app-pub-8273861087920374/5118578430'}
           request={request.build()}
@@ -161,14 +171,14 @@ class Octopus extends Component<Props> {
           }}
         />
         <View style={styles.octopusContainer}>
-          <Text style={{ fontSize: 16, color: theme.color.blue2, marginRight: 16 }}>
+          <Text style={{ fontSize: 16, color: theme.color.font2, marginRight: 16 }}>
             你選擇摸擬的八達通: 
           </Text>
           <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
             { contents[octopusSelectedIndex].render }
           </TouchableOpacity>
         </View>
-      </View>
+      </LinearGradient>
     )
   }
 
@@ -178,12 +188,12 @@ class Octopus extends Component<Props> {
     const priceList = [elderly, student, children]
     const specialPrice = priceList[octopusSelectedIndex]
     return (
-      <View style={{ height: '100%', justifyContent: 'space-between' }}>
+      <View style={styles.contentStyle}>
         <View style={{flexDirection: 'row', zIndex: 1}}>
           { this.renderAutoComplete('startStation') }
           { this.renderAutoComplete('endStation') }
         </View>
-        <View style={{marginHorizontal: 8}}>
+        <View>
           <View style={{flexDirection: 'row'}} >
             <Text style={[styles.labelText, { flex: 1 }]} >成人票價:</Text>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -210,8 +220,6 @@ class Octopus extends Component<Props> {
             />
           </View>
         </View>
-        <View />
-        <View />
       </View>
     )
   }
@@ -228,7 +236,7 @@ class Octopus extends Component<Props> {
           >
             { this.renderContent() }
           </KeyboardAwareScrollView>
-          <ActionButton buttonColor={theme.color.blue3} onPress={this.onSave} />
+          <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
         </View>
         { this.renderModal() }
       </SafeAreaView>

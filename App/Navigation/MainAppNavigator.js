@@ -11,10 +11,11 @@ const AppNavigator = createStackNavigator(
       screen: Octopus,
       navigationOptions: ({ ...props }) => ({
         headerStyle: {
-          backgroundColor: theme.color.blue4,
+          backgroundColor: theme.color.header1,
+          borderBottomWidth: 0
         },
         title: '八達通模擬',
-        headerTintColor: '#FFF',
+        headerTintColor: theme.color.font1,
         // headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
       }),
     },

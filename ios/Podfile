@@ -27,4 +27,6 @@ target 'MoneyPig' do
   pod 'Fabric', '~> 1.7.13'
   pod 'Crashlytics', '~> 3.10.9'
 
+  # pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
 end
