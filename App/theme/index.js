@@ -1,13 +1,13 @@
 export default theme = {
   color: {
     font1: '#FFF',
-    font2: '#38414F',
-    header1: '#944BED',
+    font2: '#59B4A4',
+    header1: '#59B4A4',
     footer1: '#38414F',
     background1: '#38414F',
     background2: '#B66DFE',
     background3: '#5a6372',
-    button1: '#944BED'
+    button1: '#59B4A4'
   }
 }
 

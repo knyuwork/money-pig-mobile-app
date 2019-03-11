@@ -158,7 +158,7 @@ class Octopus extends Component<Props> {
     return (
       <LinearGradient 
         start={{x: 0, y: 0}} end={{x: 0, y: 1}} 
-        colors={['#944BED', '#EE8FFF']}
+        colors={['#59B4A4', '#59D9A4']}
         style={{
           backgroundColor: theme.color.background2, 
           paddingTop: 8,

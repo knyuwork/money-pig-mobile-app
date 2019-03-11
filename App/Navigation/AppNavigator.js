@@ -25,7 +25,7 @@ const AppNavigator = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#fff',
+      activeTintColor: theme.color.font2,
       style: {
         backgroundColor: theme.color.footer1
       }
