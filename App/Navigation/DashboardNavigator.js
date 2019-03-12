@@ -13,7 +13,7 @@ const DashboardNavigator = createStackNavigator(
           backgroundColor: theme.color.header1,
           borderBottomWidth: 0
         },
-        title: '八達通模擬',
+        // title: '八達通模擬',
         headerTintColor: theme.color.headerFont,
         // headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
       }),

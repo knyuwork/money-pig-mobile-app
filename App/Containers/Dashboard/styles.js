@@ -27,6 +27,7 @@ export default StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 8,
     borderRadius: 12,
+    padding: 16,
     // width: SCREEN_WIDTH,
     alignItems: 'center',
     justifyContent: 'center',

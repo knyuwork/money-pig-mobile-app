@@ -70,22 +70,6 @@ class Dashboard extends Component<Props> {
     this.props.setMoneySaved(moneySaved)
   }
 
-  renderModal = () => {
-    const { showModal } = this.state
-    const { octopusSelectedIndex } = this.props
-    return (
-      <Modal
-        isVisible={showModal} 
-        onBackdropPress={() => this.setState({ showModal: false })}
-      >
-        <RadioButtonGroup 
-          contents={contents}
-          activeIndex={octopusSelectedIndex}
-          onPress={this.onOctopusSelected} />
-      </Modal>
-    )
-  }
-
   renderAutoComplete = (stateKey) => {
     const { stationsMap } = this.props
     const { hideSuggestion } = this.state
@@ -162,12 +146,6 @@ class Dashboard extends Component<Props> {
           marginBottom: -40
         }}
       >
-        <AdmobBanner
-          unitId={'ca-app-pub-8273861087920374/5118578430'}
-          request={request.build()}
-          onAdLoaded={() => {
-          }}
-        />
         <View style={styles.octopusContainer}>
           <Text style={{ fontSize: 16, color: theme.color.font2, marginRight: 16 }}>
             你選擇摸擬的八達通: 
@@ -187,37 +165,7 @@ class Dashboard extends Component<Props> {
     const specialPrice = priceList[octopusSelectedIndex]
     return (
       <View style={styles.contentStyle}>
-        <View style={{flexDirection: 'row', zIndex: 1}}>
-          { this.renderAutoComplete('startStation') }
-          { this.renderAutoComplete('endStation') }
-        </View>
-        <View>
-          <View style={{flexDirection: 'row'}} >
-            <Text style={[styles.labelText, { flex: 1 }]} >成人票價:</Text>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={styles.labelText} >HKD ($)</Text>
-              <Text style={styles.labelText}>{adult}</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row'}} >
-            <Text style={[styles.labelText, { flex: 1 }]} >特惠票價:</Text>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={styles.labelText} >HKD ($)</Text>
-              <Text style={styles.labelText}>{specialPrice}</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.resultContainer}>
-          <Text style={[styles.labelText, { flex: 1 }]} >節省:</Text>
-          <View style={{flexDirection: 'row', flex: 1}} >
-            <Text style={[styles.labelText, { flex: 1 }]} >HKD ($)</Text>
-            <TextInput 
-              style={[styles.inputStyle, { flex: 1, padding: 8, textAlign: 'right' }]} 
-              value={moneySaved.toString()}
-              onChangeText={this.onMoneySavedChange}
-            />
-          </View>
-        </View>
+      
       </View>
     )
   }
@@ -225,18 +173,22 @@ class Dashboard extends Component<Props> {
   render() {
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
-        <View style={styles.content} >
-          { this.renderOctopusSession() }
-          <KeyboardAwareScrollView
-            style={{ width: SCREEN_WIDTH, padding: 8 }}
-            contentContainerStyle={{ height: '100%' }}
-            keyboardShouldPersistTaps='handled'
-            scrollEnabled={false}
-          >
-            { this.renderContent() }
-          </KeyboardAwareScrollView>
-        </View>
-        { this.renderModal() }
+        <LinearGradient 
+          start={{x: 0, y: 0}} end={{x: 0, y: 1}} 
+          colors={['#59B4A4', '#59D9A4']}
+          style={{
+            width: SCREEN_WIDTH,
+            flex: 1,
+            backgroundColor: theme.color.background2, 
+            paddingTop: 8,
+            paddingBottom: 32,
+            marginBottom: -40
+          }}
+        >
+          <View style={styles.octopusContainer}>
+          
+          </View>
+        </LinearGradient>
       </SafeAreaView>
     );
   }

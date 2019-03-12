@@ -35,6 +35,7 @@
     "react-native": "0.57.3",
     "react-native-action-button": "^2.8.5",
     "react-native-autocomplete-input": "^3.6.0",
+    "react-native-chart-kit": "^2.3.0",
     "react-native-firebase": "^5.2.0",
     "react-native-gesture-handler": "^1.0.16",
     "react-native-i18n": "^2.0.15",
