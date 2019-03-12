@@ -26,13 +26,15 @@ const AppNavigator = createBottomTabNavigator(
           octopus: 'credit-card',
           dashboard: 'line-chart'
         }
-        return <Icon name={iconNameMap[routeName]} size={24} color={tintColor} />;
+        return <Icon name={iconNameMap[routeName]} size={20} color={tintColor} />;
       },
     }),
     tabBarOptions: {
-      activeTintColor: theme.color.font2,
+      activeTintColor: theme.color.footerFont,
+      // showLabel: false,
       style: {
-        backgroundColor: theme.color.footer1
+        backgroundColor: theme.color.footer1,
+        elevation: 6
       }
     }
     // contentComponent: props => <Drawer {...props} />

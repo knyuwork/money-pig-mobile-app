@@ -15,7 +15,7 @@ const AppNavigator = createStackNavigator(
           borderBottomWidth: 0
         },
         title: '八達通模擬',
-        headerTintColor: theme.color.font1,
+        headerTintColor: theme.color.headerFont,
         // headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
       }),
     },

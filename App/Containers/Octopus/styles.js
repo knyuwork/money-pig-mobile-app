@@ -21,11 +21,20 @@ export default StyleSheet.create({
   },
   content: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 12
+  },
+  octopusSession: {
+    width: SCREEN_WIDTH,
+    backgroundColor: theme.color.background2, 
+    paddingTop: 8,
+    paddingBottom: 32,
+    marginBottom: -40
   },
   octopusContainer: {
     marginHorizontal: 16,
     marginVertical: 8,
+    paddingVertical: 8,
     borderRadius: 12,
     // width: SCREEN_WIDTH,
     alignItems: 'center',
@@ -74,6 +83,7 @@ export default StyleSheet.create({
   inputStyle: {
     backgroundColor: 'white',
     height: 40,
+    padding: 8,
     borderRadius: 8,
   },
   button: {

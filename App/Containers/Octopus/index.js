@@ -122,8 +122,7 @@ class Octopus extends Component<Props> {
       <View style={[styles.autoComplete, containerStyle]}>
         <Text style={styles.labelText} >{labelText} :</Text>
         <Autocomplete 
-          style={{ borderRadius: 8 }}
-          inputContainerStyle={styles.inputStyle}
+          style={styles.inputStyle}
           listContainerStyle={{
             top: 48,
             position: 'absolute',
@@ -159,19 +158,8 @@ class Octopus extends Component<Props> {
       <LinearGradient 
         start={{x: 0, y: 0}} end={{x: 0, y: 1}} 
         colors={['#59B4A4', '#59D9A4']}
-        style={{
-          backgroundColor: theme.color.background2, 
-          paddingTop: 8,
-          paddingBottom: 32,
-          marginBottom: -40
-        }}
+        style={styles.octopusSession}
       >
-        <AdmobBanner
-          unitId={'ca-app-pub-8273861087920374/5118578430'}
-          request={request.build()}
-          onAdLoaded={() => {
-          }}
-        />
         <View style={styles.octopusContainer}>
           <Text style={{ fontSize: 16, color: theme.color.font2, marginRight: 16 }}>
             你選擇摸擬的八達通: 
@@ -216,7 +204,7 @@ class Octopus extends Component<Props> {
           <View style={{flexDirection: 'row', flex: 1}} >
             <Text style={[styles.labelText, { flex: 1 }]} >HKD ($)</Text>
             <TextInput 
-              style={[styles.inputStyle, { flex: 1, padding: 8, textAlign: 'right' }]} 
+              style={[styles.inputStyle, { flex: 1, textAlign: 'right' }]} 
               value={moneySaved.toString()}
               onChangeText={this.onMoneySavedChange}
             />
@@ -239,6 +227,12 @@ class Octopus extends Component<Props> {
           >
             { this.renderContent() }
           </KeyboardAwareScrollView>
+          <AdmobBanner
+            unitId={'ca-app-pub-8273861087920374/5118578430'}
+            request={request.build()}
+            onAdLoaded={() => {
+            }}
+          />
           <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
         </View>
         { this.renderModal() }
