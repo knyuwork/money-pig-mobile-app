@@ -34,6 +34,7 @@
     "react": "16.6.3",
     "react-native": "0.57.3",
     "react-native-action-button": "^2.8.5",
+    "react-native-firebase-component": "file:../react-native-firebase-component/",
     "react-native-autocomplete-input": "^3.6.0",
     "react-native-chart-kit": "^2.3.0",
     "react-native-firebase": "^5.2.0",
