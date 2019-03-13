@@ -10,7 +10,6 @@ import React, {Component} from 'react';
 import { Platform, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { AuthForm } from 'react-native-firebase-component'
 
-import userActions from '../../Redux/User/actions'
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase'
 import { setUserInfo } from '../../Helpers/firebase/DatabaseHelper'
