@@ -11,12 +11,12 @@ const AppNavigator = createStackNavigator(
     main: {
       screen: MainAppNavigator,
     },
-    auth: {
-      screen: AuthForm,
-    },
+    // auth: {
+    //   screen: AuthForm,
+    // },
   },
   {
-    initialRouteName: 'auth',
+    initialRouteName: 'main',
     headerMode: 'none'
   }
 )

@@ -7,7 +7,7 @@ import Octopus from '../Containers/Octopus'
 
 const OctopusNavigator = createStackNavigator(
   {
-    main: {
+    octopusCalculator: {
       screen: Octopus,
       navigationOptions: ({ ...props }) => ({
         headerStyle: {
@@ -21,7 +21,7 @@ const OctopusNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'main',
+    initialRouteName: 'octopusCalculator',
     headerMode: 'screen',
   }
 )

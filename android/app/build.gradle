@@ -154,6 +154,12 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-gesture-handler')
+    compile project(':react-native-firebase')
+    compile project(':react-native-firebase-component')
+    compile project(':appcenter-crashes')
+    compile project(':appcenter-analytics')
     compile project(':react-native-linear-gradient')
     compile project(':appcenter')
     compile project(':react-native-i18n')
