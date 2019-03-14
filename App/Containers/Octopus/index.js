@@ -18,8 +18,8 @@ import {
   getPrice,
   getMoneySaved,
   getOctopusSelectedIndex
-} from '../../Redux/octopus/selectors'
-import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../Redux/octopus/actions'
+} from '../../redux/octopus/selectors'
+import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
@@ -108,6 +108,12 @@ class Octopus extends Component<Props> {
       })
     }
 
+    const onFocus = () => {
+      this.setState({ 
+        hideSuggestion: false
+      })
+    }
+
     const onItemPressed = (item) => {
       this.setState({ 
         [stateKey]: item,
@@ -134,6 +140,7 @@ class Octopus extends Component<Props> {
             position: 'absolute',
             borderRadius: 8
           }}
+          onFocus={onFocus}
           placeholder="請輸入"
           value={this.state[stateKey]}
           data={suggestion}

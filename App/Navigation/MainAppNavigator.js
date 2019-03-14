@@ -4,6 +4,7 @@ import { createStackNavigator, createDrawerNavigator, createBottomTabNavigator }
 import theme from '../theme'
 import OctopusNavigator from './OctopusNavigator'
 import DashboardNavigator from './DashboardNavigator'
+import SettingNavigator from './SettingNavigator'
 import Drawer from '../Containers/Drawer'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -15,6 +16,9 @@ const MainAppNavigator = createBottomTabNavigator(
     octopus: {
       screen: OctopusNavigator,
     },
+    setting: {
+      screen: SettingNavigator
+    }
   },
   {
     initialRouteName: 'dashboard',
@@ -24,9 +28,10 @@ const MainAppNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state
         const iconNameMap = {
           octopus: 'credit-card',
-          dashboard: 'line-chart'
+          dashboard: 'line-chart',
+          setting: 'gear'
         }
-        return <Icon name={iconNameMap[routeName]} size={20} color={tintColor} />;
+        return <Icon name={iconNameMap[routeName]} size={22} color={tintColor} />;
       },
     }),
     tabBarOptions: {

@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { SafeAreaView, createAppContainer } from 'react-navigation';
 
-import { initializeApp } from '../Redux/app/actions'
+import { initializeApp } from '../redux/app/actions'
 import NavigationService from '../Navigation'
 const AppNavigatorContainer = createAppContainer(AppNavigator);
 const { width: screenWidth, height: screenHeight} = Dimensions.get('window')

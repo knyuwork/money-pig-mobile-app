@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import RootContainer from './Containers'
-import { getStore } from './Redux'
+import { getStore } from './redux'
 
 const { store, persistor } = getStore()
 
