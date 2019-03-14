@@ -182,13 +182,15 @@ class Dashboard extends Component<Props> {
             backgroundColor: theme.color.background2, 
             paddingTop: 8,
             paddingBottom: 32,
-            marginBottom: -40
+            marginBottom: -32
           }}
         >
-          <View style={styles.octopusContainer}>
-          
-          </View>
         </LinearGradient>
+        <View style={{ height: '75%', width: SCREEN_WIDTH, padding: 8 }}>
+          <View style={styles.historyContainer}>
+            
+          </View>
+        </View>
       </SafeAreaView>
     );
   }

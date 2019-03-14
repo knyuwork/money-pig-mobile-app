@@ -9,8 +9,7 @@ const shadowBox = {
     width: 0,
     height: 1,
   },
-  shadowOpacity: 0.4,
-  // shadowRadius: 3.84,
+  shadowOpacity: 0.4
 }
 
 export default StyleSheet.create({
@@ -23,7 +22,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  octopusContainer: {
+  historyContainer: {
     marginHorizontal: 16,
     marginVertical: 8,
     borderRadius: 12,
@@ -70,6 +69,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 12,
     height: '75%',
+    width: '100%',
     ...shadowBox
   },
   inputStyle: {
