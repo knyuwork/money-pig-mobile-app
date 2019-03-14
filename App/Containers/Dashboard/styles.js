@@ -22,7 +22,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  historyContainer: {
+  chartContainer: {
     marginHorizontal: 16,
     marginVertical: 8,
     borderRadius: 12,
