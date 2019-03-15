@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, TextInput, Text, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, ScrollView, Text, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
@@ -55,20 +55,17 @@ class Dashboard extends Component<Props> {
             marginBottom: -32
           }}
         >
+          <Carousel
+            data={['a', 'b']}
+            renderItem={this.renderItem}
+            sliderWidth={SCREEN_WIDTH}
+            itemWidth={SCREEN_WIDTH - 24}
+          />
         </LinearGradient>
-        <View style={{ height: '75%', width: SCREEN_WIDTH, padding: 8 }}>
+        <ScrollView style={{ height: '75%', width: SCREEN_WIDTH, padding: 8 }}>
           
-          {/* <Carousel
-            data={this.state.entries}
-            renderItem={this._renderItem}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-          /> */}
-          <View style={styles.chartContainer}>
-
-          </View> 
           
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
