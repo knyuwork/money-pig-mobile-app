@@ -3,6 +3,7 @@ import { TouchableOpacity, TextInput, Text, View, Image, Dimensions } from 'reac
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
+import moment from 'moment'
 import Autocomplete from 'react-native-autocomplete-input'
 import ActionButton from 'react-native-action-button'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -20,6 +21,7 @@ import {
   getOctopusSelectedIndex
 } from '../../redux/octopus/selectors'
 import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
+import { saveOctopusRecord } from '../../redux/dashboard/actions'
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
@@ -71,7 +73,15 @@ class Octopus extends Component<Props> {
   }
 
   onSave = () => {
-    // TODO
+    const { startStation, endStation } = this.state
+    const { moneySaved } = this.props
+    this.props.saveOctopusRecord({
+      type: 'octopus',
+      createdTs: moment().toISOString(),
+      startStation,
+      endStation,
+      moneySaved
+    })
   }
 
   renderModal = () => {
@@ -257,5 +267,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  fetchPrice, setMoneySaved, setOctopusSelectedIndex
+  fetchPrice, setMoneySaved, setOctopusSelectedIndex, saveOctopusRecord
 })(Octopus)
