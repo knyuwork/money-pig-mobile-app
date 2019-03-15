@@ -13,12 +13,8 @@ import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme'
 import styles from './styles'
 import { 
-  getHKMTRStationsMap,
-  getStationsMapFetchingStatus,
-  getPrice,
-  getMoneySaved,
-  getOctopusSelectedIndex
-} from '../../redux/octopus/selectors'
+  getHistory
+} from '../../redux/dashboard/selectors'
 import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
@@ -41,6 +37,7 @@ class Dashboard extends Component<Props> {
   }
 
   render() {
+    const { history } = this.props
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <LinearGradient 
@@ -72,7 +69,7 @@ class Dashboard extends Component<Props> {
 }
 
 const mapStateToProps = state => ({
-  
+  history: getHistory(state)
 })
 
 export default connect(mapStateToProps)(Dashboard)
