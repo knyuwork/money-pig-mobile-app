@@ -24,18 +24,22 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   carouselItemContainer: {
-    // marginHorizontal: 16,
-    // marginVertical: 8,
     borderRadius: 12,
     padding: 16,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
     backgroundColor: '#fff',
-    height: SCREEN_HEIGHT / 5,
+    height: SCREEN_HEIGHT / 4.8,
     width: SCREEN_WIDTH / 1.2,
-    // marginLeft: (-1 * (SCREEN_WIDTH / 1.5 - SCREEN_WIDTH / 1.75) / 2 ),
     ...shadowBox,
+  },
+  growthTable: {
+    flex: 1, 
+    flexDirection: 'row'
+  },
+  moneySavedAmountFont: {
+    marginLeft: 8, fontWeight: 'bold',
+    fontSize: 26, color: theme.color.font3
   },
   historyContainer: {
     height: '70%',
@@ -46,7 +50,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     // justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 8
+    marginBottom: 24
   },
   historyFont: {
     color: theme.color.font3,

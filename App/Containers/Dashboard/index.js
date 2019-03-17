@@ -3,7 +3,6 @@ import { TouchableOpacity, ScrollView, FlatList, Text, View, Image, Dimensions }
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Carousel from 'react-native-snap-carousel';
-import ActionButton from 'react-native-action-button'
 import firebase from 'react-native-firebase'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -31,15 +30,28 @@ class Dashboard extends Component<Props> {
     const { moneySaved } = this.props
     if (item === 'overall') {
       return (
-        <View style={styles.carouselItemContainer}>
-          <Text>節省了:</Text>
-          <Text>{moneySaved}</Text>
+        <View style={[styles.carouselItemContainer, ]}>
+          <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>慳咗:</Text>
+            <Text style={styles.moneySavedAmountFont}>${moneySaved}</Text>
+          </View>
+          <View style={styles.growthTable}>
+            <View>
+              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>今日</Text>
+              <Text style={styles.moneySavedAmountFont}>${moneySaved}</Text>
+            </View>
+            <View style={{borderLeftWidth: 1, borderRightWidth: 1}}>
+              
+            </View>
+            <View>
+              
+            </View>
+          </View>
         </View>
       )
     } else {
       return (
         <View style={styles.carouselItemContainer}>
-  
         </View>
       )
     }
@@ -91,7 +103,6 @@ class Dashboard extends Component<Props> {
             width: SCREEN_WIDTH,
             flex: 1,
             backgroundColor: theme.color.background2, 
-            paddingTop: 8,
             marginBottom: -1 * SCREEN_HEIGHT / 8
           }}
         >
@@ -115,7 +126,6 @@ class Dashboard extends Component<Props> {
           />
           { this.renderHistory() }
         </View>
-        <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
       </SafeAreaView>
     );
   }
