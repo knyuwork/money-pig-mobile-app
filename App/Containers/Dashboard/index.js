@@ -29,17 +29,16 @@ class Dashboard extends Component<Props> {
 
   renderItem = ({ item }) => {
     const { moneySaved } = this.props
-    const { type } = item
-    if (type === 'overall') {
+    if (item === 'overall') {
       return (
-        <View style={styles.savingSummaryContainer}>
+        <View style={styles.carouselItemContainer}>
           <Text>節省了:</Text>
           <Text>{moneySaved}</Text>
         </View>
       )
     } else {
       return (
-        <View style={styles.chartContainer}>
+        <View style={styles.carouselItemContainer}>
   
         </View>
       )
@@ -72,7 +71,7 @@ class Dashboard extends Component<Props> {
     return (
       <View style={styles.historyContainer}>
         <FlatList
-          style={{ marginHorizontal: 16 }}
+          style={{ paddingHorizontal: 16 }}
           data={history}
           keyExtractor={keyExtractor}
           renderItem={this.renderHistoryRow}
@@ -82,13 +81,7 @@ class Dashboard extends Component<Props> {
   }
 
   render() {
-    const { moneySaved } = this.props
-    const data = [
-      {
-        type: 'overall'
-      }
-    ]
-    console.log(data)
+    const data = ['overall', 'overall', 'overall']
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <LinearGradient 
@@ -99,17 +92,29 @@ class Dashboard extends Component<Props> {
             flex: 1,
             backgroundColor: theme.color.background2, 
             paddingTop: 8,
-            paddingBottom: -32
+            marginBottom: -1 * SCREEN_HEIGHT / 8
           }}
         >
+        </LinearGradient>
+        <View style={{height: '100%' }}>
           <Carousel
             data={data}
+            removeClippedSubviews={false}
+            contentContainerCustomStyle={{ 
+              // shadowColor: "#000",
+              // shadowOffset: {
+              //   width: 0,
+              //   height: 0,
+              // },
+              // shadowOpacity: 0.4
+            }}
             renderItem={this.renderItem}
             sliderWidth={SCREEN_WIDTH}
-            itemWidth={SCREEN_WIDTH - 24}
+            // itemWidth={SCREEN_WIDTH * 5 / 12}
+            itemWidth={SCREEN_WIDTH / 1.2}
           />
-        </LinearGradient>
-        { this.renderHistory() }
+          { this.renderHistory() }
+        </View>
         <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
       </SafeAreaView>
     );

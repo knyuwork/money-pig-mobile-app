@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import theme from '../../theme'
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window')
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 const shadowBox = {
   shadowColor: "#000",
@@ -9,7 +9,8 @@ const shadowBox = {
     width: 0,
     height: 1,
   },
-  shadowOpacity: 0.4
+  shadowOpacity: 0.4,
+  elevation: 1
 }
 
 export default StyleSheet.create({
@@ -22,31 +23,23 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  savingSummaryContainer: {
-    marginHorizontal: 16,
-    marginVertical: 8,
+  carouselItemContainer: {
+    // marginHorizontal: 16,
+    // marginVertical: 8,
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: '#fff',
-    ...shadowBox
-  },
-  chartContainer: {
-    marginHorizontal: 16,
-    marginVertical: 8,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    ...shadowBox
+    height: SCREEN_HEIGHT / 5,
+    width: SCREEN_WIDTH / 1.2,
+    // marginLeft: (-1 * (SCREEN_WIDTH / 1.5 - SCREEN_WIDTH / 1.75) / 2 ),
+    ...shadowBox,
   },
   historyContainer: {
-    height: '75%',
-    paddingTop: 32,
+    height: '70%',
+    // flex: 1,
     width: SCREEN_WIDTH,
   },
   historyRow: {
