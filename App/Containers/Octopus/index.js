@@ -80,8 +80,9 @@ class Octopus extends Component<Props> {
       createdTs: moment().unix(),
       startStation,
       endStation,
-      moneySaved
+      moneySaved: parseFloat(moneySaved)
     })
+
   }
 
   renderModal = () => {
@@ -174,7 +175,7 @@ class Octopus extends Component<Props> {
     return (
       <LinearGradient 
         start={{x: 0, y: 0}} end={{x: 0, y: 1}} 
-        colors={['#59B4A4', '#59D9A4']}
+        colors={[theme.color.header1, theme.color.header2]}
         style={styles.octopusSession}
       >
         <View style={styles.octopusContainer}>
@@ -222,7 +223,7 @@ class Octopus extends Component<Props> {
             <Text style={[styles.labelText, { flex: 1 }]} >HKD ($)</Text>
             <TextInput 
               style={[styles.inputStyle, { flex: 1, textAlign: 'right' }]} 
-              value={moneySaved.toString()}
+              value={moneySaved}
               onChangeText={this.onMoneySavedChange}
             />
           </View>

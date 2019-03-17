@@ -22,38 +22,43 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  chartContainer: {
+  savingSummaryContainer: {
     marginHorizontal: 16,
     marginVertical: 8,
     borderRadius: 12,
     padding: 16,
-    // width: SCREEN_WIDTH,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: '#fff',
     ...shadowBox
   },
-  octopusImage: {
-    height: 100,
-    width: 151
-  },
-  autoComplete: {
-    flex: 1,
-    zIndex: 1
-  },
-  labelText: {
-    fontSize: 16,
+  chartContainer: {
+    marginHorizontal: 16,
     marginVertical: 8,
-    color: theme.color.font1,
-    fontWeight: 'bold'
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    ...shadowBox
   },
-  suggestionItem: {
-    zIndex: 1
+  historyContainer: {
+    height: '75%',
+    paddingTop: 32,
+    width: SCREEN_WIDTH,
   },
-  suggestionText: {
-    fontSize: 14,
-    zIndex: 1
+  historyRow: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 8
+  },
+  historyFont: {
+    color: theme.color.font3,
+    fontSize: 16,
+    marginRight: 16
   },
   resultContainer: {
     flexDirection: 'row',
@@ -71,20 +76,5 @@ export default StyleSheet.create({
     height: '75%',
     width: '100%',
     ...shadowBox
-  },
-  inputStyle: {
-    backgroundColor: 'white',
-    height: 40,
-    borderRadius: 8,
-  },
-  button: {
-    padding: 16,
-    marginBottom: 12,
-    paddingVertical: 8,
-    borderRadius: 16,
-    backgroundColor: theme.color.blue5
-  },
-  suggestionItem: {
-    padding: 8
   }
 });

@@ -3,16 +3,26 @@ import { fromJS, Map } from 'immutable'
 import { handleActions } from 'redux-actions'
 
 import { ACTION_TYPES } from './actions'
+import { getMoneySaved } from './selectors'
 
 const INITIAL_STATE = fromJS({
-  history: []
+  history: [],
+  moneySaved: '0'
 })
 
 const dashboardReducer = handleActions(
   {
     [ACTION_TYPES.SAVE_OCTOPUS_RECORD]: 
-      (state, { payload: { record } }) => 
-        state.update('history', history => history.push(record))
+      (state, { payload: { record } }) => {
+        const newMoneySaved = parseFloat(state.get('moneySaved')) + parseFloat(record.moneySaved)
+        return state
+          .update('history', history => history.push(record))
+          .set('moneySaved', newMoneySaved.toFixed(2))
+      }
+        ,
+    [ACTION_TYPES.DELETE_RECORD]: 
+      (state, { payload: { recordId } }) =>
+        state.set('history', state.get('history').filter(oneHistory => oneHistory.get('id') !== recordId))
   },
   INITIAL_STATE
 )

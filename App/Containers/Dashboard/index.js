@@ -1,21 +1,20 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, ScrollView, Text, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, ScrollView, FlatList, Text, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
-import Modal from 'react-native-modal';
-import Autocomplete from 'react-native-autocomplete-input'
 import Carousel from 'react-native-snap-carousel';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import ActionButton from 'react-native-action-button'
 import firebase from 'react-native-firebase'
 import LinearGradient from 'react-native-linear-gradient'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import moment from 'moment'
 
-import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme'
 import styles from './styles'
 import { 
-  getHistory
+  getHistory,
+  getMoneySaved
 } from '../../redux/dashboard/selectors'
-import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -28,48 +27,98 @@ request.addKeyword('foobar');
 type Props = {}
 class Dashboard extends Component<Props> {
 
-  renderItem = () => {
-    return (
-      <View style={styles.chartContainer}>
+  renderItem = ({ item }) => {
+    const { moneySaved } = this.props
+    const { type } = item
+    if (type === 'overall') {
+      return (
+        <View style={styles.savingSummaryContainer}>
+          <Text>節省了:</Text>
+          <Text>{moneySaved}</Text>
+        </View>
+      )
+    } else {
+      return (
+        <View style={styles.chartContainer}>
+  
+        </View>
+      )
+    }
+  }
 
+  renderHistoryRow = ({ item }) => {
+    const { type, createdTs, startStation, endStation, moneySaved } = item
+    const typeToIconMap = {
+      octopus: 'credit-card'
+    }
+
+    return (
+      <View style={styles.historyRow}>
+        <Icon size={16} style={styles.historyFont}  name={typeToIconMap[type]}/>
+        <Text style={styles.historyFont} >
+          {moment(createdTs).format('MM/DD')}
+        </Text>
+        <Text style={[{flex: 2}, styles.historyFont]} >
+          {startStation} 去 {endStation}
+        </Text>
+        <Text style={[{flex: 1}, styles.historyFont]} >+$ {moneySaved}</Text>
+      </View>
+    )
+  }
+
+  renderHistory = () => {
+    const { history } = this.props
+    const keyExtractor = (item, index) => index.toString()
+    return (
+      <View style={styles.historyContainer}>
+        <FlatList
+          style={{ marginHorizontal: 16 }}
+          data={history}
+          keyExtractor={keyExtractor}
+          renderItem={this.renderHistoryRow}
+        />
       </View>
     )
   }
 
   render() {
-    const { history } = this.props
+    const { moneySaved } = this.props
+    const data = [
+      {
+        type: 'overall'
+      }
+    ]
+    console.log(data)
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <LinearGradient 
           start={{x: 0, y: 0}} end={{x: 0, y: 1}} 
-          colors={['#59B4A4', '#59D9A4']}
+          colors={[theme.color.header1, theme.color.header2]}
           style={{
             width: SCREEN_WIDTH,
             flex: 1,
             backgroundColor: theme.color.background2, 
             paddingTop: 8,
-            paddingBottom: 32,
-            marginBottom: -32
+            paddingBottom: -32
           }}
         >
           <Carousel
-            data={['a', 'b']}
+            data={data}
             renderItem={this.renderItem}
             sliderWidth={SCREEN_WIDTH}
             itemWidth={SCREEN_WIDTH - 24}
           />
         </LinearGradient>
-        <ScrollView style={{ height: '75%', width: SCREEN_WIDTH, padding: 8 }}>
-          
-          
-        </ScrollView>
+        { this.renderHistory() }
+        <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
       </SafeAreaView>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  history: getHistory(state)
+  history: getHistory(state),
+  moneySaved: getMoneySaved(state)
 })
 
 export default connect(mapStateToProps)(Dashboard)

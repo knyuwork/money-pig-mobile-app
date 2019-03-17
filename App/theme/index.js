@@ -2,7 +2,9 @@ export default theme = {
   color: {
     font1: '#ddd',
     font2: '#59B4A4',
+    font3: '#59D9A4',
     header1: '#59B4A4',
+    header2: '#59D9A4',
     headerFont: '#fff',
     footer1: '#495261',
     footerFont: '#59B4A4',
@@ -12,14 +14,3 @@ export default theme = {
     button1: '#59B4A4'
   }
 }
-
-// export default theme = {
-//   color: {
-//     font1: '#FFF',
-//     font2: '#FFF',
-//     header1: '#21315E',
-//     header2: '#E4EAF2',
-//     background: '#424E7A',
-//     button1: '#21315E'
-//   }
-// }

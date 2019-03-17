@@ -24,7 +24,7 @@ export default function * fetchPrice ({payload: {
       yield put(setMoneySaved('0'))
     } else {
       const { adult, elderly, children, student } = price
-      const priceList = [elderly, student, children]
+      const priceList = [parseFloat(elderly), parseFloat(student), parseFloat(children)]
       const moneySaved = adult - priceList[octopusSelectedIndex]
       yield put(setPrice(price))
       yield put(setMoneySaved(moneySaved.toFixed(1).toString()))

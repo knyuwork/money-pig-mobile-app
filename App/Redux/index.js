@@ -34,7 +34,7 @@ export const getStore = () => {
     transforms: [immutableTransform()],
     key: 'root',
     storage,
-    whitelist: ['app']
+    whitelist: ['app', 'dashboard']
   }
   const persistedReducer = persistReducer(persistConfig, rootReducer)
   
