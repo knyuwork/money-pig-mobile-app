@@ -58,7 +58,14 @@ export default StyleSheet.create({
   },
   moneyGrowthFont: {
     fontWeight: 'bold',
-    fontSize: 20, color: theme.color.font3,
+    fontSize: 22, color: theme.color.font3,
+    fontFamily: 'Pragati Narrow',
+    marginVertical: -4
+  },
+  moneyGrowthLabel: {
+    fontWeight: 'bold',
+    fontSize: 12,
+    color: theme.color.font1,
     fontFamily: 'Pragati Narrow'
   },
   historyContainer: {

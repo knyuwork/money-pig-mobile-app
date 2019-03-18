@@ -37,15 +37,15 @@ class Dashboard extends Component<Props> {
           </View>
           <View style={styles.growthTable}>
             <View style={styles.growthTableCol}>
-              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>vs 昨日</Text>
+              <Text style={styles.moneyGrowthLabel}>與昨日相比</Text>
               <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
             </View>
             <View style={[styles.growthTableCol, styles.growthTableMidRow]}>
-              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>一星期</Text>
+              <Text style={styles.moneyGrowthLabel}>與一星期相比</Text>
               <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
             </View>
             <View style={styles.growthTableCol}>
-              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>一個月</Text>
+              <Text style={styles.moneyGrowthLabel}>與一個月相比</Text>
               <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
             </View>
           </View>
