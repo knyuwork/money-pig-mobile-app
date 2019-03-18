@@ -27,24 +27,26 @@ type Props = {}
 class Dashboard extends Component<Props> {
 
   renderItem = ({ item }) => {
-    const { moneySaved } = this.props
-    if (item === 'overall') {
+    if (item.type === 'overall') {
+      const { moneySaved, today, yesterday, lastWeek, lastMonth } = item
       return (
         <View style={[styles.carouselItemContainer, ]}>
-          <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>慳咗:</Text>
-            <Text style={styles.moneySavedAmountFont}>${moneySaved}</Text>
+          <View style={{flex: 2, flexDirection: 'column', alignItems: 'flex-start'}}>
+            <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>已賺:</Text>
+            <Text style={styles.moneySavedAmountFont}>{moneySaved}</Text>
           </View>
           <View style={styles.growthTable}>
-            <View>
-              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>今日</Text>
-              <Text style={styles.moneySavedAmountFont}>${moneySaved}</Text>
+            <View style={styles.growthTableCol}>
+              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>vs 昨日</Text>
+              <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
             </View>
-            <View style={{borderLeftWidth: 1, borderRightWidth: 1}}>
-              
+            <View style={[styles.growthTableCol, styles.growthTableMidRow]}>
+              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>一星期</Text>
+              <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
             </View>
-            <View>
-              
+            <View style={styles.growthTableCol}>
+              <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>一個月</Text>
+              <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
             </View>
           </View>
         </View>
@@ -93,7 +95,15 @@ class Dashboard extends Component<Props> {
   }
 
   render() {
-    const data = ['overall', 'overall', 'overall']
+    const { moneySaved } = this.props
+    const data = [{
+      type: 'overall',
+      moneySaved,
+      today: 0,
+      yesterday: 0,
+      lastWeek: 0,
+      lastMonth: 0
+    }]
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <LinearGradient 
@@ -111,14 +121,6 @@ class Dashboard extends Component<Props> {
           <Carousel
             data={data}
             removeClippedSubviews={false}
-            contentContainerCustomStyle={{ 
-              // shadowColor: "#000",
-              // shadowOffset: {
-              //   width: 0,
-              //   height: 0,
-              // },
-              // shadowOpacity: 0.4
-            }}
             renderItem={this.renderItem}
             sliderWidth={SCREEN_WIDTH}
             // itemWidth={SCREEN_WIDTH * 5 / 12}

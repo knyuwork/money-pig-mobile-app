@@ -3,6 +3,7 @@ export default theme = {
     font1: '#bbb',
     font2: '#59B4A4',
     font3: '#59D9A4',
+    font4: '#38414F',
     header1: '#59B4A4',
     header2: '#59D9A4',
     headerFont: '#fff',

@@ -35,11 +35,31 @@ export default StyleSheet.create({
   },
   growthTable: {
     flex: 1, 
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  growthTableCol: {
+    flex: 1,
+    paddingVertical: 8
+  },
+  growthTableMidRow: {
+    borderColor: theme.color.font1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    paddingHorizontal: 8,
+    marginHorizontal: 8
   },
   moneySavedAmountFont: {
-    marginLeft: 8, fontWeight: 'bold',
-    fontSize: 26, color: theme.color.font3
+    fontWeight: 'bold',
+    fontSize: 42, color: theme.color.font4,
+    fontFamily: 'Pragati Narrow',
+    marginVertical: -12
+  },
+  moneyGrowthFont: {
+    fontWeight: 'bold',
+    fontSize: 20, color: theme.color.font3,
+    fontFamily: 'Pragati Narrow'
   },
   historyContainer: {
     height: '70%',
