@@ -86,10 +86,15 @@ class Dashboard extends Component<Props> {
       <View style={styles.historyContainer}>
         <Text style={styles.historyTitleFont}>歷史記錄</Text>
         <FlatList
-          style={{ paddingHorizontal: 16 }}
+          style={{ paddingHorizontal: 16, marginTop: 16 }}
           data={history}
           keyExtractor={keyExtractor}
           renderItem={this.renderHistoryRow}
+          ListEmptyComponent={() => (
+            <View style={{width: '100%', alignItems: 'center', marginTop: 16}}>
+              <Text style={{color: '#fff', fontSize: 16}} >無慳錢記錄，要努力啊!!</Text>
+            </View>
+          )}
         />
       </View>
     )

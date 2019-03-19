@@ -81,8 +81,9 @@ export default StyleSheet.create({
   },
   historyTitleFont: {
     color: '#fff',
-    fontSize: 16,
-    marginLeft: 16
+    fontSize: 18,
+    marginLeft: 16,
+    fontWeight: 'bold',
   },
   historyFont: {
     color: theme.color.font3,
