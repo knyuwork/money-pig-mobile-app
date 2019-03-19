@@ -8,21 +8,42 @@ import SettingNavigator from './SettingNavigator'
 import Drawer from '../Containers/Drawer'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+const iconNameMap = {
+  octopus: 'credit-card',
+  dashboard: 'line-chart',
+  setting: 'gear'
+}
+
 const MainAppNavigator = createDrawerNavigator(
   {
     dashboard: {
       screen: DashboardNavigator,
+      navigationOptions: () => ({
+        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['dashboard']} size={22} color={tintColor} />,
+        drawerLabel: '儀表板'
+      })
     },
     octopus: {
       screen: OctopusNavigator,
+      navigationOptions: () => ({
+        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['octopus']} size={22} color={tintColor} />,
+        drawerLabel: '掘'
+      })
     },
     setting: {
-      screen: SettingNavigator
+      screen: SettingNavigator,
+      navigationOptions: () => ({
+        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['setting']} size={22} color={tintColor} />,
+        drawerLabel: '設定'
+      })
     }
   },
   {
     initialRouteName: 'dashboard',
     headerMode: 'screen',
+    contentOptions: {
+      activeTintColor: '#fff',
+    },
     contentComponent: props => <Drawer {...props} />
   }
 )
