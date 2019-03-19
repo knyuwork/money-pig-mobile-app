@@ -83,6 +83,9 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     marginLeft: 16,
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderColor: theme.color.font1,
     fontWeight: 'bold',
   },
   historyFont: {
