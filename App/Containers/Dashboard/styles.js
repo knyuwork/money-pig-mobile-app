@@ -79,6 +79,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 24
   },
+  historyTitleFont: {
+    color: '#fff',
+    fontSize: 16,
+    marginLeft: 16
+  },
   historyFont: {
     color: theme.color.font3,
     fontSize: 16,

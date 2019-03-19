@@ -84,6 +84,7 @@ class Dashboard extends Component<Props> {
     const keyExtractor = (item, index) => index.toString()
     return (
       <View style={styles.historyContainer}>
+        <Text style={styles.historyTitleFont}>歷史記錄</Text>
         <FlatList
           style={{ paddingHorizontal: 16 }}
           data={history}
