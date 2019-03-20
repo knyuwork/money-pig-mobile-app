@@ -8,13 +8,11 @@
 
 import React, {Component} from 'react'
 import { Text, TouchableOpacity, Image, View, StyleSheet } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo';
+import { connect } from 'react-redux'
+import Icon from 'react-native-vector-icons/AntDesign';
 
 type Props = {};
-export default class DrawerButton extends Component<Props> {
-  constructor (props) {
-    super(props)
-  }
+class InfoButton extends Component<Props> {
 
   render() {
     const { navigationOptions } = this.props
@@ -22,8 +20,10 @@ export default class DrawerButton extends Component<Props> {
       <TouchableOpacity 
         style={{marginLeft: 16}}
         onPress={() => this.props.navigation.openDrawer()}>
-        <Icon color={navigationOptions.tintColor} size={30} name={'menu'} />
+        <Icon color={navigationOptions.tintColor} size={30} name={'questioncircleo'} />
       </TouchableOpacity>
     );
   }
 }
+
+export default connect(null)(InfoButton)
