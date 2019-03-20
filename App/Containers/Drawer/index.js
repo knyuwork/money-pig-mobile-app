@@ -7,9 +7,10 @@
  */
 
 import React, {Component} from 'react'
-import { ScrollView, Text, StyleSheet, View, Image, Dimensions } from 'react-native'
+import { ScrollView, Text, TouchableOpacity, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
+import Icon from 'react-native-vector-icons/AntDesign'
 
 import theme from '../../theme'
 import appIcon from '../../Images/app-icon.png'
@@ -19,7 +20,18 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 type Props = {}
 class Drawer extends Component<Props> {
   
+  state = {
+    showLogin: false
+  }
+
+  onLoginBarPressed = () => {
+    this.setState({
+      showLogin: !this.state.showLogin
+    })
+  }
+
   render() {
+    const { showLogin } = this.state
     return (
       <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
         <LinearGradient 
@@ -30,10 +42,19 @@ class Drawer extends Component<Props> {
             backgroundColor: theme.color.background2, 
           }}
         >
-          <View style={{paddingVertical: 16}}>
+          <View style={{padding: 16}}>
             <Image style={{width: 80, height: 80}} source={appIcon} />
-            <View style={{paddingVertical: 16}}>
-            </View>
+            <TouchableOpacity style={styles.loginBar} onPress={this.onLoginBarPressed}>
+              <View>
+                <Text style={{ color: '#fff', fontSize: 16 }}>訪客用戶</Text>
+                <Text style={{ color: '#fff', fontSize: 14, marginTop: 8 }}>請登入以保存記錄</Text>
+              </View>
+              { 
+                showLogin
+                  ? <Icon name='caretup' size={12} color={'#fff'} />
+                  : <Icon name='caretdown' size={12} color={'#fff'} />
+              }
+            </TouchableOpacity>
           </View>
           <ScrollView style={{flex: 1}}>
             <DrawerItems {...this.props} />
@@ -52,6 +73,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.color.header1
+  },
+  loginBar: {
+    flexDirection: 'row',
+    paddingTop: 16,
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   header: {
     flexDirection: 'row',
