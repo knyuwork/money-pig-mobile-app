@@ -2,4 +2,5 @@
     <string name="app_name">MoneyPig</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string name="facebook_app_id">337999400172366</string>
 </resources>

@@ -3,13 +3,13 @@ package com.knyu.moneypig;
 import android.annotation.SuppressLint;
 import android.app.Application;
 
+import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import io.invertase.firebase.RNFirebasePackage;
-import com.reactlibrary.RNReactNativeFirebaseComponentPackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -46,6 +46,12 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+  protected static CallbackManager getCallbackManager() {
+    return mCallbackManager;
+  }
+
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
@@ -57,18 +63,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.asList(
         new MainReactPackage(),
-            new RNGoogleSigninPackage(),
-            new FBSDKPackage(),
-            new VectorIconsPackage(),
-            new RNGestureHandlerPackage(),
-            new RNFirebasePackage(),
-            new RNReactNativeFirebaseComponentPackage(),
-            new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
-            new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
-            new LinearGradientPackage(),
-            new AppCenterReactNativePackage(MainApplication.this),
-            new RNI18nPackage(),
-            new RNGestureHandlerPackage(),
+        new RNGoogleSigninPackage(),
+        new FBSDKPackage(mCallbackManager),
+        new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
+        new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
+        new LinearGradientPackage(),
+        new AppCenterReactNativePackage(MainApplication.this),
+        new RNI18nPackage(),
+        new RNGestureHandlerPackage(),
         new VectorIconsPackage(),
         new RNFirebasePackage(),
         // add/remove these packages as appropriate

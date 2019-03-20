@@ -106,7 +106,7 @@ android {
     javaMaxHeapSize "4g"
   }
   compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+  buildToolsVersion '28.0.3'
 
   defaultConfig {
     applicationId "com.knyu.moneypig"
@@ -154,17 +154,13 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-google-signin')
-    compile project(':react-native-fbsdk')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-firebase')
-    compile project(':react-native-firebase-component')
-    compile project(':appcenter-crashes')
-    compile project(':appcenter-analytics')
-    compile project(':react-native-linear-gradient')
-    compile project(':appcenter')
-    compile project(':react-native-i18n')
+  implementation project(':react-native-google-signin')
+  implementation project(':react-native-fbsdk')
+  implementation project(':appcenter-crashes')
+  implementation project(':appcenter-analytics')
+  implementation project(':react-native-linear-gradient')
+  implementation project(':appcenter')
+  implementation project(':react-native-i18n')
   implementation project(':react-native-gesture-handler')
   implementation project(':react-native-vector-icons')
   //noinspection GradleDynamicVersion
@@ -181,6 +177,8 @@ dependencies {
   //noinspection GradleCompatible
   implementation "com.google.firebase:firebase-core:16.0.6"
   implementation "com.google.android.gms:play-services-base:16.0.1"
+  implementation 'com.android.support:multidex:1.0.3'
+  implementation 'com.android.support:design:27.1.0'
 
   /* -------------------------
    *   OPTIONAL FIREBASE SDKS
@@ -222,7 +220,9 @@ dependencies {
   /* --------------------------------
    *  OPTIONAL SUPPORT LIBS
    * -------------------------------- */
-
+  project.ext {
+    googlePlayServicesVersion = "+"
+  }
   // For Firebase Ads
   implementation "com.android.support:customtabs:27.1.1"
 
