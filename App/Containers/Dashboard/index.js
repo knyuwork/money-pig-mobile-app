@@ -38,15 +38,15 @@ class Dashboard extends Component<Props> {
           <View style={styles.growthTable}>
             <View style={styles.growthTableCol}>
               <Text style={styles.moneyGrowthLabel}>與昨日相比</Text>
-              <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
+              <Text style={styles.moneyGrowthFont}>{yesterday}</Text>
             </View>
             <View style={[styles.growthTableCol, styles.growthTableMidRow]}>
               <Text style={styles.moneyGrowthLabel}>與一星期相比</Text>
-              <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
+              <Text style={styles.moneyGrowthFont}>{lastWeek}</Text>
             </View>
             <View style={styles.growthTableCol}>
               <Text style={styles.moneyGrowthLabel}>與一個月相比</Text>
-              <Text style={styles.moneyGrowthFont}>{moneySaved}</Text>
+              <Text style={styles.moneyGrowthFont}>{lastMonth}</Text>
             </View>
           </View>
         </View>
@@ -101,14 +101,21 @@ class Dashboard extends Component<Props> {
   }
 
   render() {
-    const { moneySaved } = this.props
-    const data = [{
-      type: 'overall',
-      moneySaved,
+    const { moneySaved, history } = this.props
+    const currentTs = moment()
+    let overall = {
       today: 0,
       yesterday: 0,
       lastWeek: 0,
       lastMonth: 0
+    }
+    history.some(record => {
+      overall
+    })
+    const data = [{
+      type: 'overall',
+      moneySaved,
+      ...overall
     }]
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
@@ -129,7 +136,6 @@ class Dashboard extends Component<Props> {
             removeClippedSubviews={false}
             renderItem={this.renderItem}
             sliderWidth={SCREEN_WIDTH}
-            // itemWidth={SCREEN_WIDTH * 5 / 12}
             itemWidth={SCREEN_WIDTH / 1.2}
           />
           { this.renderHistory() }
