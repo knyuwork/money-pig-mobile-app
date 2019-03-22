@@ -75,9 +75,10 @@ class Octopus extends Component<Props> {
   onSave = () => {
     const { startStation, endStation } = this.state
     const { moneySaved } = this.props
+    const createdTs = moment().toISOString()
     this.props.saveOctopusRecord({
       type: 'octopus',
-      createdTs: moment().unix(),
+      createdTs,
       startStation,
       endStation,
       moneySaved: parseFloat(moneySaved)

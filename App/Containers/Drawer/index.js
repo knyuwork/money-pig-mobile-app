@@ -30,8 +30,28 @@ class Drawer extends Component<Props> {
     })
   }
 
+  onDrawerItemsPress = (routeObject) => {
+    const { route } = routeObject
+    if (route.key === 'login' ) {
+      this.props.navigation.push('auth')
+    } else {
+      this.props.onItemPress(routeObject)
+    }
+  }
+
   render() {
     const { showLogin } = this.state
+    const { items } = this.props
+
+    const authDrawerWhiteList = ['login']
+    const authItems = items.filter(item => authDrawerWhiteList.includes(item.key))
+    const mainItems = items.filter(item => !authDrawerWhiteList.includes(item.key))
+
+    const drawItemsProps = {
+      ...this.props,
+      items: showLogin ? authItems : mainItems
+    }
+
     return (
       <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
         <LinearGradient 
@@ -57,7 +77,7 @@ class Drawer extends Component<Props> {
             </TouchableOpacity>
           </View>
           <ScrollView style={{flex: 1}}>
-            <DrawerItems {...this.props} />
+            <DrawerItems {...drawItemsProps} onItemPress={this.onDrawerItemsPress} />
           </ScrollView>
         </LinearGradient>
       </SafeAreaView>

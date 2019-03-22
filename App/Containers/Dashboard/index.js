@@ -81,13 +81,14 @@ class Dashboard extends Component<Props> {
 
   renderHistory = () => {
     const { history } = this.props
+    const historyList = Object.values(history)
     const keyExtractor = (item, index) => index.toString()
     return (
       <View style={styles.historyContainer}>
         <Text style={styles.historyTitleFont}>歷史記錄</Text>
         <FlatList
           style={{ paddingHorizontal: 16, marginTop: 16 }}
-          data={history}
+          data={historyList}
           keyExtractor={keyExtractor}
           renderItem={this.renderHistoryRow}
           ListEmptyComponent={() => (
@@ -102,21 +103,39 @@ class Dashboard extends Component<Props> {
 
   render() {
     const { moneySaved, history } = this.props
-    const currentTs = moment()
+    const historyList = Object.values(history)
+    const current = moment().add(1, 'day').format('YYYY-MM-DD')
+    const yesterday = moment().subtract(1, 'day').format('YYYY-MM-DD')
+    const lastWeek = moment().subtract(1, 'week').format('YYYY-MM-DD')
+    const lastMonth = moment().subtract(1, 'month').format('YYYY-MM-DD')
     let overall = {
       today: 0,
       yesterday: 0,
       lastWeek: 0,
       lastMonth: 0
     }
-    history.some(record => {
-      overall
+    
+    historyList.some(({ createdTs, moneySaved }) => {
+      if (moment(createdTs).isBetween(yesterday, current)) {
+        overall.yesterday = overall.yesterday + moneySaved
+      }
+
+      if (moment(createdTs).isBetween(lastWeek, current)) {
+        overall.lastWeek = overall.lastWeek + moneySaved
+      }
+      if (moment(createdTs).isBetween(lastMonth, current)) {
+        overall.lastMonth = overall.lastMonth + moneySaved
+      } else {
+        return true
+      }
     })
     const data = [{
       type: 'overall',
       moneySaved,
       ...overall
     }]
+
+    console.log(overall)
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <LinearGradient 

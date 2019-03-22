@@ -17,9 +17,6 @@ import { setUserInfo } from '../../Helpers/firebase/DatabaseHelper'
 
 type Props = {};
 class AuthFormContainer extends Component<Props> {
-  static navigationOptions = {
-    header: null,
-  };
 
   componentDidMount() {
     const { navigation } = this.props

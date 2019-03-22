@@ -36,6 +36,13 @@ const MainAppNavigator = createDrawerNavigator(
         drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['setting']} size={22} color={tintColor} />,
         drawerLabel: '設定'
       })
+    },
+    login: {
+      screen: React.Fragment,
+      navigationOptions: () => ({
+        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['setting']} size={22} color={tintColor} />,
+        drawerLabel: '登入'
+      })
     }
   },
   {
