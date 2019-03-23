@@ -11,7 +11,7 @@ import moment from 'moment'
 import theme from '../../theme'
 import styles from './styles'
 import { 
-  getHistory,
+  getLocalHistory,
   getTotalAmount
 } from '../../redux/dashboard/selectors'
 
@@ -164,7 +164,7 @@ class Dashboard extends Component<Props> {
 }
 
 const mapStateToProps = state => ({
-  history: getHistory(state),
+  history: getLocalHistory(state),
   totalAmount: getTotalAmount(state)
 })
 

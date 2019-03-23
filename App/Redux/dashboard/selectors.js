@@ -1,7 +1,7 @@
 
 const getDashboardState = state => state.dashboard
 
-const getHistory = state => {
+const getLocalHistory = state => {
   return getDashboardState(state).get('history').toJS()
 }
 
@@ -10,6 +10,6 @@ const getTotalAmount = state => {
 }
 
 export {
-  getHistory,
+  getLocalHistory,
   getTotalAmount
 }

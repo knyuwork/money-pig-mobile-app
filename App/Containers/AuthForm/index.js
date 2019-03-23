@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import { Platform, TouchableOpacity, View, StyleSheet, Image } from 'react-native';
+import { Platform, TouchableOpacity, View, Alert, Image } from 'react-native';
 import { AuthForm } from 'react-native-firebase-component'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -28,23 +28,8 @@ class AuthFormContainer extends Component<Props> {
     }
   }
 
-  onLoginSuccess = (response) => {
-    const {
-      uid, 
-      displayName, 
-      email,
-      photoURL, 
-      phoneNumber,
-      refreshToken
-    } = response
-    const userInfo = {
-      uid,
-      displayName,
-      email,
-      photoURL,
-      phoneNumber,
-    }
-    console.log(userInfo)
+  onLoginSuccess = (user) => {
+    console.log(user)
   }
 
   render() {

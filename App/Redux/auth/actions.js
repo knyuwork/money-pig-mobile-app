@@ -19,7 +19,7 @@ export const signOut = createAction(
   ACTION_TYPES.SIGN_OUT
 )
 
-export const setUserInfo = createAction(
+export const setLocalUserInfo = createAction(
   ACTION_TYPES.SET_USER_INFO,
   (userInfo) => ({ userInfo })
 )
