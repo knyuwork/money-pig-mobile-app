@@ -10,7 +10,11 @@ import React, {Component} from 'react'
 import { ScrollView, Text, TouchableOpacity, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
+import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/AntDesign'
+
+import { signOut } from '../../redux/auth/actions'
+import { checkIsSignedIn } from '../../redux/auth/selectors'
 
 import theme from '../../theme'
 import appIcon from '../../Images/app-icon.png'
@@ -21,35 +25,39 @@ type Props = {}
 class Drawer extends Component<Props> {
   
   state = {
-    showLogin: false
+    showAuth: false
   }
 
   onLoginBarPressed = () => {
     this.setState({
-      showLogin: !this.state.showLogin
+      showAuth: !this.state.showAuth
     })
   }
 
   onDrawerItemsPress = (routeObject) => {
     const { route } = routeObject
-    if (route.key === 'login' ) {
+    if (route.key === 'login') {
       this.props.navigation.push('auth')
+    } else if (route.key === 'logout') {
+      this.props.signOut()
     } else {
       this.props.onItemPress(routeObject)
     }
   }
 
   render() {
-    const { showLogin } = this.state
-    const { items } = this.props
+    const { showAuth } = this.state
+    const { items, isSignedIn } = this.props
 
-    const authDrawerWhiteList = ['login']
+    const preAuthDrawerWhiteList = ['login']
+    const postAuthDrawerWhiteList = ['logout']
+    const authDrawerWhiteList = isSignedIn ? ['logout'] : ['login']
     const authItems = items.filter(item => authDrawerWhiteList.includes(item.key))
-    const mainItems = items.filter(item => !authDrawerWhiteList.includes(item.key))
+    const mainItems = items.filter(item => ![...preAuthDrawerWhiteList, ...postAuthDrawerWhiteList].includes(item.key))
 
     const drawItemsProps = {
       ...this.props,
-      items: showLogin ? authItems : mainItems
+      items: showAuth ? authItems : mainItems
     }
 
     return (
@@ -70,7 +78,7 @@ class Drawer extends Component<Props> {
                 <Text style={{ color: '#fff', fontSize: 14, marginTop: 8 }}>請登入以保存記錄</Text>
               </View>
               { 
-                showLogin
+                showAuth
                   ? <Icon name='caretup' size={12} color={'#fff'} />
                   : <Icon name='caretdown' size={12} color={'#fff'} />
               }
@@ -87,7 +95,11 @@ class Drawer extends Component<Props> {
 
 
 
-export default (Drawer)
+export default connect(state => ({
+  isSignedIn: checkIsSignedIn(state)
+}), {
+  signOut, checkIsSignedIn
+})(Drawer)
 
 const styles = StyleSheet.create({
   container: {

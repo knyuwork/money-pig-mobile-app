@@ -8,6 +8,7 @@ import { compose } from 'redux'
 import { SafeAreaView, createAppContainer } from 'react-navigation';
 
 import { initializeApp } from '../redux/app/actions'
+import { signInSuccessful, initializeAuth } from '../redux/auth/actions'
 import NavigationService from '../Navigation'
 const AppNavigatorContainer = createAppContainer(AppNavigator);
 const { width: screenWidth, height: screenHeight} = Dimensions.get('window')
@@ -18,6 +19,28 @@ class RootContainer extends Component<Props> {
     if (__DEV__) {
       Firebase.config().enableDeveloperMode()
     }
+    Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user)
+        const {
+          uid, 
+          displayName, 
+          email,
+          photoURL, 
+          phoneNumber
+        } = user
+        const userInfo = {
+          uid,
+          displayName,
+          email,
+          photoURL,
+          phoneNumber,
+        }
+        this.props.signInSuccessful(userInfo)
+      } else {
+        this.props.initializeAuth()
+      }
+    })
     this.props.initializeApp()
   }
 
@@ -53,7 +76,9 @@ export default compose(
       }
     },
     {
-      initializeApp
+      initializeApp,
+      initializeAuth,
+      signInSuccessful
     }
   )
 )(RootContainer)

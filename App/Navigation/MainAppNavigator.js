@@ -11,7 +11,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 const iconNameMap = {
   octopus: 'credit-card',
   dashboard: 'line-chart',
-  setting: 'gear'
+  setting: 'gear',
+  login: 'gear',
+  logout: 'gear'
 }
 
 const MainAppNavigator = createDrawerNavigator(
@@ -40,8 +42,15 @@ const MainAppNavigator = createDrawerNavigator(
     login: {
       screen: React.Fragment,
       navigationOptions: () => ({
-        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['setting']} size={22} color={tintColor} />,
+        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['login']} size={22} color={tintColor} />,
         drawerLabel: '登入'
+      })
+    },
+    logout: {
+      screen: React.Fragment,
+      navigationOptions: () => ({
+        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['logout']} size={22} color={tintColor} />,
+        drawerLabel: '登出'
       })
     }
   },

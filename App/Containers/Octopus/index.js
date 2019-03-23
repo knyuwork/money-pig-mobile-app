@@ -81,7 +81,7 @@ class Octopus extends Component<Props> {
       createdTs,
       startStation,
       endStation,
-      moneySaved: parseFloat(moneySaved)
+      amount: parseFloat(moneySaved)
     })
 
   }

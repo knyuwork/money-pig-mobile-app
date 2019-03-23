@@ -7,18 +7,17 @@ import { getMoneySaved } from './selectors'
 
 const INITIAL_STATE = fromJS({
   history: {},
-  moneySaved: '0'
+  totalAmount: '0'
 })
 
 const dashboardReducer = handleActions(
   {
     [ACTION_TYPES.SAVE_OCTOPUS_RECORD]: 
       (state, { payload: { record } }) => {
-        const newMoneySaved = parseFloat(state.get('moneySaved')) + parseFloat(record.moneySaved)
+        const updatedTotalAmount = parseFloat(state.get('totalAmount')) + parseFloat(record.amount)
         return state
           .setIn(['history', record.createdTs], record)
-          .set('moneySaved', newMoneySaved.toFixed(2))
-          // .update('history', history => history.push(record))
+          .set('totalAmount', updatedTotalAmount.toFixed(2))
       }
         ,
     [ACTION_TYPES.DELETE_RECORD]: 

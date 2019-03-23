@@ -12,7 +12,7 @@ import theme from '../../theme'
 import styles from './styles'
 import { 
   getHistory,
-  getMoneySaved
+  getTotalAmount
 } from '../../redux/dashboard/selectors'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
@@ -28,24 +28,24 @@ class Dashboard extends Component<Props> {
 
   renderItem = ({ item }) => {
     if (item.type === 'overall') {
-      const { moneySaved, today, yesterday, lastWeek, lastMonth } = item
+      const { totalAmount, today, yesterday, lastWeek, lastMonth } = item
       return (
         <View style={[styles.carouselItemContainer, ]}>
           <View style={{flex: 2, flexDirection: 'column', alignItems: 'flex-start'}}>
             <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>已賺:</Text>
-            <Text style={styles.moneySavedAmountFont}>{moneySaved}</Text>
+            <Text style={styles.moneySavedAmountFont}>{totalAmount}</Text>
           </View>
           <View style={styles.growthTable}>
             <View style={styles.growthTableCol}>
-              <Text style={styles.moneyGrowthLabel}>與昨日相比</Text>
+              <Text style={styles.moneyGrowthLabel}>昨日已賺</Text>
               <Text style={styles.moneyGrowthFont}>{yesterday}</Text>
             </View>
             <View style={[styles.growthTableCol, styles.growthTableMidRow]}>
-              <Text style={styles.moneyGrowthLabel}>與一星期相比</Text>
+              <Text style={styles.moneyGrowthLabel}>一星期已賺</Text>
               <Text style={styles.moneyGrowthFont}>{lastWeek}</Text>
             </View>
             <View style={styles.growthTableCol}>
-              <Text style={styles.moneyGrowthLabel}>與一個月相比</Text>
+              <Text style={styles.moneyGrowthLabel}>一個月已賺</Text>
               <Text style={styles.moneyGrowthFont}>{lastMonth}</Text>
             </View>
           </View>
@@ -60,7 +60,7 @@ class Dashboard extends Component<Props> {
   }
 
   renderHistoryRow = ({ item }) => {
-    const { type, createdTs, startStation, endStation, moneySaved } = item
+    const { type, createdTs, startStation, endStation, amount } = item
     const typeToIconMap = {
       octopus: 'credit-card'
     }
@@ -74,7 +74,7 @@ class Dashboard extends Component<Props> {
         <Text style={[{flex: 2}, styles.historyFont]} >
           {startStation} 去 {endStation}
         </Text>
-        <Text style={[{flex: 1}, styles.historyFont]} >+$ {moneySaved}</Text>
+        <Text style={[{flex: 1}, styles.historyFont]} >+$ {amount}</Text>
       </View>
     )
   }
@@ -102,7 +102,7 @@ class Dashboard extends Component<Props> {
   }
 
   render() {
-    const { moneySaved, history } = this.props
+    const { totalAmount, history } = this.props
     const historyList = Object.values(history)
     const current = moment().add(1, 'day').format('YYYY-MM-DD')
     const yesterday = moment().subtract(1, 'day').format('YYYY-MM-DD')
@@ -115,27 +115,26 @@ class Dashboard extends Component<Props> {
       lastMonth: 0
     }
     
-    historyList.some(({ createdTs, moneySaved }) => {
+    historyList.some(({ createdTs, amount }) => {
       if (moment(createdTs).isBetween(yesterday, current)) {
-        overall.yesterday = overall.yesterday + moneySaved
+        overall.yesterday = overall.yesterday + amount
       }
 
       if (moment(createdTs).isBetween(lastWeek, current)) {
-        overall.lastWeek = overall.lastWeek + moneySaved
+        overall.lastWeek = overall.lastWeek + amount
       }
       if (moment(createdTs).isBetween(lastMonth, current)) {
-        overall.lastMonth = overall.lastMonth + moneySaved
+        overall.lastMonth = overall.lastMonth + amount
       } else {
         return true
       }
     })
     const data = [{
       type: 'overall',
-      moneySaved,
+      totalAmount,
       ...overall
     }]
 
-    console.log(overall)
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <LinearGradient 
@@ -166,7 +165,7 @@ class Dashboard extends Component<Props> {
 
 const mapStateToProps = state => ({
   history: getHistory(state),
-  moneySaved: getMoneySaved(state)
+  totalAmount: getTotalAmount(state)
 })
 
 export default connect(mapStateToProps)(Dashboard)

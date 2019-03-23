@@ -10,23 +10,27 @@ import userInterfaceReducer from './userInterface/reducer'
 import appReducer from './app/reducer'
 import octopusReducer from './octopus/reducer'
 import dashboardReducer from './dashboard/reducer'
+import authReducer from './auth/reducer'
 
-import { appSaga } from '../redux/app/saga'
-import { octopusSaga } from '../redux/octopus/saga'
-import { dashboardSaga } from '../redux/dashboard/saga'
+import { appSaga } from './app/saga'
+import { octopusSaga } from './octopus/saga'
+import { dashboardSaga } from './dashboard/saga'
+import { authSaga } from './auth/saga'
 
 export const getStore = () => {
   const rootReducer = combineReducers({
     userInterface: userInterfaceReducer,
     app: appReducer,
     octopus: octopusReducer,
-    dashboard: dashboardReducer
+    dashboard: dashboardReducer,
+    auth: authReducer
   })
   
   const rootSaga = combineSagas([
     appSaga,
     octopusSaga,
-    dashboardSaga
+    dashboardSaga,
+    authSaga
   ])
   
   

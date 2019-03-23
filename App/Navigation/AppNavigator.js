@@ -16,10 +16,17 @@ const AppNavigator = createStackNavigator(
     },
     auth: {
       screen: AuthForm,
-      navigationOptions: (props) => ({
-        headerLeft: (
-          <BackButton {...props} />
+      navigationOptions: ({...props}) => ({
+        headerLeft: navigationOptions => (
+          <BackButton {...props} navigationOptions={navigationOptions} />
         ),
+        headerStyle: {
+          backgroundColor: theme.color.header1,
+          borderBottomWidth: 0,
+          elevation: 0, // For Android,
+        },
+        // title: '八達通模擬',
+        headerTintColor: theme.color.headerFont,
       })
     },
   },
