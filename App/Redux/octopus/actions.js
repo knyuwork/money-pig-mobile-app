@@ -8,6 +8,7 @@ export const ACTION_TYPES = {
   SET_MTR_STATIONS_MAP: `${PREFIX}/SET_MTR_STATIONS_MAP`,
   SET_PRICE: `${PREFIX}/SET_PRICE`,
   SET_MONEY_SAVED: `${PREFIX}/SET_MONEY_SAVED`,
+  SAVE_RECORD: `${PREFIX}/SAVE_RECORD`,
   SET_OCTOPUS_SELECTED_INDEX: `${PREFIX}/SET_OCTOPUS_SELECTED_INDEX`,
   MTR_STATIONS_MAP_FETCHING: `${PREFIX}/MTR_STATIONS_MAP_FETCHING`,
 }
@@ -44,4 +45,9 @@ export const setMoneySaved = createAction(
 export const setOctopusSelectedIndex = createAction(
   ACTION_TYPES.SET_OCTOPUS_SELECTED_INDEX,
   (octopusSelectedIndex) => ({ octopusSelectedIndex })
+)
+
+export const saveRecord = createAction(
+  ACTION_TYPES.SAVE_RECORD,
+  (record) => ({ record })
 )

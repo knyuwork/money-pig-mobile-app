@@ -13,7 +13,6 @@ export default {
   }),
   saveHistory: (userId, history) => new Promise((resolve, reject) => {
     try {
-      console.log(history)
       firebase.database().ref(`User/${userId}/history`).set(history, err => {
         if (err) {
           reject(err)
@@ -25,13 +24,16 @@ export default {
       reject(err)
     }
   }),
-  saveOctopusRecord: (userId, record) => {
-    const newSavingHistoryRef = firebase.database().ref(`User/${userId}/history`).push()
-    newSavingHistoryRef.set({
-      ...record,
-      id: newSavingHistoryRef.key
+  saveOctopusRecord: (userId, record) => new Promise((resolve, reject) => {
+    const { createdTs } = record
+    const newSavingHistoryRef = firebase.database().ref(`User/${userId}/history/${createdTs}`)
+    newSavingHistoryRef.set(record, err => {
+      if (err) {
+        reject(err)
+      }
+      resolve({ message: 'SUCCESS' })
     })
-  },
+  }),
   setUserInfo: (userId, userInfo) => {
     const userInfoRef = firebase.database().ref(`User/${userId}/userInfo`)
     userInfoRef.set(userInfo)

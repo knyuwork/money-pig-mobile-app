@@ -2,6 +2,7 @@
 import { call, put, fork, select } from 'redux-saga/effects'
 
 import { setLocalUserInfo, setIsSignedIn } from '../actions'
+import { updateLocalHistory } from '../../dashboard/actions'
 import { getLocalHistory } from '../../dashboard/selectors'
 import { AuthHelper, DatabaseHelper } from '../../../Helpers/firebase'
 
@@ -14,14 +15,16 @@ export function * signInSuccessful ({payload: {
   try {
     const state = yield select()
     const uid  = userInfo.uid
-    // Local redux
     const localHistory = getLocalHistory(state)
+    const history = yield call(getHistory, uid)
+    const updatedHistory = { ...history, ...localHistory }
+    
+    // Local redux
     yield put(setLocalUserInfo(userInfo))
     yield put(setIsSignedIn(true))
+    yield put(updateLocalHistory(updatedHistory))
 
     // Firebase 
-    const history = yield call(getHistory)
-    const updatedHistory = { ...history, ...localHistory }
     yield call(saveHistory, uid, updatedHistory)
     yield call(setUserInfo, uid, userInfo)
   } catch (error) {

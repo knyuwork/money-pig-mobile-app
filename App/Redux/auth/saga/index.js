@@ -1,7 +1,7 @@
 
 import { all, takeLatest } from 'redux-saga/effects'
 import { ACTION_TYPES } from '../actions'
-import { signInSuccessful, signOut } from './firebaseAuthentication'
+import { signInSuccessful, signOut } from './authentication'
 
 export function * authSaga () {
   try {
