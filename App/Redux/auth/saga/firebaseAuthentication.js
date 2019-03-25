@@ -32,7 +32,6 @@ export function * signInSuccessful ({payload: {
 export function * signOut () {
   try {
     const result = yield call(signOutFirebase)
-    console.log(result)
   } catch (error) {
     console.log(error)
   }
