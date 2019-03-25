@@ -7,7 +7,7 @@ export const ACTION_TYPES = {
   DELETE_RECORD: `${PREFIX}/DELETE_RECORD`
 }
 
-export const saveOctopusRecord = createAction(
+export const saveLocalOctopusRecord = createAction(
   ACTION_TYPES.SAVE_OCTOPUS_RECORD,
   (record) => ({ record })
 )

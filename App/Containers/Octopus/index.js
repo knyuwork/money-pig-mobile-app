@@ -21,7 +21,7 @@ import {
   getOctopusSelectedIndex
 } from '../../redux/octopus/selectors'
 import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
-import { saveOctopusRecord } from '../../redux/dashboard/actions'
+import { saveLocalOctopusRecord } from '../../redux/dashboard/actions'
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
 import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
@@ -76,7 +76,7 @@ class Octopus extends Component<Props> {
     const { startStation, endStation } = this.state
     const { moneySaved } = this.props
     const createdTs = moment().unix() * 1000
-    this.props.saveOctopusRecord({
+    this.props.saveLocalOctopusRecord({
       type: 'octopus',
       createdTs,
       startStation,
@@ -269,5 +269,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  fetchPrice, setMoneySaved, setOctopusSelectedIndex, saveOctopusRecord
+  fetchPrice, setMoneySaved, setOctopusSelectedIndex, saveLocalOctopusRecord
 })(Octopus)
