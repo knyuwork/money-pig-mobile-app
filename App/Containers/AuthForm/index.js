@@ -29,11 +29,11 @@ class AuthFormContainer extends Component<Props> {
   }
 
   onLogin = () => {
-    this.props.startLoading()
+    // this.props.startLoading()
   }
 
   onLoginEnded = () => {
-    this.props.endLoading()
+    // this.props.endLoading()
   }
 
   onLoginSuccess = (user) => {

@@ -17,10 +17,8 @@ export default function * saveRecord ({payload: {
     if (isSignedIn) {
       const uid = AuthHelper.getCurrentUser().uid
       yield call(DatabaseHelper.saveOctopusRecord, uid, record)
-      console.log('reac 1')
     }
     yield put(endLoading())
-    console.log('reac 2')
   } catch (error) {
     console.log(error)
     yield put(endLoading())

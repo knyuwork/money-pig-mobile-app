@@ -24,7 +24,10 @@ const dashboardReducer = handleActions(
         state.set('history', state.get('history').filter(oneHistory => oneHistory.get('id') !== recordId)),
     [ACTION_TYPES.UPDATE_LOCAL_HISTORY]: 
       (state, { payload: { history } }) =>
-        state.set('history', fromJS(history))
+        state.set('history', fromJS(history)),
+    [ACTION_TYPES.SET_TOTAL_AMOUNT]: 
+      (state, { payload: { amount } }) =>
+        state.set('totalAmount', amount)
   },
   INITIAL_STATE
 )

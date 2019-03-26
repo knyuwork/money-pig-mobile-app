@@ -24,6 +24,19 @@ export default {
       reject(err)
     }
   }),
+  saveTotalAmount: (userId, totalAmount) => new Promise((resolve, reject) => {
+    try {
+      firebase.database().ref(`User/${userId}/totalAmount`).set(totalAmount, err => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve({ message: 'success' })
+        }
+      })
+    } catch (err) {
+      reject(err)
+    }
+  }),
   saveOctopusRecord: (userId, record) => new Promise((resolve, reject) => {
     const { createdTs } = record
     const newSavingHistoryRef = firebase.database().ref(`User/${userId}/history/${createdTs}`)
