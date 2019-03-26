@@ -27,7 +27,7 @@ const dashboardReducer = handleActions(
         state.set('history', fromJS(history)),
     [ACTION_TYPES.SET_TOTAL_AMOUNT]: 
       (state, { payload: { amount } }) =>
-        state.set('totalAmount', amount)
+        state.set('totalAmount', amount.toFixed(2))
   },
   INITIAL_STATE
 )

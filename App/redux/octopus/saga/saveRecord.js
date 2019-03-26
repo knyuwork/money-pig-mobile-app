@@ -6,6 +6,8 @@ import { checkIsSignedIn } from '../../auth/selectors'
 import { saveLocalOctopusRecord } from '../../dashboard/actions'
 import { startLoading, endLoading } from '../../userInterface/actions'
 
+const { saveOctopusRecord, transactTotalAmount } = DatabaseHelper
+
 export default function * saveRecord ({payload: {
   record
 }}) {
@@ -16,7 +18,8 @@ export default function * saveRecord ({payload: {
     yield put(saveLocalOctopusRecord(record))
     if (isSignedIn) {
       const uid = AuthHelper.getCurrentUser().uid
-      yield call(DatabaseHelper.saveOctopusRecord, uid, record)
+      yield call(saveOctopusRecord, uid, record)
+      yield call(transactTotalAmount, uid, record.amount)
     }
     yield put(endLoading())
   } catch (error) {

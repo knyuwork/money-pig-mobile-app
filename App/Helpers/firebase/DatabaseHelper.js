@@ -24,6 +24,21 @@ export default {
       reject(err)
     }
   }),
+  transactTotalAmount: (userId, amount) => new Promise((resolve, reject) => {
+    try {
+      firebase
+        .database().ref(`User/${userId}/totalAmount`)
+          .transaction(totalAmount => totalAmount + amount, err => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve({ message: 'success' })
+            }
+          })
+    } catch (err) {
+      reject(err)
+    }
+  }),
   saveTotalAmount: (userId, totalAmount) => new Promise((resolve, reject) => {
     try {
       firebase.database().ref(`User/${userId}/totalAmount`).set(totalAmount, err => {
@@ -47,6 +62,7 @@ export default {
       resolve({ message: 'SUCCESS' })
     })
   }),
+
   setUserInfo: (userId, userInfo) => {
     const userInfoRef = firebase.database().ref(`User/${userId}/userInfo`)
     userInfoRef.set(userInfo)
