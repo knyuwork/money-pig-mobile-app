@@ -14,12 +14,14 @@ import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 import { signOut } from '../../redux/auth/actions'
+import { AuthHelper } from '../../Helpers/firebase'
 import { checkIsSignedIn } from '../../redux/auth/selectors'
 
 import theme from '../../theme'
 import appIcon from '../../Images/app-icon.png'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
+const { getCurrentUser } = AuthHelper
 
 type Props = {}
 class Drawer extends Component<Props> {
@@ -43,6 +45,27 @@ class Drawer extends Component<Props> {
     } else {
       this.props.onItemPress(routeObject)
     }
+  }
+
+  renderAuthBar = () => {
+    const { showAuth } = this.state
+    const { isSignedIn } = this.props
+    
+    const firstLine = isSignedIn? '歡迎' : '訪客用戶'
+    const secondLine = getCurrentUser()? getCurrentUser().email : '請登入以保存記錄'
+    return (
+      <TouchableOpacity style={styles.loginBar} onPress={this.onLoginBarPressed}>
+        <View>
+          <Text style={{ color: '#fff', fontSize: 16 }}>{firstLine}</Text>
+          <Text style={{ color: '#fff', fontSize: 14, marginTop: 8 }}>{secondLine}</Text>
+        </View>
+        { 
+          showAuth
+            ? <Icon name='caretup' size={12} color={'#fff'} />
+            : <Icon name='caretdown' size={12} color={'#fff'} />
+        }
+      </TouchableOpacity>
+    )
   }
 
   render() {
@@ -70,19 +93,9 @@ class Drawer extends Component<Props> {
             backgroundColor: theme.color.background2, 
           }}
         >
-          <View style={{padding: 16}}>
-            <Image style={{width: 80, height: 80}} source={appIcon} />
-            <TouchableOpacity style={styles.loginBar} onPress={this.onLoginBarPressed}>
-              <View>
-                <Text style={{ color: '#fff', fontSize: 16 }}>訪客用戶</Text>
-                <Text style={{ color: '#fff', fontSize: 14, marginTop: 8 }}>請登入以保存記錄</Text>
-              </View>
-              { 
-                showAuth
-                  ? <Icon name='caretup' size={12} color={'#fff'} />
-                  : <Icon name='caretdown' size={12} color={'#fff'} />
-              }
-            </TouchableOpacity>
+          <View>
+            <Image style={{margin: 16, width: 80, height: 80}} source={appIcon} />
+            { this.renderAuthBar() }
           </View>
           <ScrollView style={{flex: 1}}>
             <DrawerItems {...drawItemsProps} onItemPress={this.onDrawerItemsPress} />
@@ -108,7 +121,7 @@ const styles = StyleSheet.create({
   },
   loginBar: {
     flexDirection: 'row',
-    paddingTop: 16,
+    padding: 16,
     justifyContent: 'space-between',
     alignItems: 'center'
   },
