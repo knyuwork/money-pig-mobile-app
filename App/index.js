@@ -5,6 +5,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import RootContainer from './Containers'
 import { getStore } from './redux'
 
+import Firebase from 'react-native-firebase'
+
+Firebase.crashlytics().enableCrashlyticsCollection()
 const { store, persistor } = getStore()
 
 type Props = {};
