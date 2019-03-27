@@ -12,8 +12,8 @@ const iconNameMap = {
   octopus: 'credit-card',
   dashboard: 'line-chart',
   setting: 'gear',
-  login: 'gear',
-  logout: 'gear'
+  login: 'sign-in',
+  logout: 'sign-out'
 }
 
 const MainAppNavigator = createDrawerNavigator(
