@@ -1,11 +1,12 @@
 import firebase from 'react-native-firebase'
+import { roundTo2DP } from '../rounding'
 
 // User
 export default {
   getHistory: (userId) => new Promise((resolve, reject) => {
     try {
-      firebase.database().ref(`User/${userId}/history`).once('value', snap => {
-        resolve(snap ? snap.val() : [])
+      firebase.database().ref(`User/${userId}/history`).orderByChild('createdTs').once('value', snap => {
+        resolve(snap)
       })
     } catch (err) {
       reject(err)
@@ -24,11 +25,24 @@ export default {
       reject(err)
     }
   }),
-  transactTotalAmount: (userId, amount) => new Promise((resolve, reject) => {
+  getTotalAmount: (userId) => new Promise((resolve, reject) => {
     try {
       firebase
         .database().ref(`User/${userId}/totalAmount`)
-          .transaction(totalAmount => totalAmount + amount, err => {
+          .once('value', snap => {
+            const totalAmount = snap.val()
+            resolve(totalAmount? totalAmount : 0)
+          })
+    } catch (err) {
+      reject(err)
+    }
+  }),
+  transactTotalAmount: (userId, amount) => new Promise((resolve, reject) => {
+    const roundedAmount = roundTo2DP(amount)
+    try {
+      firebase
+        .database().ref(`User/${userId}/totalAmount`)
+          .transaction(totalAmount => totalAmount + roundedAmount, err => {
             if (err) {
               reject(err)
             } else {
