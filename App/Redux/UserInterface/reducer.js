@@ -1,20 +1,22 @@
-import { fromJS } from 'immutable';
-import actions from './actions';
 
+import { fromJS, Map } from 'immutable'
+import { handleActions } from 'redux-actions'
 
-const initState = fromJS({
+import { ACTION_TYPES } from './actions'
+
+const INITIAL_STATE = fromJS({
   isLoading: false,
-});
+})
 
-export default userInterfaceReducer = (state = initState, action) => {
-  switch (action.type) {
-    case actions.START_LOADING:
-      return state
-              .set('isLoading', true )
-    case actions.END_LOADING:
-      return state
-              .merge('isLoading', false )
-    default:
-      return state;
-  }
-}
+const userInterfaceReducer = handleActions(
+  {
+    [ACTION_TYPES.START_LOADING]: 
+      state => state .set('isLoading', true ),
+    [ACTION_TYPES.END_LOADING]: 
+      state => state .set('isLoading', false ),
+  },
+  INITIAL_STATE
+)
+
+export default userInterfaceReducer
+

@@ -2,37 +2,34 @@
 import { call, put, fork, select } from 'redux-saga/effects'
 
 import { setLocalUserInfo, setIsSignedIn } from '../actions'
-import { getLocalHistory } from '../../dashboard/selectors'
+import { mergeHistory } from '../../dashboard/actions'
+import { startLoading, endLoading } from '../../userInterface/actions'
 import { AuthHelper, DatabaseHelper } from '../../../Helpers/firebase'
 
 const { signOutFirebase } = AuthHelper
-const { getHistory, saveHistory, setUserInfo } = DatabaseHelper
+const { setUserInfo } = DatabaseHelper
 
 export function * signInSuccessful ({payload: {
   userInfo
 }}) {
   try {
-    const state = yield select()
+    yield put(startLoading())
     const uid  = userInfo.uid
-    // Local redux
-    const localHistory = getLocalHistory(state)
+    yield call(setUserInfo, uid, userInfo)
     yield put(setLocalUserInfo(userInfo))
     yield put(setIsSignedIn(true))
 
-    // Firebase 
-    const history = yield call(getHistory)
-    const updatedHistory = { ...history, ...localHistory }
-    yield call(saveHistory, uid, updatedHistory)
-    yield call(setUserInfo, uid, userInfo)
+    yield put(mergeHistory())
+    yield put(endLoading())
   } catch (error) {
     console.log(error)
+    yield put(endLoading())
   }
 }
 
 export function * signOut () {
   try {
     const result = yield call(signOutFirebase)
-    console.log(result)
   } catch (error) {
     console.log(error)
   }

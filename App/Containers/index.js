@@ -21,7 +21,6 @@ class RootContainer extends Component<Props> {
     }
     Firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user)
         const {
           uid, 
           displayName, 

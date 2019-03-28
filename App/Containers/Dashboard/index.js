@@ -8,6 +8,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 
+import { roundTo2DP } from '../../Helpers/rounding'
 import theme from '../../theme'
 import styles from './styles'
 import { 
@@ -81,14 +82,13 @@ class Dashboard extends Component<Props> {
 
   renderHistory = () => {
     const { history } = this.props
-    const historyList = Object.values(history)
     const keyExtractor = (item, index) => index.toString()
     return (
       <View style={styles.historyContainer}>
         <Text style={styles.historyTitleFont}>歷史記錄</Text>
         <FlatList
           style={{ paddingHorizontal: 16, marginTop: 16 }}
-          data={historyList}
+          data={history}
           keyExtractor={keyExtractor}
           renderItem={this.renderHistoryRow}
           ListEmptyComponent={() => (
@@ -103,7 +103,6 @@ class Dashboard extends Component<Props> {
 
   render() {
     const { totalAmount, history } = this.props
-    const historyList = Object.values(history)
     const current = moment().add(1, 'day').format('YYYY-MM-DD')
     const yesterday = moment().subtract(1, 'day').format('YYYY-MM-DD')
     const lastWeek = moment().subtract(1, 'week').format('YYYY-MM-DD')
@@ -115,16 +114,16 @@ class Dashboard extends Component<Props> {
       lastMonth: 0
     }
     
-    historyList.some(({ createdTs, amount }) => {
+    history.some(({ createdTs, amount }) => {
       if (moment(createdTs).isBetween(yesterday, current)) {
-        overall.yesterday = overall.yesterday + amount
+        overall.yesterday = roundTo2DP(overall.yesterday + amount)
       }
 
       if (moment(createdTs).isBetween(lastWeek, current)) {
-        overall.lastWeek = overall.lastWeek + amount
+        overall.lastWeek = roundTo2DP(overall.lastWeek + amount)
       }
       if (moment(createdTs).isBetween(lastMonth, current)) {
-        overall.lastMonth = overall.lastMonth + amount
+        overall.lastMonth = roundTo2DP(overall.lastMonth + amount)
       } else {
         return true
       }

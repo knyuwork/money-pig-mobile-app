@@ -10,11 +10,11 @@ import React, {Component} from 'react';
 import { Platform, TouchableOpacity, View, Alert, Image } from 'react-native';
 import { AuthForm } from 'react-native-firebase-component'
 import LinearGradient from 'react-native-linear-gradient'
-
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase'
-import { setUserInfo } from '../../Helpers/firebase/DatabaseHelper'
+
 import appIcon from '../../Images/app-icon.png'
+import { startLoading, endLoading } from '../../redux/userInterface/actions'
 
 
 type Props = {};
@@ -28,8 +28,16 @@ class AuthFormContainer extends Component<Props> {
     }
   }
 
+  onLogin = () => {
+    this.props.startLoading()
+  }
+
+  onLoginEnded = () => {
+    this.props.endLoading()
+  }
+
   onLoginSuccess = (user) => {
-    console.log(user)
+    this.props.navigation.goBack()
   }
 
   render() {
@@ -65,11 +73,11 @@ class AuthFormContainer extends Component<Props> {
         </View>
         <View style={{flex: 2, justifyContent: 'center'}}>
           <AuthForm 
-            // formValues={{}}
-            // formAttributes={formAttributes}
             enableGoogleLogin
             googleButtonText={'登入Google帳戶'}
-            onGoogleLoginSucess={this.onLoginSuccess} />
+            onLogin={this.onLogin}
+            onLoginEnded={this.onLoginEnded}
+            onGoogleLoginSuccess={this.onLoginSuccess} />
         </View>
       </LinearGradient>
     )
@@ -77,4 +85,6 @@ class AuthFormContainer extends Component<Props> {
 }
 
 
-export default  AuthFormContainer = connect(null)(AuthFormContainer);
+export default  AuthFormContainer = connect(null, {
+  startLoading, endLoading
+})(AuthFormContainer);
