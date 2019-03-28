@@ -15,7 +15,6 @@ import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPa
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
-import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -71,7 +70,6 @@ public class MainApplication extends Application implements ReactApplication {
         new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
         new LinearGradientPackage(),
         new AppCenterReactNativePackage(MainApplication.this),
-        new RNI18nPackage(),
         new RNGestureHandlerPackage(),
         new VectorIconsPackage(),
         new RNFirebasePackage(),
