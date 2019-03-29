@@ -32,31 +32,18 @@ class AuthFormContainer extends Component<Props> {
     this.props.startLoading()
   }
 
-  onLoginEnded = () => {
+  onLoginEnded = (err) => {
+    if (err) {
+      console.log(err)
+    }
     this.props.endLoading()
   }
 
   onLoginSuccess = (user) => {
-    this.props.navigation.goBack()
+    this.props.navigation.navigate('main')
   }
 
   render() {
-    const formAttributes = [
-      { 
-        key: 'email',
-        label: 'Email',
-        valueType: 'text',
-      },
-      { 
-        key: 'password',
-        label: 'Password',
-        valueType: 'text',
-        secureTextEntry: true
-      },
-    ]
-
-    const { navigation, completeLogin } = this.props
-
     return (
       <LinearGradient 
         start={{x: 0, y: 0}} end={{x: 0, y: 1}} 

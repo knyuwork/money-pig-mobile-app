@@ -7,7 +7,7 @@ import DrawerButton from '../Components/DrawerButton'
 
 const DashboardNavigator = createStackNavigator(
   {
-    chart: {
+    dashboard: {
       screen: Dashboard,
       navigationOptions: ({ ...props }) => ({
         headerStyle: {
@@ -22,7 +22,7 @@ const DashboardNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'chart',
+    initialRouteName: 'dashboard',
     headerMode: 'screen',
   }
 )
