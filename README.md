@@ -4,6 +4,8 @@
 
 #### Android
 
+1. Grab keystore from GDrive and put them under `/android/app`
+
 ```
 yarn android --variant=release
 ```
