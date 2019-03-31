@@ -198,7 +198,7 @@ class Octopus extends Component<Props> {
     const specialPrice = priceList[octopusSelectedIndex]
     return (
       <View style={styles.contentStyle}>
-        <View style={{flexDirection: 'row', zIndex: 1}}>
+        <View style={{flexDirection: 'row'}}>
           { this.renderAutoComplete('startStation') }
           { this.renderAutoComplete('endStation') }
         </View>
@@ -236,16 +236,20 @@ class Octopus extends Component<Props> {
   render() {
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
-        <View style={styles.content} >
+        <KeyboardAwareScrollView 
+          // style={styles.content} 
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps='handled'
+          scrollEnabled={false} >
           { this.renderOctopusSession() }
-          <KeyboardAwareScrollView
-            style={{ width: SCREEN_WIDTH, padding: 8 }}
-            contentContainerStyle={{ height: '100%' }}
+          <View
+            style={{ width: SCREEN_WIDTH, padding: 8,  height: SCREEN_HEIGHT * 2 / 3  }}
+            // contentContainerStyle={{ height: '100%' }}
             keyboardShouldPersistTaps='handled'
             scrollEnabled={false}
           >
             { this.renderContent() }
-          </KeyboardAwareScrollView>
+          </View>
           <AdmobBanner
             unitId={'ca-app-pub-8273861087920374/5118578430'}
             request={request.build()}
@@ -253,12 +257,35 @@ class Octopus extends Component<Props> {
             }}
           />
           <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
-        </View>
+        </KeyboardAwareScrollView>
         { this.renderModal() }
       </SafeAreaView>
     );
   }
 }
+
+
+{/* <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
+<View style={styles.content} >
+  { this.renderOctopusSession() }
+  <KeyboardAwareScrollView
+    style={{ width: SCREEN_WIDTH, padding: 8,  height: '100%'  }}
+    contentContainerStyle={{ height: '100%' }}
+    keyboardShouldPersistTaps='handled'
+    scrollEnabled={false}
+  >
+    { this.renderContent() }
+  </KeyboardAwareScrollView>
+  <AdmobBanner
+    unitId={'ca-app-pub-8273861087920374/5118578430'}
+    request={request.build()}
+    onAdLoaded={() => {
+    }}
+  />
+  <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
+</View>
+{ this.renderModal() }
+</SafeAreaView> */}
 
 const mapStateToProps = state => ({
   stationsMap: getHKMTRStationsMap(state),

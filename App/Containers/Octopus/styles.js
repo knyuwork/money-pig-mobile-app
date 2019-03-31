@@ -49,7 +49,7 @@ export default StyleSheet.create({
   },
   autoComplete: {
     flex: 1,
-    zIndex: 1
+    // zIndex: 1
   },
   labelText: {
     fontSize: 16,

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "878596649357-pnnu7a2ec5c0vv3imhhg2pjaodnd4dgc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.knyu.moneypig",
+            "certificate_hash": "8a2814560934096213be07703c16e4708fe6d752"
+          }
+        },
+        {
           "client_id": "878596649357-iukj2oup37g3bco6mca17q1rn29rs3mj.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,20 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878596649357-iukj2oup37g3bco6mca17q1rn29rs3mj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878596649357-18l7gb4u7volhr4pdt7bk3hl8rfrmf4t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.knyu.moneypig"
+              }
+            }
+          ]
         },
         "ads_service": {
           "status": 2
