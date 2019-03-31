@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native-autocomplete-input/index.js b/node_modules/react-native-autocomplete-input/index.js
-index 35113bc..a7ceef0 100644
+index 35113bc..3f1ae7f 100644
 --- a/node_modules/react-native-autocomplete-input/index.js
 +++ b/node_modules/react-native-autocomplete-input/index.js
 @@ -1,14 +1,14 @@
@@ -133,21 +133,34 @@ index 35113bc..a7ceef0 100644
            <View
              style={listContainerStyle}
              onStartShouldSetResponderCapture={onStartShouldSetResponderCapture}
-@@ -202,11 +225,11 @@ const androidStyles = {
-     flex: 1
+@@ -199,18 +222,20 @@ const border = {
+ 
+ const androidStyles = {
+   container: {
+-    flex: 1
++    flex: 1,
    },
    inputContainer: {
 -    ...border,
+-    marginBottom: 0
 +    // ...border,
-     marginBottom: 0
++    marginBottom: 0,
    },
    list: {
 -    ...border,
 +    // ...border,
      backgroundColor: 'white',
      borderTopWidth: 0,
-     margin: 10,
-@@ -219,7 +242,7 @@ const iosStyles = {
+-    margin: 10,
+-    marginTop: 0
++    left: 0,
++    position: 'absolute',
++    right: 0,
++    zIndex: 2
+   }
+ };
+ 
+@@ -219,7 +244,7 @@ const iosStyles = {
      zIndex: 1
    },
    inputContainer: {
@@ -156,7 +169,7 @@ index 35113bc..a7ceef0 100644
    },
    input: {
      backgroundColor: 'white',
-@@ -227,7 +250,7 @@ const iosStyles = {
+@@ -227,7 +252,7 @@ const iosStyles = {
      paddingLeft: 3
    },
    list: {

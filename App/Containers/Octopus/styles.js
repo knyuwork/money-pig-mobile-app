@@ -10,6 +10,7 @@ const shadowBox = {
     height: 1,
   },
   shadowOpacity: 0.4,
+  elevation: 2,
   // shadowRadius: 3.84,
 }
 
@@ -29,7 +30,7 @@ export default StyleSheet.create({
     backgroundColor: theme.color.background2, 
     paddingTop: 8,
     paddingBottom: 32,
-    marginBottom: -40
+    marginBottom: -40,
   },
   octopusContainer: {
     marginHorizontal: 16,

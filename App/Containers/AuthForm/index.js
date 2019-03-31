@@ -40,7 +40,7 @@ class AuthFormContainer extends Component<Props> {
   }
 
   onLoginSuccess = (user) => {
-    this.props.navigation.navigate('main')
+    this.props.navigation.goBack()
   }
 
   render() {
