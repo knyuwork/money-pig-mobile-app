@@ -53,7 +53,7 @@ export default StyleSheet.create({
       flexDirection: 'row',
       zIndex: 1
     } : {
-      flexDirection: 'row'
+      flexDirection: 'rowå'
     },
   autoComplete:
     Platform.OS === 'ios' ? {
@@ -62,6 +62,11 @@ export default StyleSheet.create({
     } : {
       flex: 1,
     },
+  octopusSelectText: {
+    fontSize: 16,
+    color: theme.color.font2,
+    marginRight: 16
+  },
   labelText: {
     fontSize: 16,
     marginVertical: 8,
@@ -89,6 +94,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 12,
     height: '75%',
+    // flex: 1,
     ...shadowBox
   },
   inputStyle: {

@@ -35,7 +35,6 @@ export default RadioButtonGroup
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column', 
-    backgroundColor: '#fff'
+    flexDirection: 'column'
   }
 })

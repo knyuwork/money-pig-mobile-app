@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, TextInput, Text, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, ScrollView, KeyboardAvoidingView, TextInput, Text, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
@@ -7,6 +7,7 @@ import moment from 'moment'
 import Autocomplete from 'react-native-autocomplete-input'
 import ActionButton from 'react-native-action-button'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import firebase from 'react-native-firebase'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -32,13 +33,13 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 const contents = [
   {
-    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={ELDER_OCTOPUS_CARD} />
+    render: <Image style={[styles.octopusImage, {marginLeft: 12}]} resizeMode={'contain'} source={ELDER_OCTOPUS_CARD} />
   },
   {
-    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={STUDENT_OCTOPUS_CARD} />
+    render: <Image style={[styles.octopusImage, {marginLeft: 12}]} resizeMode={'contain'} source={STUDENT_OCTOPUS_CARD} />
   },
   {
-    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={CHILD_OCTOPUS_CARD} />
+    render: <Image style={[styles.octopusImage, {marginLeft: 12}]} resizeMode={'contain'} source={CHILD_OCTOPUS_CARD} />
   }
 ]
 
@@ -95,10 +96,15 @@ class Octopus extends Component<Props> {
         isVisible={showModal} 
         onBackdropPress={() => this.setState({ showModal: false })}
       >
-        <RadioButtonGroup 
-          contents={contents}
-          activeIndex={octopusSelectedIndex}
-          onPress={this.onOctopusSelected} />
+        <View style={{paddingBottom: 16, backgroundColor: '#fff', borderRadius: 12}} >
+          <View style={{padding: 12, borderBottomWidth: 1, borderBottomColor: '#aaa'}}>
+            <Text style={styles.octopusSelectText}>請選擇</Text>
+          </View>
+          <RadioButtonGroup 
+            contents={contents}
+            activeIndex={octopusSelectedIndex}
+            onPress={this.onOctopusSelected} />
+        </View>
       </Modal>
     )
   }
@@ -181,7 +187,7 @@ class Octopus extends Component<Props> {
         style={styles.octopusSession}
       >
         <View style={styles.octopusContainer}>
-          <Text style={{ fontSize: 16, color: theme.color.font2, marginRight: 16 }}>
+          <Text style={styles.octopusSelectText}>
             你選擇摸擬的八達通: 
           </Text>
           <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
@@ -198,7 +204,12 @@ class Octopus extends Component<Props> {
     const priceList = [elderly, student, children]
     const specialPrice = priceList[octopusSelectedIndex]
     return (
-      <View style={styles.contentStyle}>
+      
+      <ScrollView
+        keyboardShouldPersistTaps='handled'
+        scrollEnabled={false}
+        contentContainerStyle={styles.contentStyle}
+      >
         <View style={styles.autoCompleteContainer}>
           { this.renderAutoComplete('startStation') }
           { this.renderAutoComplete('endStation') }
@@ -230,37 +241,28 @@ class Octopus extends Component<Props> {
             />
           </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 
   render() {
     const { octopusBannerAdId } = this.props
-    console.log(octopusBannerAdId)
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
-        <KeyboardAwareScrollView 
-          // style={styles.content} 
-          contentContainerStyle={styles.content}
-          keyboardShouldPersistTaps='handled'
-          scrollEnabled={false} >
-          { this.renderOctopusSession() }
-          <View
-            style={{ width: SCREEN_WIDTH, padding: 8,  height: SCREEN_HEIGHT * 2 / 3  }}
-            // contentContainerStyle={{ height: '100%' }}
-            keyboardShouldPersistTaps='handled'
-            scrollEnabled={false}
-          >
-            { this.renderContent() }
-          </View>
+        { this.renderOctopusSession() }
+        <KeyboardAvoidingView
+          behavior="padding" enabled
+          style={{ width: SCREEN_WIDTH, padding: 8,  height: SCREEN_HEIGHT * 2 / 3 }}
+        >
+          { this.renderContent() }
           <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
-        </KeyboardAwareScrollView>
-        <AdmobBanner
-          unitId={octopusBannerAdId}
-          request={request.build()}
-          onAdLoaded={() => {
-          }}
-        />
+        </KeyboardAvoidingView>
+        <SafeAreaView>
+          <AdmobBanner
+            unitId={octopusBannerAdId}
+            request={request.build()}
+          />
+        </SafeAreaView>
         { this.renderModal() }
       </SafeAreaView>
     );
