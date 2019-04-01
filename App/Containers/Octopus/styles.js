@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, Platform } from 'react-native'
 import theme from '../../theme'
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
@@ -23,7 +23,7 @@ export default StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    marginBottom: 12
+    // marginBottom: 12
   },
   octopusSession: {
     width: SCREEN_WIDTH,
@@ -48,10 +48,20 @@ export default StyleSheet.create({
     height: 100,
     width: 151
   },
-  autoComplete: {
-    flex: 1,
-    // zIndex: 1
-  },
+  autoCompleteContainer:
+    Platform.OS === 'ios' ? {
+      flexDirection: 'row',
+      zIndex: 1
+    } : {
+      flexDirection: 'row'
+    },
+  autoComplete:
+    Platform.OS === 'ios' ? {
+      flex: 1,
+      zIndex: 1
+    } : {
+      flex: 1,
+    },
   labelText: {
     fontSize: 16,
     marginVertical: 8,

@@ -18,7 +18,8 @@ import {
   getStationsMapFetchingStatus,
   getPrice,
   getMoneySaved,
-  getOctopusSelectedIndex
+  getOctopusSelectedIndex,
+  getOctopusBannerAdId
 } from '../../redux/octopus/selectors'
 import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
 import { saveRecord } from '../../redux/octopus/actions'
@@ -198,7 +199,7 @@ class Octopus extends Component<Props> {
     const specialPrice = priceList[octopusSelectedIndex]
     return (
       <View style={styles.contentStyle}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.autoCompleteContainer}>
           { this.renderAutoComplete('startStation') }
           { this.renderAutoComplete('endStation') }
         </View>
@@ -234,6 +235,8 @@ class Octopus extends Component<Props> {
   }
 
   render() {
+    const { octopusBannerAdId } = this.props
+    console.log(octopusBannerAdId)
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         <KeyboardAwareScrollView 
@@ -250,49 +253,27 @@ class Octopus extends Component<Props> {
           >
             { this.renderContent() }
           </View>
-          <AdmobBanner
-            unitId={'ca-app-pub-8273861087920374/5118578430'}
-            request={request.build()}
-            onAdLoaded={() => {
-            }}
-          />
           <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
         </KeyboardAwareScrollView>
+        <AdmobBanner
+          unitId={octopusBannerAdId}
+          request={request.build()}
+          onAdLoaded={() => {
+          }}
+        />
         { this.renderModal() }
       </SafeAreaView>
     );
   }
 }
 
-
-{/* <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
-<View style={styles.content} >
-  { this.renderOctopusSession() }
-  <KeyboardAwareScrollView
-    style={{ width: SCREEN_WIDTH, padding: 8,  height: '100%'  }}
-    contentContainerStyle={{ height: '100%' }}
-    keyboardShouldPersistTaps='handled'
-    scrollEnabled={false}
-  >
-    { this.renderContent() }
-  </KeyboardAwareScrollView>
-  <AdmobBanner
-    unitId={'ca-app-pub-8273861087920374/5118578430'}
-    request={request.build()}
-    onAdLoaded={() => {
-    }}
-  />
-  <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
-</View>
-{ this.renderModal() }
-</SafeAreaView> */}
-
 const mapStateToProps = state => ({
   stationsMap: getHKMTRStationsMap(state),
   price: getPrice(state),
   isStationsMapFetching: getStationsMapFetchingStatus(state),
   moneySaved: getMoneySaved(state),
-  octopusSelectedIndex: getOctopusSelectedIndex(state)
+  octopusSelectedIndex: getOctopusSelectedIndex(state),
+  octopusBannerAdId: getOctopusBannerAdId(state)
 })
 
 export default connect(mapStateToProps, {

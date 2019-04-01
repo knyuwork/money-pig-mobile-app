@@ -20,6 +20,7 @@ const getHKMTRApiDomain = state => {
 }
 
 export {
+  getAppState,
   getAppConfig,
   getAdmobAppId,
   getHKMTRApiDomain

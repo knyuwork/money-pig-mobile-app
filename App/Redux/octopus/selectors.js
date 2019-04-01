@@ -1,4 +1,5 @@
-
+import { Platform } from 'react-native'
+import { getAppConfig } from '../app/selectors'
 
 const getOctopusState = state => state.octopus
 
@@ -20,10 +21,18 @@ const getMoneySaved = state => {
 
 const getOctopusSelectedIndex = state => getOctopusState(state).get('octopusSelectedIndex')
 
+const getOctopusBannerAdId = state => {
+  if (Platform.OS === 'ios') {
+    return getAppConfig(state).get('admobIosOctopusBannerAdId')
+  } else {
+    return getAppConfig(state).get('admobAndroidOctopusBannerAdId')
+  }
+}
 export {
   getHKMTRStationsMap,
   getStationsMapFetchingStatus,
   getPrice,
   getMoneySaved,
-  getOctopusSelectedIndex
+  getOctopusSelectedIndex,
+  getOctopusBannerAdId
 }
