@@ -53,7 +53,7 @@ export default StyleSheet.create({
       flexDirection: 'row',
       zIndex: 1
     } : {
-      flexDirection: 'rowå'
+      flexDirection: 'row'
     },
   autoComplete:
     Platform.OS === 'ios' ? {
