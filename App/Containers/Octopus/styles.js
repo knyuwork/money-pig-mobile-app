@@ -48,6 +48,14 @@ export default StyleSheet.create({
     height: 100,
     width: 151
   },
+  modalButton: {
+    borderRadius: 10, paddingVertical: 8,
+    paddingHorizontal: 16,
+    margin: 8, backgroundColor: theme.color.header1
+  },
+  modalButtonText: {
+    color: '#fff', fontSize: 18
+  },
   autoCompleteContainer:
     Platform.OS === 'ios' ? {
       flexDirection: 'row',

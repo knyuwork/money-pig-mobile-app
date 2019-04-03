@@ -59,7 +59,8 @@ class Octopus extends Component<Props> {
 
   componentDidUpdate(prevProps, prevState) {
     const { startStation, endStation } = this.state
-    if (prevState.startStation !== startStation || prevState.endStation !== endStation) {
+    const { octopusSelectedIndex } = this.props
+    if (prevState.startStation !== startStation || prevState.endStation !== endStation || octopusSelectedIndex !== prevProps.octopusSelectedIndex) {
       if ( startStation !== '' && endStation !== '') {
         this.props.fetchPrice(startStation, endStation)
       }
@@ -88,13 +89,15 @@ class Octopus extends Component<Props> {
 
   }
 
+  closeModal = () => this.setState({ showModal: false })
+
   renderModal = () => {
     const { showModal } = this.state
     const { octopusSelectedIndex } = this.props
     return (
       <Modal
         isVisible={showModal} 
-        onBackdropPress={() => this.setState({ showModal: false })}
+        onBackdropPress={this.closeModal}
       >
         <View style={{backgroundColor: '#fff', borderRadius: 12}} >
           <View style={{padding: 12, borderBottomWidth: 0.6, opacity: 0.8, borderBottomColor: theme.color.font2}}>
@@ -106,8 +109,8 @@ class Octopus extends Component<Props> {
             activeIndex={octopusSelectedIndex}
             onPress={this.onOctopusSelected} />
           <View style={{borderTopWidth: 0.6, opacity: 0.8, borderTopColor: theme.color.font2, alignItems: 'flex-end'}}>
-            <TouchableOpacity style={{borderRadius: 10, paddingVertical: 8, paddingHorizontal: 16, margin: 8, backgroundColor: theme.color.header1}}>
-              <Text style={{color: '#fff', fontSize: 18}}>確定</Text>
+            <TouchableOpacity style={styles.modalButton} onPress={this.closeModal}>
+              <Text style={styles.modalButtonText}>確定</Text>
             </TouchableOpacity>
           </View>
         </View>
