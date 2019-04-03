@@ -6,14 +6,13 @@ import Modal from 'react-native-modal';
 import moment from 'moment'
 import Autocomplete from 'react-native-autocomplete-input'
 import ActionButton from 'react-native-action-button'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import firebase from 'react-native-firebase'
 import LinearGradient from 'react-native-linear-gradient'
 
+import { CrashlyticsHelper } from '../../Helpers/firebase'
 import RadioButtonGroup from '../../Components/RadioButtonGroup'
 import theme from '../../theme'
-import styles from './styles'
+import styles, { shadowBox } from './styles'
 import { 
   getHKMTRStationsMap,
   getStationsMapFetchingStatus,
@@ -42,6 +41,8 @@ const contents = [
     render: <Image style={styles.octopusImage} resizeMode={'contain'} source={CHILD_OCTOPUS_CARD} />
   }
 ]
+
+const { logError } = CrashlyticsHelper
 
 const AdmobBanner = firebase.admob.Banner
 const AdRequest = firebase.admob.AdRequest;
@@ -103,7 +104,7 @@ class Octopus extends Component<Props> {
         onBackdropPress={this.closeModal}
       >
         <View style={{backgroundColor: '#fff', borderRadius: 12}} >
-          <View style={{padding: 12, borderBottomWidth: 0.6, opacity: 0.8, borderBottomColor: theme.color.font2}}>
+          <View style={{padding: 12, borderBottomWidth: 0.6, borderBottomColor: theme.color.font2}}>
             <Text style={[styles.octopusSelectText, { fontSize: 18, fontWeight: 'bold' }]}>請選擇</Text>
           </View>
           <RadioButtonGroup 
@@ -111,7 +112,7 @@ class Octopus extends Component<Props> {
             contents={contents}
             activeIndex={octopusSelectedIndex}
             onPress={this.onOctopusSelected} />
-          <View style={{borderTopWidth: 0.6, opacity: 0.8, borderTopColor: theme.color.font2, alignItems: 'flex-end'}}>
+          <View style={{borderTopWidth: 0.6, borderTopColor: theme.color.font2, alignItems: 'flex-end'}}>
             <TouchableOpacity style={styles.modalButton} onPress={this.closeModal}>
               <Text style={styles.modalButtonText}>確定</Text>
             </TouchableOpacity>
@@ -169,7 +170,8 @@ class Octopus extends Component<Props> {
           listStyle={{
             maxHeight: 150,
             position: 'absolute',
-            borderRadius: 8
+            borderRadius: 8,
+            ...shadowBox
           }}
           onFocus={onFocus}
           placeholder="請輸入"
@@ -273,6 +275,9 @@ class Octopus extends Component<Props> {
           <AdmobBanner
             unitId={octopusBannerAdId}
             request={request.build()}
+            onAdFailedToLoad={(err) => {
+              logError(err.code)
+            }}
           />
         </SafeAreaView>
         { this.renderModal() }

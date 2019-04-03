@@ -3,7 +3,7 @@ import theme from '../../theme'
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
 
-const shadowBox = {
+export const shadowBox = {
   shadowColor: "#000",
   shadowOffset: {
     width: 0,
@@ -102,7 +102,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 12,
     height: '75%',
-    // flex: 1,
     ...shadowBox
   },
   inputStyle: {
@@ -110,6 +109,7 @@ export default StyleSheet.create({
     height: 40,
     padding: 8,
     borderRadius: 8,
+    ...shadowBox
   },
   button: {
     padding: 16,
