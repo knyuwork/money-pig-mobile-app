@@ -22,7 +22,7 @@ import {
   getOctopusSelectedIndex,
   getOctopusBannerAdId
 } from '../../redux/octopus/selectors'
-import { fetchPrice, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
+import { fetchPrice, calculateMoneySaved, setMoneySaved, setOctopusSelectedIndex } from '../../redux/octopus/actions'
 import { saveRecord } from '../../redux/octopus/actions'
 
 import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
@@ -60,9 +60,12 @@ class Octopus extends Component<Props> {
   componentDidUpdate(prevProps, prevState) {
     const { startStation, endStation } = this.state
     const { octopusSelectedIndex } = this.props
-    if (prevState.startStation !== startStation || prevState.endStation !== endStation || octopusSelectedIndex !== prevProps.octopusSelectedIndex) {
-      if ( startStation !== '' && endStation !== '') {
-        this.props.fetchPrice(startStation, endStation)
+    if ( startStation !== '' && endStation !== '') {
+      if (prevState.startStation !== startStation || prevState.endStation !== endStation) {
+          this.props.fetchPrice(startStation, endStation)
+      }
+      if (octopusSelectedIndex !== prevProps.octopusSelectedIndex) {
+        this.props.calculateMoneySaved()
       }
     }
   }
@@ -288,5 +291,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  fetchPrice, setMoneySaved, setOctopusSelectedIndex, saveRecord
+  fetchPrice, setMoneySaved, setOctopusSelectedIndex, saveRecord,
+  calculateMoneySaved
 })(Octopus)

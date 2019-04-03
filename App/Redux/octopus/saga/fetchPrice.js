@@ -4,7 +4,7 @@ import { call, put, fork, select } from 'redux-saga/effects'
 import api from '../../../Helpers/api'
 import { getHKMTRApiDomain } from '../../app/selectors'
 import { getOctopusSelectedIndex } from '../../octopus/selectors'
-import { setPrice, setMoneySaved } from '../actions'
+import { setPrice, setMoneySaved, calculateMoneySaved } from '../actions'
 
 export default function * fetchPrice ({payload: {
   startStation, endStation
@@ -23,11 +23,13 @@ export default function * fetchPrice ({payload: {
       }))
       yield put(setMoneySaved('0'))
     } else {
-      const { adult, elderly, children, student } = price
-      const priceList = [parseFloat(elderly), parseFloat(student), parseFloat(children)]
-      const moneySaved = adult - priceList[octopusSelectedIndex]
       yield put(setPrice(price))
-      yield put(setMoneySaved(moneySaved.toFixed(1).toString()))
+      yield put(calculateMoneySaved())
+
+      // const { adult, elderly, children, student } = price
+      // const priceList = [parseFloat(elderly), parseFloat(student), parseFloat(children)]
+      // const moneySaved = adult - priceList[octopusSelectedIndex]
+      // yield put(setMoneySaved(moneySaved.toFixed(2).toString()))
     }
   } catch (error) {
     console.log(error)
