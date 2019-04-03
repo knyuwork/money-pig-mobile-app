@@ -7,14 +7,15 @@ import RadioButton from './RadioButton'
 type Props = {
   contents: Array,
   activeIndex: Number,
-  onPress: Function
+  onPress: Function,
+  style: object
 };
 class RadioButtonGroup extends Component<Props> {
 
  render() {
-   const { contents, activeIndex, onPress } = this.props
+   const { contents, activeIndex, onPress, style } = this.props
    return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         {
           contents.map((content, index) => 
             <RadioButton

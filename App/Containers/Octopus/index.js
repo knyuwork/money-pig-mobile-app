@@ -33,13 +33,13 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 const contents = [
   {
-    render: <Image style={[styles.octopusImage, {marginLeft: 12}]} resizeMode={'contain'} source={ELDER_OCTOPUS_CARD} />
+    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={ELDER_OCTOPUS_CARD} />
   },
   {
-    render: <Image style={[styles.octopusImage, {marginLeft: 12}]} resizeMode={'contain'} source={STUDENT_OCTOPUS_CARD} />
+    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={STUDENT_OCTOPUS_CARD} />
   },
   {
-    render: <Image style={[styles.octopusImage, {marginLeft: 12}]} resizeMode={'contain'} source={CHILD_OCTOPUS_CARD} />
+    render: <Image style={styles.octopusImage} resizeMode={'contain'} source={CHILD_OCTOPUS_CARD} />
   }
 ]
 
@@ -96,14 +96,20 @@ class Octopus extends Component<Props> {
         isVisible={showModal} 
         onBackdropPress={() => this.setState({ showModal: false })}
       >
-        <View style={{paddingBottom: 16, backgroundColor: '#fff', borderRadius: 12}} >
-          <View style={{padding: 12, borderBottomWidth: 1, borderBottomColor: '#aaa'}}>
-            <Text style={styles.octopusSelectText}>請選擇</Text>
+        <View style={{backgroundColor: '#fff', borderRadius: 12}} >
+          <View style={{padding: 12, borderBottomWidth: 0.6, opacity: 0.8, borderBottomColor: theme.color.font2}}>
+            <Text style={[styles.octopusSelectText, { fontSize: 18, fontWeight: 'bold' }]}>請選擇</Text>
           </View>
           <RadioButtonGroup 
+            style={{paddingVertical: 16}}
             contents={contents}
             activeIndex={octopusSelectedIndex}
             onPress={this.onOctopusSelected} />
+          <View style={{borderTopWidth: 0.6, opacity: 0.8, borderTopColor: theme.color.font2, alignItems: 'flex-end'}}>
+            <TouchableOpacity style={{borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, margin: 8, backgroundColor: theme.color.header1}}>
+              <Text style={{color: '#fff', fontSize: 18}}>確定</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     )
