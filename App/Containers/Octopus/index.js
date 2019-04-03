@@ -106,7 +106,7 @@ class Octopus extends Component<Props> {
             activeIndex={octopusSelectedIndex}
             onPress={this.onOctopusSelected} />
           <View style={{borderTopWidth: 0.6, opacity: 0.8, borderTopColor: theme.color.font2, alignItems: 'flex-end'}}>
-            <TouchableOpacity style={{borderRadius: 10, paddingVertical: 12, paddingHorizontal: 16, margin: 8, backgroundColor: theme.color.header1}}>
+            <TouchableOpacity style={{borderRadius: 10, paddingVertical: 8, paddingHorizontal: 16, margin: 8, backgroundColor: theme.color.header1}}>
               <Text style={{color: '#fff', fontSize: 18}}>確定</Text>
             </TouchableOpacity>
           </View>
