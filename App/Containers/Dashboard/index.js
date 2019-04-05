@@ -34,7 +34,7 @@ class Dashboard extends Component<Props> {
         <View style={[styles.carouselItemContainer, ]}>
           <View style={{flex: 2, flexDirection: 'column', alignItems: 'flex-start'}}>
             <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>已賺:</Text>
-            <Text style={styles.moneySavedAmountFont}>{totalAmount}</Text>
+            <Text style={styles.moneySavedAmountFont}>{totalAmount.toFixed(2)}</Text>
           </View>
           <View style={styles.growthTable}>
             <View style={styles.growthTableCol}>
@@ -43,11 +43,11 @@ class Dashboard extends Component<Props> {
             </View>
             <View style={[styles.growthTableCol, styles.growthTableMidRow]}>
               <Text style={styles.moneyGrowthLabel}>一星期已賺</Text>
-              <Text style={styles.moneyGrowthFont}>{lastWeek}</Text>
+              <Text style={styles.moneyGrowthFont}>{lastWeek.toFixed(2)}</Text>
             </View>
             <View style={styles.growthTableCol}>
               <Text style={styles.moneyGrowthLabel}>一個月已賺</Text>
-              <Text style={styles.moneyGrowthFont}>{lastMonth}</Text>
+              <Text style={styles.moneyGrowthFont}>{lastMonth.toFixed(2)}</Text>
             </View>
           </View>
         </View>
