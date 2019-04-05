@@ -203,7 +203,7 @@ class Octopus extends Component<Props> {
       >
         <View style={styles.octopusContainer}>
           <Text style={styles.octopusSelectText}>
-            你選擇的特惠卡: 
+            你的特惠卡: 
           </Text>
           <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
             { contents[octopusSelectedIndex].render }
