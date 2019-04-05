@@ -81,9 +81,9 @@ class Octopus extends Component<Props> {
 
   onSave = () => {
     const { startStation, endStation } = this.state
-    const { moneySaved } = this.props
+    const { moneySaved, stationsMap } = this.props
     const createdTs = parseInt(moment().format('x'))
-    if (startStation !== '' && endStation !== '') {
+    if (startStation !== '' && endStation !== '' && stationsMap.includes(startStation) && startStation.includes(endStation)) {
       this.props.saveRecord({
         type: 'octopus',
         createdTs,
@@ -272,15 +272,13 @@ class Octopus extends Component<Props> {
           { this.renderContent() }
           <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
         </KeyboardAvoidingView>
-        <SafeAreaView>
-          <AdmobBanner
-            unitId={octopusBannerAdId}
-            request={request.build()}
-            onAdFailedToLoad={(err) => {
-              logError(err.code)
-            }}
-          />
-        </SafeAreaView>
+        <AdmobBanner
+          unitId={octopusBannerAdId}
+          request={request.build()}
+          onAdFailedToLoad={(err) => {
+            logError(err.code)
+          }}
+        />
         { this.renderModal() }
       </SafeAreaView>
     );

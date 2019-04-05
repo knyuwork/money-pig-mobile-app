@@ -15,7 +15,7 @@ const OctopusNavigator = createStackNavigator(
           borderBottomWidth: 0,
           elevation: 0, // For Android,
         },
-        title: '港鐵優惠',
+        title: '乘車優惠',
         headerTintColor: theme.color.headerFont,
         headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
       }),
