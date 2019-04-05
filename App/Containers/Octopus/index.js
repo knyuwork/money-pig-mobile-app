@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, ScrollView, KeyboardAvoidingView, TextInput, Text, View, Image, Dimensions } from 'react-native'
+import { Platform, TouchableOpacity, ScrollView, KeyboardAvoidingView, TextInput, Text, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal';
@@ -83,7 +83,7 @@ class Octopus extends Component<Props> {
     const { startStation, endStation } = this.state
     const { moneySaved, stationsMap } = this.props
     const createdTs = parseInt(moment().format('x'))
-    if (startStation !== '' && endStation !== '' && stationsMap.includes(startStation) && startStation.includes(endStation)) {
+    if (startStation !== '' && endStation !== '' && stationsMap.contains(startStation) && startStation.contains(endStation)) {
       this.props.saveRecord({
         type: 'octopus',
         createdTs,
@@ -262,12 +262,17 @@ class Octopus extends Component<Props> {
 
   render() {
     const { octopusBannerAdId } = this.props
+    const keyboardAvoidingViewStyle = Platform.OS === 'ios'? {
+      width: SCREEN_WIDTH, padding: 8,  flex: 1
+    } : {
+      width: SCREEN_WIDTH, padding: 8,  height: SCREEN_HEIGHT * 3 / 5
+    }
     return (
       <SafeAreaView style={styles.container} forceInset={{top: 'never'}} >
         { this.renderOctopusSession() }
         <KeyboardAvoidingView
           behavior="padding" enabled
-          style={{ width: SCREEN_WIDTH, padding: 8,  flex: 1 }}
+          style={keyboardAvoidingViewStyle}
         >
           { this.renderContent() }
           <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />

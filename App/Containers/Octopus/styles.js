@@ -36,8 +36,7 @@ export default StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 8,
     paddingVertical: 8,
-    borderRadius: 12,
-    // width: SCREEN_WIDTH,
+    borderRadius: 12
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
