@@ -14,6 +14,8 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* MoneyPigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MoneyPigTests.m */; };
 		0B4E324F2221AA7E00C92A9C /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B4E324E2221AA7A00C92A9C /* libRNGestureHandler.a */; };
+		0B7044BD2257956400DB3C42 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7044902257954300DB3C42 /* libCodePush.a */; };
+		0B7044BF2257958800DB3C42 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7044BE2257958800DB3C42 /* libz.tbd */; };
 		0BD765342236A1B200207555 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD7650A2236A1A600207555 /* libBVLinearGradient.a */; };
 		0BD76654223A994900207555 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD76653223A994300207555 /* libRCTFBSDK.a */; };
 		0BD76655223A994D00207555 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD7664D223A98AA00207555 /* libRNGoogleSignin.a */; };
@@ -112,6 +114,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = C35AEC211EF91F9300931F0C;
 			remoteInfo = AppCenterReactNative;
+		};
+		0B70448F2257954300DB3C42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B7044852257954300DB3C42 /* CodePush.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = CodePush;
+		};
+		0B7044912257954300DB3C42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B7044852257954300DB3C42 /* CodePush.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F886647B1F4ADB500036D01B;
+			remoteInfo = "CodePush-tvOS";
 		};
 		0BD765092236A1A600207555 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -406,6 +422,8 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MoneyPigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoneyPigTests.m; sourceTree = "<group>"; };
 		0B4E32492221AA7900C92A9C /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		0B7044852257954300DB3C42 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
+		0B7044BE2257958800DB3C42 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		0BD765032236A1A500207555 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		0BD7661C223A98AA00207555 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
 		0BD7664E223A994200207555 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
@@ -470,6 +488,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B7044BF2257958800DB3C42 /* libz.tbd in Frameworks */,
+				0B7044BD2257956400DB3C42 /* libCodePush.a in Frameworks */,
 				0BD76655223A994D00207555 /* libRNGoogleSignin.a in Frameworks */,
 				0BD76654223A994900207555 /* libRCTFBSDK.a in Frameworks */,
 				0BD765342236A1B200207555 /* libBVLinearGradient.a in Frameworks */,
@@ -569,6 +589,15 @@
 			isa = PBXGroup;
 			children = (
 				0B4E3289222581A600C92A9C /* libAppCenterReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0B7044862257954300DB3C42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0B7044902257954300DB3C42 /* libCodePush.a */,
+				0B7044922257954300DB3C42 /* libCodePush.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -733,6 +762,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0B7044852257954300DB3C42 /* CodePush.xcodeproj */,
 				0BD7664E223A994200207555 /* RCTFBSDK.xcodeproj */,
 				0BD7661C223A98AA00207555 /* RNGoogleSignin.xcodeproj */,
 				0BD765032236A1A500207555 /* BVLinearGradient.xcodeproj */,
@@ -818,6 +848,7 @@
 		927E270FF1706B5003F5613D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B7044BE2257958800DB3C42 /* libz.tbd */,
 				333056BA5B7ADABE709DF4A1 /* libPods-MoneyPig.a */,
 			);
 			name = Frameworks;
@@ -920,6 +951,10 @@
 				{
 					ProductGroup = 0BD765042236A1A500207555 /* Products */;
 					ProjectRef = 0BD765032236A1A500207555 /* BVLinearGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = 0B7044862257954300DB3C42 /* Products */;
+					ProjectRef = 0B7044852257954300DB3C42 /* CodePush.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1046,6 +1081,20 @@
 			fileType = archive.ar;
 			path = libAppCenterReactNative.a;
 			remoteRef = 0B4E3288222581A600C92A9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0B7044902257954300DB3C42 /* libCodePush.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCodePush.a;
+			remoteRef = 0B70448F2257954300DB3C42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0B7044922257954300DB3C42 /* libCodePush.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCodePush.a;
+			remoteRef = 0B7044912257954300DB3C42 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0BD7650A2236A1A600207555 /* libBVLinearGradient.a */ = {

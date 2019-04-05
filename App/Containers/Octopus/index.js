@@ -267,7 +267,7 @@ class Octopus extends Component<Props> {
         { this.renderOctopusSession() }
         <KeyboardAvoidingView
           behavior="padding" enabled
-          style={{ width: SCREEN_WIDTH, padding: 8,  height: SCREEN_HEIGHT * 2 / 3 }}
+          style={{ width: SCREEN_WIDTH, padding: 8,  flex: 1 }}
         >
           { this.renderContent() }
           <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
