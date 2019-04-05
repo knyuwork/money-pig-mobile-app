@@ -39,7 +39,7 @@ class Dashboard extends Component<Props> {
           <View style={styles.growthTable}>
             <View style={styles.growthTableCol}>
               <Text style={styles.moneyGrowthLabel}>昨日已賺</Text>
-              <Text style={styles.moneyGrowthFont}>{yesterday}</Text>
+              <Text style={styles.moneyGrowthFont}>{yesterday.toFixed(2)}</Text>
             </View>
             <View style={[styles.growthTableCol, styles.growthTableMidRow]}>
               <Text style={styles.moneyGrowthLabel}>一星期已賺</Text>
