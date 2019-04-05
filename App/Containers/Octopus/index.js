@@ -105,7 +105,7 @@ class Octopus extends Component<Props> {
       >
         <View style={{backgroundColor: '#fff', borderRadius: 12}} >
           <View style={{padding: 12, borderBottomWidth: 0.6, borderBottomColor: theme.color.font2}}>
-            <Text style={[styles.octopusSelectText, { fontSize: 18, fontWeight: 'bold' }]}>請選擇</Text>
+            <Text style={[styles.octopusSelectText, { fontSize: 18 }]}>請選擇</Text>
           </View>
           <RadioButtonGroup 
             style={{paddingVertical: 16}}

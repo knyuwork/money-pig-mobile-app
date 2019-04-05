@@ -16,6 +16,10 @@ or
 yarn android --variant=staging
 ```
 
+#### Code push
+
+https://docs.microsoft.com/en-us/appcenter/distribution/codepush/
+
 ### License
 
 - See [LICENSE](/LICENSE)
