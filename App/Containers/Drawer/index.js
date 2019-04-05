@@ -18,7 +18,7 @@ import { AuthHelper } from '../../Helpers/firebase'
 import { checkIsSignedIn } from '../../redux/auth/selectors'
 
 import theme from '../../theme'
-import appIcon from '../../Images/app-icon.png'
+import logo from '../../../assets/logo.png'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 const { getCurrentUser } = AuthHelper
@@ -94,7 +94,7 @@ class Drawer extends Component<Props> {
           }}
         >
           <View>
-            <Image style={{margin: 16, width: 80, height: 80}} source={appIcon} />
+            <Image style={{margin: 16, width: 80, height: 80}} source={logo} />
             { this.renderAuthBar() }
           </View>
           <ScrollView style={{flex: 1}}>

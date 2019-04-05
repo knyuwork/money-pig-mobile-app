@@ -86,5 +86,7 @@
 	<false/>
 	<key>firebase_crashlytics_collection_enabled</key>
 	<false/>
+	<key>CodePushDeploymentKey</key>
+	<string>Dq46dFQAOOr_g0_D62Z2K_rwpdQfr1Y4Gq4FE</string>
 </dict>
 </plist>

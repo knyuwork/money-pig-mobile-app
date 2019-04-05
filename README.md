@@ -19,7 +19,7 @@ yarn android --variant=staging
 #### Code push
 
 https://docs.microsoft.com/en-us/appcenter/distribution/codepush/
-
+https://docs.microsoft.com/en-us/appcenter/distribution/codepush/cli
 ### License
 
 - See [LICENSE](/LICENSE)

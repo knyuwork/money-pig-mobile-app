@@ -99,19 +99,27 @@ def enableProguardInReleaseBuilds = false
 android {
   signingConfigs {
     release {
-      if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-        storeFile file(MYAPP_RELEASE_STORE_FILE)
-        storePassword MYAPP_RELEASE_STORE_PASSWORD
-        keyAlias MYAPP_RELEASE_KEY_ALIAS
-        keyPassword MYAPP_RELEASE_KEY_PASSWORD
+      if (project.hasProperty('MONEY_PIG_RELEASE_STORE_FILE')) {
+        storeFile file(MONEY_PIG_RELEASE_STORE_FILE)
+        storePassword MONEY_PIG_RELEASE_STORE_PASSWORD
+        keyAlias MONEY_PIG_RELEASE_KEY_ALIAS
+        keyPassword MONEY_PIG_RELEASE_KEY_PASSWORD
       }
     }
     debug {
-      if (project.hasProperty('MYAPP_DEBUG_STORE_FILE')) {
-        storeFile file(MYAPP_DEBUG_STORE_FILE)
-        storePassword MYAPP_DEBUG_STORE_PASSWORD
-        keyAlias MYAPP_DEBUG_KEY_ALIAS
-        keyPassword MYAPP_DEBUG_KEY_PASSWORD
+      if (project.hasProperty('MONEY_PIG_RELEASE_STORE_FILE')) {
+        storeFile file(MONEY_PIG_RELEASE_STORE_FILE)
+        storePassword MONEY_PIG_RELEASE_STORE_PASSWORD
+        keyAlias MONEY_PIG_RELEASE_KEY_ALIAS
+        keyPassword MONEY_PIG_RELEASE_KEY_PASSWORD
+      }
+    }
+    stagingRelease {
+      if (project.hasProperty('MONEY_PIG_STAGING_STORE_FILE')) {
+        storeFile file(MONEY_PIG_STAGING_STORE_FILE)
+        storePassword MONEY_PIG_STAGING_STORE_PASSWORD
+        keyAlias MONEY_PIG_STAGING_KEY_ALIAS
+        keyPassword MONEY_PIG_STAGING_KEY_PASSWORD
       }
     }
   }
@@ -150,11 +158,20 @@ android {
       minifyEnabled enableProguardInReleaseBuilds
       proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
       signingConfig signingConfigs.release
+      buildConfigField "String", "CODEPUSH_KEY", CODE_PUSH_PRODUCTION_KEY
     }
     debug {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       signingConfig signingConfigs.debug
+      buildConfigField "String", "CODEPUSH_KEY", CODE_PUSH_PRODUCTION_KEY
+    }
+    stagingRelease {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.stagingRelease
+      buildConfigField "String", "CODEPUSH_KEY", CODE_PUSH_STAGING_KEY
+      // matchingFallbacks = ['release']     TODO: add back when staging release is ready
     }
   }
   // applicationVariants are e.g. debug, release
@@ -173,7 +190,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-code-push')
+  implementation project(':react-native-code-push')
   implementation project(':react-native-localize')
   implementation project(':react-native-google-signin')
   implementation project(':react-native-fbsdk')

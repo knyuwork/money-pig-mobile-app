@@ -8,7 +8,7 @@ import { getStore } from './redux'
 
 import { CrashlyticsHelper } from './Helpers/firebase'
 
-const codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME }
+const codePushOptions = { checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME }
 const { store, persistor } = getStore()
 
 CrashlyticsHelper.initializeCrashlytics()

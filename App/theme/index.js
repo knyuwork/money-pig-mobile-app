@@ -4,6 +4,8 @@ export default theme = {
     font2: '#56B1A1',
     font3: '#61E1A6',
     font4: '#38414F',
+    font5: '#B31700',
+    font6: '#FF4226',
     header1: '#56B1A1',
     header2: '#61E1A6',
     headerFont: '#fff',

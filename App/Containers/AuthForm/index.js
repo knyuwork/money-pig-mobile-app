@@ -7,15 +7,18 @@
  */
 
 import React, {Component} from 'react';
-import { Platform, TouchableOpacity, View, Alert, Image } from 'react-native';
+import { Platform, Text, View, Alert, Image } from 'react-native';
 import { AuthForm } from 'react-native-firebase-component'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase'
 
-import appIcon from '../../Images/app-icon.png'
+// import appIcon from '../../Images/app-icon.png'
+import logo from '../../../assets/logo.png'
 import { startLoading, endLoading } from '../../redux/userInterface/actions'
-
+import BulletPointDot from '../../Components/BulletPointDot'
+import theme from '../../theme';
+import styles from './styles'
 
 type Props = {};
 class AuthFormContainer extends Component<Props> {
@@ -53,12 +56,19 @@ class AuthFormContainer extends Component<Props> {
         }}
       >
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Image style={{width: 100, height: 100}} source={appIcon} />
+          <Image style={{width: 100, height: 100}} source={logo} />
         </View>
-        <View style={{flex: 1, borderRadius: 8, backgroundColor: '#fffb'}}>
-
+        <View style={{flex: 1, borderRadius: 8, backgroundColor: '#fffc', padding: 12}}>
+          <View style={styles.buttletPointRow}>
+            <BulletPointDot style={{color: theme.color.font2}} />
+            <Text style={{color: theme.color.font2}}>登入以保存「淘金」記錄</Text>
+          </View>
+          <View style={styles.buttletPointRow}>
+            <BulletPointDot style={{color: theme.color.font6}} />
+            <Text style={{color: theme.color.font6}}>如帳號有記錄，將會覆蓋當前本機中的所有資料。</Text>
+          </View>
         </View>
-        <View style={{flex: 2, justifyContent: 'center'}}>
+        <View style={{flex: 3, justifyContent: 'center'}}>
           <AuthForm 
             enableGoogleLogin
             googleButtonText={'登入Google帳戶'}
