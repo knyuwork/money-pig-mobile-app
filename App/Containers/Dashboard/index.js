@@ -34,7 +34,7 @@ class Dashboard extends Component<Props> {
         <View style={[styles.carouselItemContainer, ]}>
           <View style={{flex: 2, flexDirection: 'column', alignItems: 'flex-start'}}>
             <Text style={{color: theme.color.font1, fontWeight: 'bold'}}>已賺:</Text>
-            <Text style={styles.moneySavedAmountFont}>{totalAmount.toFixed(2)}</Text>
+            <Text style={styles.moneySavedAmountFont}>{totalAmount}</Text>
           </View>
           <View style={styles.growthTable}>
             <View style={styles.growthTableCol}>
