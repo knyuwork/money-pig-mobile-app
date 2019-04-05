@@ -82,8 +82,9 @@ class Octopus extends Component<Props> {
   onSave = () => {
     const { startStation, endStation } = this.state
     const { moneySaved, stationsMap } = this.props
+    const stationList = Object.values(stationsMap)
     const createdTs = parseInt(moment().format('x'))
-    if (startStation !== '' && endStation !== '' && stationsMap.contains(startStation) && startStation.contains(endStation)) {
+    if (startStation !== '' && endStation !== '' && stationList.includes(startStation) && stationList.includes(endStation)) {
       this.props.saveRecord({
         type: 'octopus',
         createdTs,
