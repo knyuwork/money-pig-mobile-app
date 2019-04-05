@@ -29,7 +29,7 @@ const MainAppNavigator = createDrawerNavigator(
       screen: OctopusNavigator,
       navigationOptions: () => ({
         drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['octopus']} size={22} color={tintColor} />,
-        drawerLabel: '港鐵優惠'
+        drawerLabel: '乘車優惠'
       })
     },
     setting: {

@@ -75,7 +75,7 @@ class Dashboard extends Component<Props> {
         <Text style={[{flex: 2}, styles.historyFont]} >
           {startStation} 去 {endStation}
         </Text>
-        <Text style={[{flex: 1}, styles.historyFont]} >+$ {amount}</Text>
+        <Text style={[{flex: 1}, styles.historyFont]} >+$ {amount.toFixed(2)}</Text>
       </View>
     )
   }

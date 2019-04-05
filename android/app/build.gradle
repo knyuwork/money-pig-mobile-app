@@ -114,7 +114,7 @@ android {
         keyPassword MONEY_PIG_RELEASE_KEY_PASSWORD
       }
     }
-    stagingRelease {
+    releaseStaging {
       if (project.hasProperty('MONEY_PIG_STAGING_STORE_FILE')) {
         storeFile file(MONEY_PIG_STAGING_STORE_FILE)
         storePassword MONEY_PIG_STAGING_STORE_PASSWORD
@@ -164,15 +164,15 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       signingConfig signingConfigs.debug
-      buildConfigField "String", "CODEPUSH_KEY", CODE_PUSH_PRODUCTION_KEY
+      buildConfigField "String", "CODEPUSH_KEY", ""
     }
-    stagingRelease {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      signingConfig signingConfigs.stagingRelease
-      buildConfigField "String", "CODEPUSH_KEY", CODE_PUSH_STAGING_KEY
-      // matchingFallbacks = ['release']     TODO: add back when staging release is ready
-    }
+//    releaseStaging {
+//      minifyEnabled false
+//      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//      signingConfig signingConfigs.releaseStaging
+//      buildConfigField "String", "CODEPUSH_KEY", CODE_PUSH_STAGING_KEY
+//      // matchingFallbacks = ['release']     TODO: add back when staging release is ready
+//    }
   }
   // applicationVariants are e.g. debug, release
   applicationVariants.all { variant ->
