@@ -83,14 +83,15 @@ class Octopus extends Component<Props> {
     const { startStation, endStation } = this.state
     const { moneySaved } = this.props
     const createdTs = parseInt(moment().format('x'))
-    this.props.saveRecord({
-      type: 'octopus',
-      createdTs,
-      startStation,
-      endStation,
-      amount: parseFloat(moneySaved)
-    })
-
+    if (startStation !== '' && endStation !== '') {
+      this.props.saveRecord({
+        type: 'octopus',
+        createdTs,
+        startStation,
+        endStation,
+        amount: parseFloat(moneySaved)
+      })
+    }
   }
 
   closeModal = () => this.setState({ showModal: false })
