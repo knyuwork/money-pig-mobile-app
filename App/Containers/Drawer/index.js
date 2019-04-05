@@ -94,7 +94,7 @@ class Drawer extends Component<Props> {
           }}
         >
           <View>
-            <Image style={{margin: 16, width: 80, height: 80}} source={logo} />
+            <Image style={{marginLeft: 16, marginVertical: 32, width: 80, height: 80}} source={logo} />
             { this.renderAuthBar() }
           </View>
           <ScrollView style={{flex: 1}}>
