@@ -81,7 +81,7 @@ class Octopus extends Component<Props> {
 
   onSave = () => {
     const { startStation, endStation } = this.state
-    const { moneySaved, stationsMap } = this.props
+    const { moneySaved, stationsMap, navigation } = this.props
     const stationList = Object.values(stationsMap)
     const createdTs = parseInt(moment().format('x'))
     if (startStation !== '' && endStation !== '' && stationList.includes(startStation) && stationList.includes(endStation)) {
@@ -92,6 +92,7 @@ class Octopus extends Component<Props> {
         endStation,
         amount: parseFloat(moneySaved)
       })
+      navigation.navigate('dashboard')
     }
   }
 

@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase'
 
-// import appIcon from '../../Images/app-icon.png'
+import { CrashlyticsHelper } from '../../Helpers/firebase'
 import logo from '../../../assets/logo.png'
 import { startLoading, endLoading } from '../../redux/userInterface/actions'
 import BulletPointDot from '../../Components/BulletPointDot'
@@ -37,7 +37,7 @@ class AuthFormContainer extends Component<Props> {
 
   onLoginEnded = (err) => {
     if (err) {
-      console.log(err)
+      CrashlyticsHelper.logError(err)
     }
     this.props.endLoading()
   }

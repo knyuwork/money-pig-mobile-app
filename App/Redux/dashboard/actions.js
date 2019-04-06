@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions'
 const PREFIX = 'DASHBOARD'
 
 export const ACTION_TYPES = {
-  SAVE_OCTOPUS_RECORD: `${PREFIX}/SAVE_OCTOPUS_RECORD`,
+  SAVE_LOCAL_OCTOPUS_RECORD: `${PREFIX}/SAVE_LOCAL_OCTOPUS_RECORD`,
   SET_TOTAL_AMOUNT: `${PREFIX}/SET_TOTAL_AMOUNT`,
   DELETE_RECORD: `${PREFIX}/DELETE_RECORD`,
   UPDATE_LOCAL_HISTORY: `${PREFIX}/UPDATE_LOCAL_HISTORY`,
@@ -11,7 +11,7 @@ export const ACTION_TYPES = {
 }
 
 export const saveLocalOctopusRecord = createAction(
-  ACTION_TYPES.SAVE_OCTOPUS_RECORD,
+  ACTION_TYPES.SAVE_LOCAL_OCTOPUS_RECORD,
   (record) => ({ record })
 )
 
