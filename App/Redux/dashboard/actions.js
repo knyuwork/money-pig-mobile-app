@@ -22,7 +22,7 @@ export const setTotalAmount = createAction(
 
 export const deleteRecord = createAction(
   ACTION_TYPES.DELETE_RECORD,
-  (recordId) => ({ recordId })
+  (record) => ({ record })
 )
 
 export const updateLocalHistory = createAction(

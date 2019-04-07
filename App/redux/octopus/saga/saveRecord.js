@@ -5,7 +5,7 @@ import { DatabaseHelper, AuthHelper } from '../../../Helpers/firebase'
 import { roundTo2DP } from '../../../Helpers/rounding'
 import { checkIsSignedIn } from '../../auth/selectors'
 import { saveLocalOctopusRecord } from '../../dashboard/actions'
-import { getTotalAmount } from '../../dashboard/selectors'
+import { getLocalTotalAmount } from '../../dashboard/selectors'
 import { startLoading, endLoading } from '../../userInterface/actions'
 
 const { saveOctopusRecord, saveTotalAmount } = DatabaseHelper
@@ -22,7 +22,7 @@ export default function * saveRecord ({payload: {
     // Update Firebase record if user is signed in
     if (isSignedIn) {
       state = yield select()
-      const updatedTotalAmount = roundTo2DP(parseFloat(getTotalAmount(state)))
+      const updatedTotalAmount = roundTo2DP(parseFloat(getLocalTotalAmount(state)))
       const uid = AuthHelper.getCurrentUser().uid
       yield call(saveOctopusRecord, uid, record)
       yield call(saveTotalAmount, uid, updatedTotalAmount)

@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import { TouchableOpacity, ScrollView, FlatList, Text, View, Image, Dimensions } from 'react-native'
+import { TouchableOpacity, Alert, FlatList, Text, View, Image, Dimensions } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import Carousel from 'react-native-snap-carousel';
 import firebase from 'react-native-firebase'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
 import moment from 'moment'
 
 import { roundTo2DP } from '../../Helpers/rounding'
@@ -13,8 +14,11 @@ import theme from '../../theme'
 import styles from './styles'
 import { 
   getLocalHistory,
-  getTotalAmount
+  getLocalTotalAmount
 } from '../../redux/dashboard/selectors'
+import { 
+  deleteRecord
+} from '../../redux/dashboard/actions'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -26,6 +30,22 @@ request.addKeyword('foobar');
 
 type Props = {}
 class Dashboard extends Component<Props> {
+
+  onRecordDelete = (record) => {
+    Alert.alert(
+      '刪除記錄',
+      '確定要刪除？',
+      [
+        {
+          text: '取消',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: '確定', onPress: () => this.props.deleteRecord(record)},
+      ],
+      {cancelable: true}
+    )
+  }
 
   renderItem = ({ item }) => {
     if (item.type === 'overall') {
@@ -76,6 +96,9 @@ class Dashboard extends Component<Props> {
           {startStation} 去 {endStation}
         </Text>
         <Text style={[{flex: 1}, styles.historyFont]} >+$ {amount.toFixed(2)}</Text>
+        <TouchableOpacity onPress={() => this.onRecordDelete(item)}>
+          <EntypoIcon name={'circle-with-minus'}  size={18} color={theme.color.font5} />
+        </TouchableOpacity>
       </View>
     )
   }
@@ -164,7 +187,9 @@ class Dashboard extends Component<Props> {
 
 const mapStateToProps = state => ({
   history: getLocalHistory(state),
-  totalAmount: getTotalAmount(state)
+  totalAmount: getLocalTotalAmount(state)
 })
 
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps, {
+  deleteRecord
+})(Dashboard)

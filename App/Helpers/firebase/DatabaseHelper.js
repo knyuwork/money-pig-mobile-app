@@ -3,6 +3,8 @@ import { roundTo2DP } from '../rounding'
 
 // User
 export default {
+  deleteRecord: (userId, createdTs) => 
+    firebase.database().ref(`User/${userId}/history/${createdTs}`).remove(),
   getHistory: (userId) => new Promise((resolve, reject) => {
     try {
       firebase.database().ref(`User/${userId}/history`).orderByChild('createdTs').once('value', snap => {

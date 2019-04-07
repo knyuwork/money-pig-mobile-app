@@ -21,9 +21,6 @@ const dashboardReducer = handleActions(
           .set('history', state.get('history').unshift(record))
           .set('totalAmount', roundedAmount.toFixed(2))
       },
-    [ACTION_TYPES.DELETE_RECORD]: 
-      (state, { payload: { recordId } }) =>
-        state.set('history', state.get('history').filter(oneHistory => oneHistory.get('id') !== recordId)),
     [ACTION_TYPES.UPDATE_LOCAL_HISTORY]: 
       (state, { payload: { history } }) =>
         state.set('history', fromJS(history)),
