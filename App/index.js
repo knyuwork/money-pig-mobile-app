@@ -1,6 +1,8 @@
 
 import React, {Component} from 'react'
 import { Provider } from 'react-redux'
+import Orientation from 'react-native-orientation';
+
 import { PersistGate } from 'redux-persist/integration/react'
 import CodePush from "react-native-code-push"
 import RootContainer from './Containers'
@@ -14,6 +16,11 @@ const { store, persistor } = getStore()
 CrashlyticsHelper.initializeCrashlytics()
 type Props = {};
 class App extends Component<Props> {
+
+  componentDidMount() {
+    Orientation.lockToPortrait()
+  }
+
   render() {
     return (
       <Provider store={store}>

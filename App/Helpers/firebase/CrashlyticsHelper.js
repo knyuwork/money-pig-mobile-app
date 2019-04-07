@@ -1,8 +1,8 @@
 import firebase from 'react-native-firebase'
 
 export default {
-    logError: (err) => {
-      firebase.crashlytics().log(err)
+    recordError: (code, message) => {
+      firebase.crashlytics().recordError(code, message)
     },
     initializeCrashlytics: () => {
       firebase.crashlytics().enableCrashlyticsCollection()

@@ -37,12 +37,13 @@ class AuthFormContainer extends Component<Props> {
 
   onLoginEnded = (err) => {
     if (err) {
-      CrashlyticsHelper.logError(err)
+      CrashlyticsHelper.recordError(400, JSON.stringify(err))
     }
     this.props.endLoading()
   }
 
   onLoginSuccess = (user) => {
+    this.props.endLoading()
     this.props.navigation.goBack()
   }
 

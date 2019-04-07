@@ -42,8 +42,6 @@ const contents = [
   }
 ]
 
-const { logError } = CrashlyticsHelper
-
 const AdmobBanner = firebase.admob.Banner
 const AdRequest = firebase.admob.AdRequest;
 const request = new AdRequest();
@@ -283,7 +281,7 @@ class Octopus extends Component<Props> {
           unitId={octopusBannerAdId}
           request={request.build()}
           onAdFailedToLoad={(err) => {
-            logError(err.code)
+            CrashlyticsHelper.recordError(400, JSON.stringify(err))
           }}
         />
         { this.renderModal() }
