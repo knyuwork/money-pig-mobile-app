@@ -1,0 +1,45 @@
+env:
+  node: true
+  es6: true
+  browser: true
+  jest: true
+
+extends:
+  # https://github.com/yannickcr/eslint-plugin-react#configuration
+  - eslint:recommended
+  - plugin:react/recommended
+  # https://prettier.io/docs/en/eslint.html#why-not-both
+  - plugin:prettier/recommended
+  # https://www.npmjs.com/package/eslint-plugin-import
+  # It seems like this rule does not work well with webpack alias (disable for now)
+  # - plugin:import/errors
+  # - plugin:import/warnings
+
+parser: babel-eslint
+
+plugins:
+  - react
+
+settings:
+  react:
+    pargma: React
+    version: 16.8.0
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+
+rules:
+  no-console: off
+  no-unused-vars:
+    # - error
+    - warn
+    - ignoreRestSiblings: true
+      varsIgnorePattern: "^_"
+      argsIgnorePattern: "^_"
+  comma-dangle:
+    # - error
+    - warn
+    - only-multiline
+  react/prop-types: 1
+  react/display-name: warn
