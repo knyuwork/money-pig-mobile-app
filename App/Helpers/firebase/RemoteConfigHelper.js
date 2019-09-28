@@ -8,13 +8,11 @@ export const fetchRemoteConfig = () => {
       return firebase.config().activateFetched()
     })
     .catch(err => {
-      if (__DEV__) {
-        console.error('An error occurred', err)
-      }
+      console.error('An error occurred', err)
     })
 }
 
-export function getRemoteConfig (keyPrefix) {
+export function getRemoteConfig(keyPrefix) {
   return firebase
     .config()
     .getKeysByPrefix(keyPrefix)
@@ -24,9 +22,9 @@ export function getRemoteConfig (keyPrefix) {
     .catch(console.error)
 }
 
-
-export function getAllRemoteConfig (keys) {
-  return firebase.config()
-          .getValues(keys)
-          .catch(console.error)
+export function getAllRemoteConfig(keys) {
+  return firebase
+    .config()
+    .getValues(keys)
+    .catch(console.error)
 }

@@ -16,9 +16,9 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 type Props = {}
 class RootContainer extends Component<Props> {
   componentDidMount() {
-    if (__DEV__) {
-      Firebase.config().enableDeveloperMode()
-    }
+    // if (__DEV__) {
+    //   Firebase.config().enableDeveloperMode()
+    // }
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
         const { uid, displayName, email, photoURL, phoneNumber } = user
