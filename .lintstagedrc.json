@@ -1,11 +1,6 @@
 {
   "linters": {
-    "*.js": [
-      "import-sort --write",
-      "prettier-eslint --write",
-      "eslint --fix",
-      "git add"
-    ],
+    "*.js": ["import-sort --write", "prettier-eslint --write", "git add"],
     "*.json": ["prettier-eslint --write", "git add"]
   },
   "ignore": ["flow-typed/**"]

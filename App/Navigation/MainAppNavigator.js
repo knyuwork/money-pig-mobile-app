@@ -1,36 +1,52 @@
+import {
+  createBottomTabNavigator,
+  createDrawerNavigator,
+  createStackNavigator
+} from "react-navigation";
 
-import React from 'react';
-import { createStackNavigator, createDrawerNavigator, createBottomTabNavigator } from 'react-navigation'
-import theme from '../theme'
-import OctopusNavigator from './OctopusNavigator'
-import DashboardNavigator from './DashboardNavigator'
-import SettingNavigator from './SettingNavigator'
-import Drawer from '../Containers/Drawer'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import DashboardNavigator from "./DashboardNavigator";
+import Drawer from "../Containers/Drawer";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Metatrader from "../Containers/Metatrader";
+import OctopusNavigator from "./OctopusNavigator";
+import React from "react";
+import SettingNavigator from "./SettingNavigator";
+import theme from "../theme";
 
 const iconNameMap = {
-  octopus: 'credit-card',
-  dashboard: 'line-chart',
-  setting: 'gear',
-  login: 'sign-in',
-  logout: 'sign-out'
-}
+  octopus: "credit-card",
+  dashboard: "line-chart",
+  setting: "gear",
+  login: "sign-in",
+  logout: "sign-out"
+};
 
 const MainAppNavigator = createDrawerNavigator(
   {
     dashboard: {
       screen: DashboardNavigator,
       navigationOptions: () => ({
-        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['dashboard']} size={22} color={tintColor} />,
-        drawerLabel: '儀表板'
+        drawerIcon: ({ tintColor }) => (
+          <Icon name={iconNameMap["dashboard"]} size={22} color={tintColor} />
+        ),
+        drawerLabel: "儀表板"
       })
     },
     octopus: {
       screen: OctopusNavigator,
       navigationOptions: () => ({
-        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['octopus']} size={22} color={tintColor} />,
-        drawerLabel: '乘車優惠'
+        drawerIcon: ({ tintColor }) => (
+          <Icon name={iconNameMap["octopus"]} size={22} color={tintColor} />
+        ),
+        drawerLabel: "乘車優惠"
       })
+    },
+    metaTrader: {
+      screen: Metatrader
+      // navigationOptions: () => ({
+      //   drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['octopus']} size={22} color={tintColor} />,
+      //   drawerLabel: '乘車優惠'
+      // })
     },
     // setting: {
     //   screen: SettingNavigator,
@@ -42,27 +58,31 @@ const MainAppNavigator = createDrawerNavigator(
     login: {
       screen: React.Fragment,
       navigationOptions: () => ({
-        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['login']} size={22} color={tintColor} />,
-        drawerLabel: '登入'
+        drawerIcon: ({ tintColor }) => (
+          <Icon name={iconNameMap["login"]} size={22} color={tintColor} />
+        ),
+        drawerLabel: "登入"
       })
     },
     logout: {
       screen: React.Fragment,
       navigationOptions: () => ({
-        drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['logout']} size={22} color={tintColor} />,
-        drawerLabel: '登出'
+        drawerIcon: ({ tintColor }) => (
+          <Icon name={iconNameMap["logout"]} size={22} color={tintColor} />
+        ),
+        drawerLabel: "登出"
       })
     }
   },
   {
-    initialRouteName: 'dashboard',
-    headerMode: 'screen',
+    initialRouteName: "dashboard",
+    headerMode: "screen",
     contentOptions: {
-      activeTintColor: '#fff',
+      activeTintColor: "#fff"
     },
     contentComponent: props => <Drawer {...props} />
   }
-)
+);
 
 // const MainAppNavigator = createBottomTabNavigator(
 //   {
@@ -102,4 +122,4 @@ const MainAppNavigator = createDrawerNavigator(
 //   }
 // )
 
-export default MainAppNavigator
+export default MainAppNavigator;

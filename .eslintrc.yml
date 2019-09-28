@@ -31,15 +31,17 @@ parserOptions:
 
 rules:
   no-console: off
-  no-unused-vars:
-    # - error
-    - warn
-    - ignoreRestSiblings: true
-      varsIgnorePattern: "^_"
-      argsIgnorePattern: "^_"
+  # no-unused-vars:
+  #   - error
+  #   - warn
+  #   - ignoreRestSiblings: true
+  #     varsIgnorePattern: "^_"
+  #     argsIgnorePattern: "^_"
   comma-dangle:
     # - error
     - warn
     - only-multiline
+  semi:
+    - error
   react/prop-types: 1
   react/display-name: warn
