@@ -1,33 +1,27 @@
+import { ActivityIndicator, Dimensions, View } from 'react-native'
+import React, { Component } from 'react'
+import { initializeAuth, signInSuccessful } from '../redux/auth/actions'
 
-import React, { Component } from 'react';
-import { View, ActivityIndicator, Dimensions } from 'react-native';
-import Firebase from 'react-native-firebase'
 import AppNavigator from '../Navigation/AppNavigator'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { SafeAreaView, createAppContainer } from 'react-navigation';
-
-import { initializeApp } from '../redux/app/actions'
-import { signInSuccessful, initializeAuth } from '../redux/auth/actions'
+import Firebase from 'react-native-firebase'
 import NavigationService from '../Navigation'
-const AppNavigatorContainer = createAppContainer(AppNavigator);
-const { width: screenWidth, height: screenHeight} = Dimensions.get('window')
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { createAppContainer } from 'react-navigation'
+import { initializeApp } from '../redux/app/actions'
+import theme from '../theme'
+
+const AppNavigatorContainer = createAppContainer(AppNavigator)
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 type Props = {}
 class RootContainer extends Component<Props> {
-
-  componentDidMount () {
+  componentDidMount() {
     if (__DEV__) {
       Firebase.config().enableDeveloperMode()
     }
-    Firebase.auth().onAuthStateChanged((user) => {
+    Firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const {
-          uid, 
-          displayName, 
-          email,
-          photoURL, 
-          phoneNumber
-        } = user
+        const { uid, displayName, email, photoURL, phoneNumber } = user
         const userInfo = {
           uid,
           displayName,
@@ -45,9 +39,23 @@ class RootContainer extends Component<Props> {
 
   renderLoading() {
     return (
-      <View style={{width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
-        <View style={{borderRadius: 16, backgroundColor: 'rgba(200,200,200,1)', padding: 16}} >
-          <ActivityIndicator size={'large'}/>
+      <View
+        style={{
+          width: screenWidth,
+          height: screenHeight,
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+        }}
+      >
+        <View
+          style={{
+            borderRadius: 16,
+            backgroundColor: 'rgba(200,200,200,1)',
+            padding: 16,
+          }}
+        >
+          <ActivityIndicator size={'large'} />
         </View>
       </View>
     )
@@ -56,14 +64,15 @@ class RootContainer extends Component<Props> {
   render() {
     const { isLoading } = this.props
     return (
-      <View style={{flex: 1, backgroundColor: theme.color.blue5}}>
-        <AppNavigatorContainer 
+      <View style={{ flex: 1, backgroundColor: theme.color.blue5 }}>
+        <AppNavigatorContainer
           ref={navigatorRef => {
-            NavigationService.setTopLevelNavigator(navigatorRef);
-          }} />
-        { isLoading && this.renderLoading() }
+            NavigationService.setTopLevelNavigator(navigatorRef)
+          }}
+        />
+        {isLoading && this.renderLoading()}
       </View>
-    );
+    )
   }
 }
 
@@ -71,13 +80,13 @@ export default compose(
   connect(
     state => {
       return {
-        isLoading: state.userInterface.get('isLoading')
+        isLoading: state.userInterface.get('isLoading'),
       }
     },
     {
       initializeApp,
       initializeAuth,
-      signInSuccessful
+      signInSuccessful,
     }
   )
 )(RootContainer)

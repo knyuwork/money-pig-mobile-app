@@ -1,52 +1,43 @@
-import {
-  Alert,
-  Dimensions,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import React, { Component } from "react";
+import { Dimensions, Text, TouchableOpacity } from 'react-native'
+import React, { Component } from 'react'
 
-import { SafeAreaView } from "react-navigation";
-import { connect } from "react-redux";
-import firebase from "react-native-firebase";
-import oauth from "oauth";
+import { SafeAreaView } from 'react-navigation'
+import { connect } from 'react-redux'
+import firebase from 'react-native-firebase'
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+// const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const AdmobBanner = firebase.admob.Banner;
-const AdRequest = firebase.admob.AdRequest;
-const request = new AdRequest();
-request.addKeyword("foobar");
+// const AdmobBanner = firebase.admob.Banner;
+// const AdRequest = firebase.admob.AdRequest;
+// const request = new AdRequest();
+// request.addKeyword("foobar");
 
-type Props = {};
+type Props = {}
 class MissionList extends Component<Props> {
   componentDidMount() {
-    axios.post();
+    // axios.post();
   }
 
   render() {
     return (
       <SafeAreaView
         style={{
-          justifyContent: "center",
-          alignItems: "center"
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        forceInset={{ top: "never" }}
+        forceInset={{ top: 'never' }}
       >
         <TouchableOpacity>
           <Text>Login MQL5</Text>
         </TouchableOpacity>
       </SafeAreaView>
-    );
+    )
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({})
 
 export default connect(
   mapStateToProps,
   {}
-)(MissionList);
+)(MissionList)

@@ -41,7 +41,5 @@ rules:
     # - error
     - warn
     - only-multiline
-  semi:
-    - error
   react/prop-types: 1
   react/display-name: warn
