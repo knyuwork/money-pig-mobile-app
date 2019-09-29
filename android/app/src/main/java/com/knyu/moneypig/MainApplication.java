@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.rnappauth.RNAppAuthPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
@@ -71,6 +72,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.asList(
         new MainReactPackage(),
+            new RNAppAuthPackage(),
             new OrientationPackage(),
             new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
             new RNLocalizePackage(),

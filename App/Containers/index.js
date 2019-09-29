@@ -1,4 +1,4 @@
-import { ActivityIndicator, Dimensions, View } from 'react-native'
+import { ActivityIndicator, Dimensions, Linking, View } from 'react-native'
 import React, { Component } from 'react'
 import { initializeAuth, signInSuccessful } from '../redux/auth/actions'
 
@@ -15,10 +15,18 @@ const AppNavigatorContainer = createAppContainer(AppNavigator)
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 type Props = {}
 class RootContainer extends Component<Props> {
+  componentWillUnmount() {
+    // Linking.removeEventListener('url', this.handleOpenUrl)
+  }
   componentDidMount() {
     // if (__DEV__) {
     //   Firebase.config().enableDeveloperMode()
     // }
+    // Linking.addEventListener('url', this.handleOpenUrl)
+    // Linking.getInitialURL().then(url => {
+    //   if (url) this.handleDeepLink(url)
+    // })
+
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
         const { uid, displayName, email, photoURL, phoneNumber } = user
@@ -35,6 +43,25 @@ class RootContainer extends Component<Props> {
       }
     })
     this.props.initializeApp()
+  }
+  handleOpenUrl = (e): void => {
+    if (e.url) {
+      this.handleDeepLink(e.url)
+    }
+  }
+
+  handleDeepLink = (url: string): void => {
+    // store the url and handle it after persistHydrated
+    if (url && !this.props.persistHydrated) {
+      this.pendingDeepLink = url
+      return
+    }
+
+    // prevent handling same deeplink at the same time
+    if (this.handlingDeepLink === url) {
+      return
+    }
+    console.log('reached')
   }
 
   renderLoading() {
