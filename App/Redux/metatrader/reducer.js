@@ -1,17 +1,21 @@
-import { ACTION_TYPES } from "./actions";
-import { fromJS } from "immutable";
-import { handleActions } from "redux-actions";
+import actions from './actions'
+import { handleActions } from 'redux-actions'
 
-const INITIAL_STATE = fromJS({
-  appConfig: {}
-});
+const INITIAL_STATE = {}
+
+const { ACTION_TYPES } = actions
 
 const appReducer = handleActions(
   {
-    [ACTION_TYPES.SET_APP_CONFIG]: (state, { payload: { appConfig } }) =>
-      state.set("appConfig", fromJS(appConfig))
+    [ACTION_TYPES.GET_METATRADER_ACCESS_TOKEN_SUCCEEDED]: (
+      state,
+      { payload: { response } }
+    ) => ({
+      ...state,
+      ...response,
+    }),
   },
   INITIAL_STATE
-);
+)
 
-export default appReducer;
+export default appReducer
