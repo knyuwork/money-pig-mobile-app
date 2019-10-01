@@ -5,20 +5,14 @@ import { SafeAreaView } from 'react-navigation'
 import { connect } from 'react-redux'
 import { getMetatraderAccessToken } from '@src/redux/metatrader/actions'
 
-// const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
-
-// const AdmobBanner = firebase.admob.Banner;
-// const AdRequest = firebase.admob.AdRequest;
-// const request = new AdRequest();
-// request.addKeyword("foobar");
-
 type Props = {}
-class MissionList extends Component<Props> {
+class Metatrader extends Component<Props> {
   state = {
     result: 'nothing',
   }
 
   handleLogin = () => {
+    // console.log(this.props)
     this.props.getMetatraderAccessToken()
   }
 
@@ -45,9 +39,8 @@ class MissionList extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({})
-
 export default connect(
-  mapStateToProps,
+  null,
+  // { getMetatraderAccessToken }
   { getMetatraderAccessToken }
-)(MissionList)
+)(Metatrader)
