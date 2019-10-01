@@ -8,7 +8,7 @@ export const fetchRemoteConfig = () => {
       return firebase.config().activateFetched()
     })
     .catch(err => {
-      console.error('An error occurred', err)
+      console.log('An error occurred', err)
     })
 }
 
@@ -19,12 +19,12 @@ export function getRemoteConfig(keyPrefix) {
     .then(keys => {
       return firebase.config().getValues(keys)
     })
-    .catch(console.error)
+    .catch(console.log)
 }
 
 export function getAllRemoteConfig(keys) {
   return firebase
     .config()
     .getValues(keys)
-    .catch(console.error)
+    .catch(console.log)
 }

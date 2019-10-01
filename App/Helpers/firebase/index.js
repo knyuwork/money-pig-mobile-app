@@ -1,10 +1,9 @@
-
-import AuthHelper from './AuthHelper'
-import DatabaseHelper from './DatabaseHelper'
 import AdmobHelper from './AdmobHelper'
+import AuthHelper from './AuthHelper'
+import CrashlyticsHelper from './CrashlyticsHelper'
+import DatabaseHelper from './DatabaseHelper'
 import RemoteConfigHelper from './RemoteConfigHelper'
 import StorageHelper from './StorageHelper'
-import CrashlyticsHelper from './CrashlyticsHelper'
 
 export {
   AuthHelper,
@@ -12,5 +11,5 @@ export {
   AdmobHelper,
   RemoteConfigHelper,
   StorageHelper,
-  CrashlyticsHelper
+  CrashlyticsHelper,
 }

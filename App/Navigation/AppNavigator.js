@@ -1,22 +1,21 @@
-
-import React from 'react';
-import { createStackNavigator } from 'react-navigation'
-import MainAppNavigator from './MainAppNavigator'
 import AuthForm from '../Containers/AuthForm'
-
 import BackButton from '../Components/BackButton'
+import MainAppNavigator from './MainAppNavigator'
+import React from 'react'
+import { createStackNavigator } from 'react-navigation'
+import theme from '../theme'
 
 const AppNavigator = createStackNavigator(
   {
     main: {
       screen: MainAppNavigator,
       navigationOptions: {
-        header: null
-      }
+        header: null,
+      },
     },
     auth: {
       screen: AuthForm,
-      navigationOptions: ({...props}) => ({
+      navigationOptions: ({ ...props }) => ({
         headerLeft: navigationOptions => (
           <BackButton {...props} navigationOptions={navigationOptions} />
         ),
@@ -27,12 +26,12 @@ const AppNavigator = createStackNavigator(
         },
         // title: '八達通模擬',
         headerTintColor: theme.color.headerFont,
-      })
+      }),
     },
   },
   {
     initialRouteName: 'main',
-    headerMode: 'screen'
+    headerMode: 'screen',
   }
 )
 

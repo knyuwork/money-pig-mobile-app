@@ -22,8 +22,9 @@ class RootContainer extends Component<Props> {
     // if (__DEV__) {
     //   Firebase.config().enableDeveloperMode()
     // }
-    // Linking.addEventListener('url', this.handleOpenUrl)
+    Linking.addEventListener('url', this.handleOpenUrl)
     // Linking.getInitialURL().then(url => {
+    //   console.log(url)
     //   if (url) this.handleDeepLink(url)
     // })
 
@@ -44,25 +45,27 @@ class RootContainer extends Component<Props> {
     })
     this.props.initializeApp()
   }
-  handleOpenUrl = (e): void => {
-    if (e.url) {
-      this.handleDeepLink(e.url)
-    }
-  }
 
-  handleDeepLink = (url: string): void => {
-    // store the url and handle it after persistHydrated
-    if (url && !this.props.persistHydrated) {
-      this.pendingDeepLink = url
-      return
-    }
+  // handleOpenUrl = (e): void => {
+  //   if (e.url) {
+  //     console.log(e.url)
+  //     this.handleDeepLink(e.url)
+  //   }
+  // }
 
-    // prevent handling same deeplink at the same time
-    if (this.handlingDeepLink === url) {
-      return
-    }
-    console.log('reached')
-  }
+  // handleDeepLink = (url: string): void => {
+  //   // store the url and handle it after persistHydrated
+  //   if (url && !this.props.persistHydrated) {
+  //     this.pendingDeepLink = url
+  //     return
+  //   }
+
+  //   // prevent handling same deeplink at the same time
+  //   if (this.handlingDeepLink === url) {
+  //     return
+  //   }
+  //   console.log('reached')
+  // }
 
   renderLoading() {
     return (

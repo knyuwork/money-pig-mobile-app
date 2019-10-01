@@ -1,6 +1,5 @@
 import { Platform } from 'react-native'
 
-
 const getAppState = state => state.app
 
 const getAppConfig = state => {
@@ -19,9 +18,16 @@ const getHKMTRApiDomain = state => {
   return getAppConfig(state).get('hkmtrApiDomain')
 }
 
+const getMetatraderAuthConfig = state => ({
+  clientId: getAppConfig(state).get('metatraderClientId'),
+  clientSecret: getAppConfig(state).get('metatraderClientSecret'),
+  redirectUrl: getAppConfig(state).get('metatraderRedirectUrl'),
+})
+
 export {
   getAppState,
   getAppConfig,
   getAdmobAppId,
-  getHKMTRApiDomain
+  getHKMTRApiDomain,
+  getMetatraderAuthConfig,
 }

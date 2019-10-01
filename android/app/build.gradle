@@ -145,7 +145,7 @@ android {
     // because of firestore:
     multiDexEnabled true
     manifestPlaceholders = [
-      appAuthRedirectScheme: 'com.knyu.moneypig'
+      appAuthRedirectScheme: "moneypig"
     ]
   }
   splits {

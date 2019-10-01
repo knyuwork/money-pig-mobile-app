@@ -1,9 +1,8 @@
-
-import React from 'react';
-import { createStackNavigator } from 'react-navigation'
-import theme from '../theme'
 import Dashboard from '../Containers/Dashboard'
 import DrawerButton from '../Components/DrawerButton'
+import React from 'react'
+import { createStackNavigator } from 'react-navigation'
+import theme from '../theme'
 
 const DashboardNavigator = createStackNavigator(
   {
@@ -17,7 +16,9 @@ const DashboardNavigator = createStackNavigator(
         },
         // title: '八達通模擬',
         headerTintColor: theme.color.headerFont,
-        headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
+        headerLeft: navigationOptions => (
+          <DrawerButton {...props} navigationOptions={navigationOptions} />
+        ),
       }),
     },
   },

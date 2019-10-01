@@ -1,9 +1,9 @@
+import { createDrawerNavigator, createStackNavigator } from 'react-navigation'
 
-import React from 'react';
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
-import theme from '../theme'
 import DrawerButton from '../Components/DrawerButton'
+import React from 'react'
 import Setting from '../Containers/Setting'
+import theme from '../theme'
 
 const OctopusNavigator = createStackNavigator(
   {
@@ -17,7 +17,9 @@ const OctopusNavigator = createStackNavigator(
         },
         // title: '八達通模擬',
         headerTintColor: theme.color.headerFont,
-        headerLeft: (navigationOptions) => <DrawerButton {...props} navigationOptions={navigationOptions} />,
+        headerLeft: navigationOptions => (
+          <DrawerButton {...props} navigationOptions={navigationOptions} />
+        ),
       }),
     },
   },
