@@ -193,16 +193,19 @@ android {
 }
 
 dependencies {
+  implementation project(':react-native-firebase-component')
+  implementation project(':appcenter-crashes')
+  implementation project(':appcenter-analytics')
+  implementation project(':appcenter')
   implementation project(':react-native-app-auth')
   implementation project(':react-native-orientation')
   implementation project(':react-native-code-push')
   implementation project(':react-native-localize')
   implementation project(':react-native-google-signin')
   implementation project(':react-native-fbsdk')
-  implementation project(':appcenter-crashes')
-  implementation project(':appcenter-analytics')
+
   implementation project(':react-native-linear-gradient')
-  implementation project(':appcenter')
+
   implementation project(':react-native-gesture-handler')
   implementation project(':react-native-vector-icons')
 
