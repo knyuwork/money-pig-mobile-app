@@ -1,0 +1,37 @@
+import React, { Component } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+
+import RadioButton from './RadioButton'
+
+type Props = {
+  contents: Array,
+  activeIndex: Number,
+  onPress: Function,
+  style: object,
+}
+class RadioButtonGroup extends Component<Props> {
+  render() {
+    const { contents, activeIndex, onPress, style } = this.props
+    return (
+      <View style={[styles.container, style]}>
+        {contents.map((content, index) => (
+          <RadioButton
+            key={index}
+            selected={activeIndex === index}
+            onPress={() => onPress(index)}
+          >
+            {content.render}
+          </RadioButton>
+        ))}
+      </View>
+    )
+  }
+}
+
+export default RadioButtonGroup
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+  },
+})
