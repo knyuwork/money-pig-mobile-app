@@ -1,10 +1,8 @@
 import { handleActions } from 'redux-actions'
 
-import actions from './actions'
+import { ACTION_TYPES } from './actions'
 
 const INITIAL_STATE = {}
-
-const { ACTION_TYPES } = actions
 
 const appReducer = handleActions(
   {

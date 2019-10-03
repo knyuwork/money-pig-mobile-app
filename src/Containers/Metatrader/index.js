@@ -1,10 +1,17 @@
-import { getMetatraderAccessToken } from '@root/redux/metatrader/actions'
+import GradientBackground from '@src/Components/GradientBackground'
+import {
+  getMetatraderAccessToken,
+  getSignal,
+} from '@src/redux/metatrader/actions'
 import React, { Component } from 'react'
-import { Linking, Text, TouchableOpacity } from 'react-native'
+import { Dimensions, Text, TouchableOpacity, WebView } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { connect } from 'react-redux'
 
-type Props = {}
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
+type Props = {
+  getMetatraderAccessToken: () => void,
+}
 class Metatrader extends Component<Props> {
   state = {
     result: 'nothing',
@@ -15,24 +22,55 @@ class Metatrader extends Component<Props> {
     this.props.getMetatraderAccessToken()
   }
 
+  getSignal = () => {
+    // console.log(this.props)
+    this.props.getSignal('508078')
+  }
+
   render() {
     const { result } = this.state
     return (
       <SafeAreaView
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
         forceInset={{ top: 'never' }}
       >
-        <TouchableOpacity
-          style={{ padding: 8, borderRadius: 24, backgroundColor: 'yellow' }}
-          onPress={this.handleLogin}
+        <GradientBackground
+          style={{
+            marginBottom: (-1 * SCREEN_HEIGHT) / 8,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
-          <Text style={{ color: 'white' }}>Login MQL5</Text>
-        </TouchableOpacity>
-        <Text>Result: {result}</Text>
+          <TouchableOpacity
+            style={{
+              margin: 16,
+              padding: 8,
+              borderRadius: 24,
+              backgroundColor: 'yellow',
+            }}
+            onPress={this.handleLogin}
+          >
+            <Text style={{ color: 'white' }}>Login MQL5</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              margin: 16,
+              padding: 8,
+              borderRadius: 24,
+              backgroundColor: 'yellow',
+            }}
+            onPress={this.getSignal}
+          >
+            <Text style={{ color: 'white' }}>Get Signal</Text>
+          </TouchableOpacity>
+          <Text>Result: {result}</Text>
+        </GradientBackground>
+        <WebView
+          source={{ uri: 'https://www.mql5.com/en/signals/508078' }}
+          style={{ flex: 1 }}
+        />
       </SafeAreaView>
     )
   }
@@ -41,5 +79,5 @@ class Metatrader extends Component<Props> {
 export default connect(
   null,
   // { getMetatraderAccessToken }
-  { getMetatraderAccessToken }
+  { getMetatraderAccessToken, getSignal }
 )(Metatrader)

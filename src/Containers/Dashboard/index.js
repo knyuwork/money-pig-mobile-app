@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
 import { connect } from 'react-redux'
 
+import GradientBackground from '../../Components/GradientBackground'
 import { roundTo2DP } from '../../Helpers/rounding'
 import { deleteRecord } from '../../redux/dashboard/actions'
 import {
@@ -188,17 +189,14 @@ class Dashboard extends Component<Props> {
 
     return (
       <SafeAreaView style={styles.container} forceInset={{ top: 'never' }}>
-        <LinearGradient
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          colors={[theme.color.header1, theme.color.header2]}
+        <GradientBackground
           style={{
             width: SCREEN_WIDTH,
             flex: 1,
             backgroundColor: theme.color.background2,
             marginBottom: (-1 * SCREEN_HEIGHT) / 8,
           }}
-        ></LinearGradient>
+        />
         <View style={{ height: '100%' }}>
           <Carousel
             data={data}

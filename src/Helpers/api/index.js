@@ -1,3 +1,5 @@
+import { metatraderApiInstance } from './clients'
+
 const paths = {
   stationsMap: '/hkmtr/stations',
   prices: '/hkmtr/prices',
@@ -16,4 +18,11 @@ export default {
       .then(res => res.json())
       .catch(err => console.log(err))
   },
+  getMetatraderSignal: signalId =>
+    metatraderApiInstance.get(`/signals/${signalId}`, {
+      headers: {
+        authorization:
+          'Bearer MCGAQACQYNAGRUKVZJHXQMSHPBWYJYGMNRMCEZIVZCTKTNGAEGLWJFJZKYKOEDGZ',
+      },
+    }),
 }

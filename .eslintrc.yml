@@ -41,6 +41,5 @@ rules:
     # - error
     - warn
     - only-multiline
-  react/prop-types: 1
   prettier/prettier: error
   react/display-name: warn

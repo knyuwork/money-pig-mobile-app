@@ -12,6 +12,7 @@ import authReducer from './auth/reducer'
 import { authSaga } from './auth/saga'
 import dashboardReducer from './dashboard/reducer'
 import { dashboardSaga } from './dashboard/saga'
+import metatraderReducer from './metatrader/reducer'
 import { metatraderSaga } from './metatrader/saga'
 import octopusReducer from './octopus/reducer'
 import { octopusSaga } from './octopus/saga'
@@ -24,6 +25,7 @@ export const getStore = () => {
     octopus: octopusReducer,
     dashboard: dashboardReducer,
     auth: authReducer,
+    metatrader: metatraderReducer,
   })
 
   const rootSaga = combineSagas([
