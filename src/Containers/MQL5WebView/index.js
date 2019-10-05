@@ -1,4 +1,3 @@
-import { Dimensions, Text, TouchableOpacity, WebView } from 'react-native'
 import React, { Component } from 'react'
 import {
   getMetatraderAccessToken,
@@ -6,8 +5,10 @@ import {
   mql5WebViewClosed,
 } from '@src/redux/metatrader/actions'
 
+import { Dimensions } from 'react-native'
 import GradientBackground from '@src/Components/GradientBackground'
 import { SafeAreaView } from 'react-navigation'
+import { WebView } from 'react-native-webview'
 import { connect } from 'react-redux'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
