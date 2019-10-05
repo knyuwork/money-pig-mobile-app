@@ -1,16 +1,21 @@
-import GradientBackground from '@src/Components/GradientBackground'
+import { Dimensions, Text, TouchableOpacity, WebView } from 'react-native'
+import React, { Component } from 'react'
 import {
   getMetatraderAccessToken,
   getSignal,
 } from '@src/redux/metatrader/actions'
-import React, { Component } from 'react'
-import { Dimensions, Text, TouchableOpacity, WebView } from 'react-native'
+
+import GradientBackground from '@src/Components/GradientBackground'
 import { SafeAreaView } from 'react-navigation'
 import { connect } from 'react-redux'
+import { openLoginWebViewSelector } from '@src/redux/metatrader/selectors'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 type Props = {
   getMetatraderAccessToken: () => void,
+  getSignal: () => void,
+  openLoginWebView: boolean,
+  navigation: Object,
 }
 class Metatrader extends Component<Props> {
   state = {
@@ -18,8 +23,15 @@ class Metatrader extends Component<Props> {
   }
 
   handleLogin = () => {
-    // console.log(this.props)
+    // NOT IN USE
     this.props.getMetatraderAccessToken()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { openLoginWebView } = this.props
+    if (!prevProps.openLoginWebView && openLoginWebView) {
+      this.props.navigation.push('mql5WebView')
+    }
   }
 
   getSignal = () => {
@@ -50,34 +62,21 @@ class Metatrader extends Component<Props> {
               borderRadius: 24,
               backgroundColor: 'yellow',
             }}
-            onPress={this.handleLogin}
-          >
-            <Text style={{ color: 'white' }}>Login MQL5</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              margin: 16,
-              padding: 8,
-              borderRadius: 24,
-              backgroundColor: 'yellow',
-            }}
             onPress={this.getSignal}
           >
             <Text style={{ color: 'white' }}>Get Signal</Text>
           </TouchableOpacity>
           <Text>Result: {result}</Text>
         </GradientBackground>
-        <WebView
-          source={{ uri: 'https://www.mql5.com/en/signals/508078' }}
-          style={{ flex: 1 }}
-        />
       </SafeAreaView>
     )
   }
 }
 
 export default connect(
-  null,
+  state => ({
+    openLoginWebView: openLoginWebViewSelector(state),
+  }),
   // { getMetatraderAccessToken }
   { getMetatraderAccessToken, getSignal }
 )(Metatrader)

@@ -7,6 +7,8 @@ export const ACTION_TYPES = {
   GET_METATRADER_ACCESS_TOKEN_SUCCEEDED: `${PREFIX}/GET_METATRADER_ACCESS_TOKEN_SUCCEEDED`,
   GET_METATRADER_ACCESS_TOKEN_FAILED: `${PREFIX}/GET_METATRADER_ACCESS_TOKEN_FAILED`,
   GET_SIGNAL: `${PREFIX}/GET_SIGNAL`,
+  GET_SIGNAL_NEED_LOGIN: `${PREFIX}/GET_SIGNAL_NEED_LOGIN`,
+  MQL5_WEBVIEW_CLOSED: `${PREFIX}/MQL5_WEBVIEW_CLOSED`,
 }
 
 export const getMetatraderAccessToken = createAction(
@@ -26,3 +28,9 @@ export const getMetatraderAccessTokenFailed = createAction(
 export const getSignal = createAction(ACTION_TYPES.GET_SIGNAL, signalId => ({
   signalId,
 }))
+
+export const getSignalNeedLogin = createAction(
+  ACTION_TYPES.GET_SIGNAL_NEED_LOGIN
+)
+
+export const mql5WebViewClosed = createAction(ACTION_TYPES.MQL5_WEBVIEW_CLOSED)

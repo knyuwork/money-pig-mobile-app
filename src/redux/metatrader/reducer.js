@@ -1,8 +1,9 @@
+import { ACTION_TYPES } from './actions'
 import { handleActions } from 'redux-actions'
 
-import { ACTION_TYPES } from './actions'
-
-const INITIAL_STATE = {}
+const INITIAL_STATE = {
+  openLoginWebView: false,
+}
 
 const appReducer = handleActions(
   {
@@ -12,6 +13,14 @@ const appReducer = handleActions(
     ) => ({
       ...state,
       ...response,
+    }),
+    [ACTION_TYPES.GET_SIGNAL_NEED_LOGIN]: state => ({
+      ...state,
+      openLoginWebView: true,
+    }),
+    [ACTION_TYPES.MQL5_WEBVIEW_CLOSED]: state => ({
+      ...state,
+      openLoginWebView: false,
     }),
   },
   INITIAL_STATE

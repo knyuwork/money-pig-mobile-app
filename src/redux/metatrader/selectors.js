@@ -2,4 +2,6 @@ import { Platform } from 'react-native'
 
 const getMetatraderState = state => state.metatrader
 
-export { getMetatraderState }
+const openLoginWebViewSelector = state => state.metatrader.openLoginWebView
+
+export { getMetatraderState, openLoginWebViewSelector }

@@ -3,6 +3,7 @@ package com.knyu.moneypig;
 import android.annotation.SuppressLint;
 import android.app.Application;
 
+
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
 import com.reactlibrary.RNReactNativeFirebaseComponentPackage;
@@ -18,7 +19,6 @@ import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyti
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import io.invertase.firebase.RNFirebasePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -26,6 +26,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
 // optional packages - add/remove as appropriate
+import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
@@ -35,7 +36,6 @@ import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.functions.RNFirebaseFunctionsPackage;
 import io.invertase.firebase.instanceid.RNFirebaseInstanceIdPackage;
-import io.invertase.firebase.invites.RNFirebaseInvitesPackage;
 import io.invertase.firebase.links.RNFirebaseLinksPackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
@@ -70,7 +70,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.asList(
         new MainReactPackage(),
-        new RNReactNativeFirebaseComponentPackage(),
         new RNAppAuthPackage(),
         new OrientationPackage(),
         new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
@@ -94,7 +93,6 @@ public class MainApplication extends Application implements ReactApplication {
         new RNFirebaseFirestorePackage(),
         new RNFirebaseFunctionsPackage(),
         new RNFirebaseInstanceIdPackage(),
-        new RNFirebaseInvitesPackage(),
         new RNFirebaseLinksPackage(),
         new RNFirebaseMessagingPackage(),
         new RNFirebaseNotificationsPackage(),

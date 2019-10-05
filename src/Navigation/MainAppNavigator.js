@@ -1,17 +1,17 @@
-import React from 'react'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   createBottomTabNavigator,
   createDrawerNavigator,
   createStackNavigator,
 } from 'react-navigation'
 
-import Drawer from '../Containers/Drawer'
-import Metatrader from '../Containers/Metatrader'
-import theme from '../theme'
 import DashboardNavigator from './DashboardNavigator'
+import Drawer from '../Containers/Drawer'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import MetatraderNavigator from './MetatraderNavigator'
 import OctopusNavigator from './OctopusNavigator'
+import React from 'react'
 import SettingNavigator from './SettingNavigator'
+import theme from '../theme'
 
 const iconNameMap = {
   octopus: 'credit-card',
@@ -41,12 +41,14 @@ const MainAppNavigator = createDrawerNavigator(
         drawerLabel: '乘車優惠',
       }),
     },
-    metaTrader: {
-      screen: Metatrader,
-      // navigationOptions: () => ({
-      //   drawerIcon: ({ tintColor }) => <Icon name={iconNameMap['octopus']} size={22} color={tintColor} />,
-      //   drawerLabel: '乘車優惠'
-      // })
+    metaTraderNavigator: {
+      screen: MetatraderNavigator,
+      navigationOptions: () => ({
+        drawerIcon: ({ tintColor }) => (
+          <Icon name={iconNameMap['octopus']} size={22} color={tintColor} />
+        ),
+        drawerLabel: 'MQL5 Community',
+      }),
     },
     // setting: {
     //   screen: SettingNavigator,

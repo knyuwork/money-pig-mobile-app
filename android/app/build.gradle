@@ -224,7 +224,7 @@ dependencies {
 
   //noinspection GradleCompatible
   implementation 'com.google.firebase:firebase-core:16.0.6'
-  implementation 'com.google.android.gms:play-services-base:16.0.1'
+  implementation 'com.google.android.gms:play-services-base:16.0.5'
   implementation 'com.android.support:multidex:1.0.3'
   implementation 'com.android.support:design:27.1.0'
 
@@ -251,9 +251,6 @@ dependencies {
 
   // Cloud Storage
   implementation 'com.google.firebase:firebase-storage:16.0.5'
-
-  // Invites
-  implementation 'com.google.firebase:firebase-invites:16.0.6'
 
   // Dynamic Links
   implementation 'com.google.firebase:firebase-dynamic-links:16.1.5'
@@ -297,3 +294,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
