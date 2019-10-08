@@ -1,5 +1,3 @@
-import moment from 'moment'
-import React, { Component } from 'react'
 import {
   Dimensions,
   Image,
@@ -11,26 +9,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import ActionButton from 'react-native-action-button'
-import Autocomplete from 'react-native-autocomplete-input'
-import firebase from 'react-native-firebase'
-import LinearGradient from 'react-native-linear-gradient'
-import Modal from 'react-native-modal'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
-import { connect } from 'react-redux'
-
-import RadioButtonGroup from '../../Components/RadioButtonGroup'
-import { CrashlyticsHelper } from '../../Helpers/firebase'
-import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
-import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
-import STUDENT_OCTOPUS_CARD from '../../Images/octopus-student.jpg'
+import React, { Component } from 'react'
 import {
   calculateMoneySaved,
   fetchPrice,
   setMoneySaved,
   setOctopusSelectedIndex,
 } from '../../redux/octopus/actions'
-import { saveRecord } from '../../redux/octopus/actions'
 import {
   getHKMTRStationsMap,
   getMoneySaved,
@@ -39,8 +25,22 @@ import {
   getPrice,
   getStationsMapFetchingStatus,
 } from '../../redux/octopus/selectors'
-import theme from '../../theme'
 import styles, { shadowBox } from './styles'
+
+import ActionButton from 'react-native-action-button'
+import Autocomplete from 'react-native-autocomplete-input'
+import CHILD_OCTOPUS_CARD from '../../Images/octopus-child.jpg'
+import { CrashlyticsHelper } from '../../Helpers/firebase'
+import ELDER_OCTOPUS_CARD from '../../Images/octopus-elder.jpg'
+import LinearGradient from 'react-native-linear-gradient'
+import Modal from 'react-native-modal'
+import RadioButtonGroup from '../../Components/RadioButtonGroup'
+import STUDENT_OCTOPUS_CARD from '../../Images/octopus-student.jpg'
+import { connect } from 'react-redux'
+import firebase from 'react-native-firebase'
+import moment from 'moment'
+import { saveRecord } from '../../redux/octopus/actions'
+import theme from '../../theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -349,10 +349,6 @@ class Octopus extends Component<Props> {
           style={keyboardAvoidingViewStyle}
         >
           {this.renderContent()}
-          <ActionButton
-            buttonColor={theme.color.button1}
-            onPress={this.onSave}
-          />
         </KeyboardAvoidingView>
         <AdmobBanner
           unitId={octopusBannerAdId}
@@ -361,6 +357,12 @@ class Octopus extends Component<Props> {
             CrashlyticsHelper.recordError(400, JSON.stringify(err))
           }}
         />
+        <TouchableOpacity
+          style={{ backgroundColor: theme.color.button1 }}
+          onPress={this.onSave}
+        >
+          <Text style={{ color: theme.color.button1 }}>新增</Text>
+        </TouchableOpacity>
         {this.renderModal()}
       </SafeAreaView>
     )

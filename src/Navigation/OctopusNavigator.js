@@ -40,9 +40,9 @@ const OctopusNavigator = createStackNavigator(
         },
         title: '乘車優惠',
         headerTintColor: theme.color.headerFont,
-        headerLeft: navigationOptions => (
-          <DrawerButton {...props} navigationOptions={navigationOptions} />
-        ),
+        // headerLeft: navigationOptions => (
+        //   <DrawerButton {...props} navigationOptions={navigationOptions} />
+        // ),
       }),
     },
   },

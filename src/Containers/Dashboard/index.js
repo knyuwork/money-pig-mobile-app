@@ -7,6 +7,7 @@ import {
 
 import ActionButton from 'react-native-action-button'
 import Carousel from 'react-native-snap-carousel'
+import { CrashlyticsHelper } from '../../Helpers/firebase'
 import GradientBackground from '../../Components/GradientBackground'
 import HistoryTable from '@src/Components/HistoryTable'
 import { SafeAreaView } from 'react-navigation'
@@ -29,6 +30,7 @@ type Props = {
   deleteRecord: (record: Object) => void,
   totalAmount: number,
   history: Array<Object>,
+  navigation: Object,
 }
 class Dashboard extends Component<Props> {
   onRecordDelete = record => {
@@ -45,6 +47,10 @@ class Dashboard extends Component<Props> {
       ],
       { cancelable: true }
     )
+  }
+
+  handleAddNewRecord = () => {
+    this.props.navigation.push('octopus')
   }
 
   renderItem = ({ item }) => {
@@ -151,7 +157,17 @@ class Dashboard extends Component<Props> {
             onRecordDelete={this.props.deleteRecord}
           />
         </View>
-        <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
+        <AdmobBanner
+          unitId={octopusBannerAdId}
+          request={request.build()}
+          onAdFailedToLoad={err => {
+            CrashlyticsHelper.recordError(400, JSON.stringify(err))
+          }}
+        />
+        <ActionButton
+          buttonColor={theme.color.button1}
+          onPress={this.handleAddNewRecord}
+        />
       </SafeAreaView>
     )
   }

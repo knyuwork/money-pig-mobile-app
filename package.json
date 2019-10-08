@@ -59,6 +59,7 @@
     "patch-package": "^6.0.2",
     "postinstall-postinstall": "^2.0.0",
     "querystring": "^0.2.0",
+    "ramda": "^0.26.1",
     "react": "16.6.3",
     "react-native": "0.59.4",
     "react-native-action-button": "^2.8.5",
