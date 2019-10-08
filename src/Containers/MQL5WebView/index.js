@@ -15,6 +15,7 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 type Props = {
   getMetatraderAccessToken: () => void,
   mql5WebViewClosed: () => void,
+  navigation: Object,
 }
 class MQL5WebView extends Component<Props> {
   state = {
@@ -26,14 +27,17 @@ class MQL5WebView extends Component<Props> {
   }
 
   handleMessage = e => {
-    console.log('reacted')
-    console.log(e.nativeEvent.data)
+    const { url } = e.nativeEvent
+    const { navigation } = this.props
+    if (url === 'https://www.mql5.com/en') {
+      navigation.goBack()
+    }
   }
 
   render() {
     const { result } = this.state
     const jsCode = `
-      window.ReactNativeWebView.postMessage(document.getElementsByClassName("loginRegister"))
+      window.ReactNativeWebView.postMessage()
     `
     return (
       <SafeAreaView

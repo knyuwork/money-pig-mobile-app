@@ -23,16 +23,16 @@ const iconNameMap = {
 
 const MainAppNavigator = createDrawerNavigator(
   {
-    dashboard: {
-      screen: DashboardNavigator,
-      navigationOptions: () => ({
-        drawerIcon: ({ tintColor }) => (
-          <Icon name={iconNameMap['dashboard']} size={22} color={tintColor} />
-        ),
-        drawerLabel: '儀表板',
-      }),
-    },
-    octopus: {
+    // dashboard: {
+    //   screen: DashboardNavigator,
+    //   navigationOptions: () => ({
+    //     drawerIcon: ({ tintColor }) => (
+    //       <Icon name={iconNameMap['dashboard']} size={22} color={tintColor} />
+    //     ),
+    //     drawerLabel: '儀表板',
+    //   }),
+    // },
+    octopusNavigator: {
       screen: OctopusNavigator,
       navigationOptions: () => ({
         drawerIcon: ({ tintColor }) => (
@@ -77,8 +77,8 @@ const MainAppNavigator = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'dashboard',
-    headerMode: 'screen',
+    initialRouteName: 'octopusNavigator',
+    headerMode: 'none',
     contentOptions: {
       activeTintColor: '#fff',
     },

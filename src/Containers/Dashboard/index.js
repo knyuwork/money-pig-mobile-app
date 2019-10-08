@@ -1,31 +1,22 @@
-import moment from 'moment'
+import { Alert, Dimensions, Text, View } from 'react-native'
 import React, { Component } from 'react'
-import {
-  Alert,
-  Dimensions,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
-import firebase from 'react-native-firebase'
-import LinearGradient from 'react-native-linear-gradient'
-import Carousel from 'react-native-snap-carousel'
-import EntypoIcon from 'react-native-vector-icons/Entypo'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import { DrawerItems, SafeAreaView } from 'react-navigation'
-import { connect } from 'react-redux'
-
-import GradientBackground from '../../Components/GradientBackground'
-import { roundTo2DP } from '../../Helpers/rounding'
-import { deleteRecord } from '../../redux/dashboard/actions'
 import {
   getLocalHistory,
   getLocalTotalAmount,
 } from '../../redux/dashboard/selectors'
-import theme from '../../theme'
+
+import ActionButton from 'react-native-action-button'
+import Carousel from 'react-native-snap-carousel'
+import GradientBackground from '../../Components/GradientBackground'
+import HistoryTable from '@src/Components/HistoryTable'
+import { SafeAreaView } from 'react-navigation'
+import { connect } from 'react-redux'
+import { deleteRecord } from '../../redux/dashboard/actions'
+import firebase from 'react-native-firebase'
+import moment from 'moment'
+import { roundTo2DP } from '../../Helpers/rounding'
 import styles from './styles'
+import theme from '../../theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -34,7 +25,11 @@ const AdRequest = firebase.admob.AdRequest
 const request = new AdRequest()
 request.addKeyword('foobar')
 
-type Props = {}
+type Props = {
+  deleteRecord: (record: Object) => void,
+  totalAmount: number,
+  history: Array<Object>,
+}
 class Dashboard extends Component<Props> {
   onRecordDelete = record => {
     Alert.alert(
@@ -86,62 +81,8 @@ class Dashboard extends Component<Props> {
         </View>
       )
     } else {
-      return <View style={styles.carouselItemContainer}></View>
+      return <View style={styles.carouselItemContainer} />
     }
-  }
-
-  renderHistoryRow = ({ item }) => {
-    const { type, createdTs, startStation, endStation, amount } = item
-    const typeToIconMap = {
-      octopus: 'credit-card',
-    }
-
-    return (
-      <View style={styles.historyRow}>
-        <Icon size={16} style={styles.historyFont} name={typeToIconMap[type]} />
-        <Text style={styles.historyFont}>
-          {moment(createdTs).format('MM/DD')}
-        </Text>
-        <Text style={[{ flex: 2 }, styles.historyFont]}>
-          {startStation} 去 {endStation}
-        </Text>
-        <Text style={[{ flex: 1 }, styles.historyFont]}>
-          +$ {amount.toFixed(2)}
-        </Text>
-        <TouchableOpacity onPress={() => this.onRecordDelete(item)}>
-          <EntypoIcon
-            name={'circle-with-minus'}
-            size={18}
-            color={theme.color.font5}
-          />
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  renderHistory = () => {
-    const { history } = this.props
-    const keyExtractor = (item, index) => index.toString()
-    return (
-      <View style={styles.historyContainer}>
-        <Text style={styles.historyTitleFont}>歷史記錄</Text>
-        <FlatList
-          style={{ paddingHorizontal: 16, marginTop: 16 }}
-          data={history}
-          keyExtractor={keyExtractor}
-          renderItem={this.renderHistoryRow}
-          ListEmptyComponent={() => (
-            <View
-              style={{ width: '100%', alignItems: 'center', marginTop: 16 }}
-            >
-              <Text style={{ color: '#fff', fontSize: 16 }}>
-                無慳錢記錄，要努力啊!!
-              </Text>
-            </View>
-          )}
-        />
-      </View>
-    )
   }
 
   render() {
@@ -205,8 +146,12 @@ class Dashboard extends Component<Props> {
             sliderWidth={SCREEN_WIDTH}
             itemWidth={SCREEN_WIDTH / 1.2}
           />
-          {this.renderHistory()}
+          <HistoryTable
+            history={history}
+            onRecordDelete={this.props.deleteRecord}
+          />
         </View>
+        <ActionButton buttonColor={theme.color.button1} onPress={this.onSave} />
       </SafeAreaView>
     )
   }
