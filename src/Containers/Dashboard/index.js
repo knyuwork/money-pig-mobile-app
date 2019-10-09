@@ -157,13 +157,13 @@ class Dashboard extends Component<Props> {
             onRecordDelete={this.props.deleteRecord}
           />
         </View>
-        <AdmobBanner
+        {/* <AdmobBanner
           unitId={octopusBannerAdId}
           request={request.build()}
           onAdFailedToLoad={err => {
             CrashlyticsHelper.recordError(400, JSON.stringify(err))
           }}
-        />
+        /> */}
         <ActionButton
           buttonColor={theme.color.button1}
           onPress={this.handleAddNewRecord}

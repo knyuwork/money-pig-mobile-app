@@ -79,7 +79,18 @@ const AdRequest = firebase.admob.AdRequest
 const request = new AdRequest()
 request.addKeyword('foobar')
 
-type Props = {}
+type Props = {
+  octopusSelectedIndex: number,
+  fetchPrice: (startStation: string, endStation: string) => void,
+  calculateMoneySaved: () => void,
+  setOctopusSelectedIndex: (index: number) => void,
+  setMoneySaved: (moneySaved: number) => void,
+  moneySaved: number,
+  stationsMap: Object,
+  navigation: Object,
+  saveRecord: (record: Object) => void,
+  price: { adult: number, elderly: number, children: number, student: number },
+}
 class Octopus extends Component<Props> {
   state = {
     showModal: false,
@@ -130,7 +141,8 @@ class Octopus extends Component<Props> {
         endStation,
         amount: parseFloat(moneySaved),
       })
-      navigation.navigate('dashboard')
+      // navigation.navigate('dashboard')
+      navigation.goBack()
     }
   }
 
@@ -349,6 +361,21 @@ class Octopus extends Component<Props> {
           style={keyboardAvoidingViewStyle}
         >
           {this.renderContent()}
+          <View
+            style={{
+              width: SCREEN_WIDTH / 3,
+              position: 'absolute',
+              bottom: 16,
+              left: SCREEN_WIDTH / 2 - SCREEN_WIDTH / 6,
+            }}
+          >
+            <TouchableOpacity
+              style={styles.addTransactionButton}
+              onPress={this.onSave}
+            >
+              <Text style={styles.addTransactionButtonFont}>新增</Text>
+            </TouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
         <AdmobBanner
           unitId={octopusBannerAdId}
@@ -357,12 +384,6 @@ class Octopus extends Component<Props> {
             CrashlyticsHelper.recordError(400, JSON.stringify(err))
           }}
         />
-        <TouchableOpacity
-          style={{ backgroundColor: theme.color.button1 }}
-          onPress={this.onSave}
-        >
-          <Text style={{ color: theme.color.button1 }}>新增</Text>
-        </TouchableOpacity>
         {this.renderModal()}
       </SafeAreaView>
     )

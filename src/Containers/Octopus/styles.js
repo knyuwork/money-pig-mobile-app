@@ -12,7 +12,6 @@ export const shadowBox = {
   },
   shadowOpacity: 0.4,
   elevation: 2,
-  // shadowRadius: 3.84,
 }
 
 export default StyleSheet.create({
@@ -90,6 +89,8 @@ export default StyleSheet.create({
   },
   suggestionItem: {
     zIndex: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
   suggestionText: {
     fontSize: 14,
@@ -125,7 +126,17 @@ export default StyleSheet.create({
     borderRadius: 16,
     backgroundColor: theme.color.blue5,
   },
-  suggestionItem: {
-    padding: 8,
+  addTransactionButton: {
+    backgroundColor: theme.color.button1,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginBottom: 16,
+  },
+  addTransactionButtonFont: {
+    color: 'white',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    fontSize: 18,
   },
 })
