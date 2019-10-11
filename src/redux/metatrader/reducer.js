@@ -1,8 +1,16 @@
-import { ACTION_TYPES } from './actions'
+import * as R from 'ramda'
 import { handleActions } from 'redux-actions'
+
+import { ACTION_TYPES } from './actions'
 
 const INITIAL_STATE = {
   openLoginWebView: false,
+  subscribedSignalList: [],
+}
+
+const newSignal = {
+  type: 'signal',
+  id: null,
 }
 
 const appReducer = handleActions(
@@ -21,6 +29,10 @@ const appReducer = handleActions(
     [ACTION_TYPES.MQL5_WEBVIEW_CLOSED]: state => ({
       ...state,
       openLoginWebView: false,
+    }),
+    [ACTION_TYPES.ADD_NEW_SIGNAL]: state => ({
+      ...state,
+      subscribedSignalList: R.append(newSignal)(state.subscribedSignalList),
     }),
   },
   INITIAL_STATE
