@@ -1,7 +1,7 @@
 import * as R from 'ramda'
-import { handleActions } from 'redux-actions'
 
 import { ACTION_TYPES } from './actions'
+import { handleActions } from 'redux-actions'
 
 const INITIAL_STATE = {
   openLoginWebView: false,
@@ -22,7 +22,7 @@ const appReducer = handleActions(
       ...state,
       ...response,
     }),
-    [ACTION_TYPES.GET_SIGNAL_NEED_LOGIN]: state => ({
+    [ACTION_TYPES.GET_SIGNAL_BY_ID_NEED_LOGIN]: state => ({
       ...state,
       openLoginWebView: true,
     }),

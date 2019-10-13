@@ -25,4 +25,12 @@ export default {
           'Bearer MCGAQACQYNAGRUKVZJHXQMSHPBWYJYGMNRMCEZIVZCTKTNGAEGLWJFJZKYKOEDGZ',
       },
     }),
+  getSignalTradingCSV: signalId =>
+    metatraderApiInstance.get(`/signals/${signalId}/export/trading`, {
+      // responseType: 'blob',
+      headers: {
+        authorization:
+          'Bearer MCGAQACQYNAGRUKVZJHXQMSHPBWYJYGMNRMCEZIVZCTKTNGAEGLWJFJZKYKOEDGZ',
+      },
+    }),
 }

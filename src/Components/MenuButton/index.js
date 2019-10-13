@@ -6,41 +6,38 @@
  * @flow
  */
 
-import React, { Component } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import ModalDropdown from 'react-native-modal-dropdown'
-import Icon from 'react-native-vector-icons/Entypo'
-import { connect } from 'react-redux'
-
-import { getProductListById } from '../../Helpers/firebase/DatabaseHelper'
+import React, { Component } from 'react'
 import {
   getNavigationProps,
   navigateToProductDetail,
 } from '../../Helpers/NavigationHelper'
+
+import Icon from 'react-native-vector-icons/Entypo'
+import ModalDropdown from 'react-native-modal-dropdown'
 import UIActions from '../../redux/userInterface/actions'
+import { connect } from 'react-redux'
+import { getProductListById } from '@src/firebase/DatabaseHelper'
 
 const { openChatroomPartnerModal } = UIActions
 
 type Props = {
   options: Object,
+  navigation: Object,
   navigationOptions: Object,
 }
 class MenuButton extends Component<Props> {
   onSelect = (index, value) => {
     const { navigation, openChatroomPartnerModal } = this.props
+    const { singleId: productId } = getNavigationProps(navigation, 'metadata')
     switch (value) {
       case 'View Product':
-        console.log('Product Detail')
-        const { singleId: productId } = getNavigationProps(
-          navigation,
-          'metadata'
-        ) //singleId is the same as productId
+        console.log('Product Detail') //singleId is the same as productId
         getProductListById(productId, productDetail => {
           navigateToProductDetail(productDetail, () => {})
         })
         break
       case 'Partners':
-        console.log('Partners')
         openChatroomPartnerModal()
         break
 

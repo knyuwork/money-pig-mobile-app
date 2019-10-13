@@ -1,6 +1,6 @@
 import firebase from 'react-native-firebase'
-
-import { roundTo2DP } from '../rounding'
+import metatrader from './metatrader'
+import { roundTo2DP } from '../../rounding'
 
 // User
 export default {
@@ -105,9 +105,9 @@ export default {
         resolve({ message: 'SUCCESS' })
       })
     }),
-
   setUserInfo: (userId, userInfo) => {
     const userInfoRef = firebase.database().ref(`User/${userId}/userInfo`)
     userInfoRef.set(userInfo)
   },
+  ...metatrader,
 }

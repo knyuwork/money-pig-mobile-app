@@ -1,82 +1,64 @@
-import GradientBackground from '@src/Components/GradientBackground'
-import InputBox from '@src/Components/InputBox'
+import {
+  Dimensions,
+  FlatList,
+  KeyboardAvoidingView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import React, { Component } from 'react'
 import {
   addNewSignal,
   getMetatraderAccessToken,
-  getSignal,
+  getSignalById,
 } from '@src/redux/metatrader/actions'
 import {
   openLoginWebViewSelector,
   subscribedSignalListSelector,
 } from '@src/redux/metatrader/selectors'
-import theme from '@src/theme'
-import React, { Component } from 'react'
-import {
-  Dimensions,
-  FlatList,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
-import Carousel from 'react-native-snap-carousel'
-import FeatherIcon from 'react-native-vector-icons/Feather'
-import { SafeAreaView } from 'react-navigation'
-import { connect } from 'react-redux'
 
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import GradientBackground from '@src/Components/GradientBackground'
+import InputBox from '@src/Components/InputBox'
+import { SafeAreaView } from 'react-navigation'
+import SignalIdInputView from './SignalIdInputView'
+import { connect } from 'react-redux'
 import styles from './styles'
+import theme from '@src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 type Props = {
   getMetatraderAccessToken: () => void,
-  getSignal: () => void,
+  getSignalById: () => void,
   addNewSignal: () => void,
   subscribedSignalList: Array<{ signalId: string, type: 'new' | 'signal' }>,
   openLoginWebView: boolean,
   navigation: Object,
 }
 
-const SignalIdInputView = () => {
-  return (
-    <View
-      style={[
-        styles.carouselItemContainer,
-        {
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-      ]}
-    >
-      <InputBox
-        style={{ width: SCREEN_WIDTH / 2 }}
-        placeholder={'請輸入 Signal Id'}
-      />
-      <TouchableOpacity
-        style={{
-          backgroundColor: theme.color.font2,
-          paddingVertical: 4,
-          paddingHorizontal: 8,
-          borderRadius: 8,
-        }}
-      >
-        <Text
-          style={{
-            color: 'white',
-          }}
-        >
-          提交
-        </Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
-
 class Metatrader extends Component<Props> {
   state = {
     result: 'nothing',
   }
+
+  handleLogin = () => {
+    // NOT IN USE
+    this.props.getMetatraderAccessToken()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { openLoginWebView } = this.props
+    if (!prevProps.openLoginWebView && openLoginWebView) {
+      this.props.navigation.push('mql5WebView')
+    }
+  }
+
+  getSignalById = (signalId = '508078') => {
+    // console.log(this.props)
+    this.props.getSignalById(signalId)
+  }
+
   renderItem = ({ item }) => {
     if (item.type === 'new') {
       const { totalAmount, today, yesterday, lastWeek, lastMonth } = item
@@ -115,27 +97,10 @@ class Metatrader extends Component<Props> {
             paddingBottom: 8,
           }}
         >
-          <SignalIdInputView />
+          <SignalIdInputView onSubmit={this.getSignalById} />
         </View>
       )
     }
-  }
-
-  handleLogin = () => {
-    // NOT IN USE
-    this.props.getMetatraderAccessToken()
-  }
-
-  componentDidUpdate(prevProps) {
-    const { openLoginWebView } = this.props
-    if (!prevProps.openLoginWebView && openLoginWebView) {
-      this.props.navigation.push('mql5WebView')
-    }
-  }
-
-  getSignal = () => {
-    // console.log(this.props)
-    this.props.getSignal('508078')
   }
 
   render() {
@@ -161,31 +126,14 @@ class Metatrader extends Component<Props> {
             }
           }
         >
-          <FlatList
-            style={{ flex: 1 }}
-            data={carouselData}
-            renderItem={this.renderItem}
-            keyExtractor={item => item.id}
-          />
-          {/* <Carousel
-            data={carouselData}
-            removeClippedSubviews={false}
-            renderItem={this.renderItem}
-            sliderWidth={SCREEN_WIDTH}
-            itemWidth={SCREEN_WIDTH / 1.2}
-          /> */}
-          {/* <TouchableOpacity
-            style={{
-              margin: 16,
-              padding: 8,
-              borderRadius: 24,
-              backgroundColor: 'yellow',
-            }}
-            onPress={this.getSignal}
-          >
-            <Text style={{ color: 'white' }}>Get Signal</Text>
-          </TouchableOpacity>
-          <Text>Result: {result}</Text> */}
+          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+            <FlatList
+              style={{ flex: 1 }}
+              data={carouselData}
+              renderItem={this.renderItem}
+              keyExtractor={item => item.id}
+            />
+          </KeyboardAvoidingView>
         </GradientBackground>
       </SafeAreaView>
     )
@@ -197,5 +145,5 @@ export default connect(
     openLoginWebView: openLoginWebViewSelector(state),
     subscribedSignalList: subscribedSignalListSelector(state),
   }),
-  { getMetatraderAccessToken, getSignal, addNewSignal }
+  { getMetatraderAccessToken, getSignalById, addNewSignal }
 )(Metatrader)

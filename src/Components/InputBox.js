@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import { TextInput } from 'react-native'
 
 const shadowBox = {
@@ -16,7 +17,15 @@ type Props = {}
 const InputBox = ({ style, ...props }: Props) => {
   return (
     <TextInput
-      style={[{ paddingHorizontal: 4, borderRadius: 1, ...shadowBox }, style]}
+      style={[
+        {
+          paddingHorizontal: 4,
+          borderRadius: 8,
+          height: 44,
+          borderWidth: 0.1,
+        },
+        style,
+      ]}
       {...props}
     />
   )
