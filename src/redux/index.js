@@ -1,21 +1,21 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux'
-import { createLogger } from 'redux-logger'
 import { persistReducer, persistStore } from 'redux-persist'
-import immutableTransform from 'redux-persist-transform-immutable'
-import storage from 'redux-persist/lib/storage'
-import createSagaMiddleware from 'redux-saga'
 
-import { combineSagas } from '../Helpers/combineSaga'
 import appReducer from './app/reducer'
 import { appSaga } from './app/saga'
 import authReducer from './auth/reducer'
 import { authSaga } from './auth/saga'
+import { combineSagas } from '../Helpers/combineSaga'
+import { createLogger } from 'redux-logger'
+import createSagaMiddleware from 'redux-saga'
 import dashboardReducer from './dashboard/reducer'
 import { dashboardSaga } from './dashboard/saga'
+import immutableTransform from 'redux-persist-transform-immutable'
 import metatraderReducer from './metatrader/reducer'
 import { metatraderSaga } from './metatrader/saga'
 import octopusReducer from './octopus/reducer'
 import { octopusSaga } from './octopus/saga'
+import storage from 'redux-persist/lib/storage'
 import userInterfaceReducer from './userInterface/reducer'
 
 export const getStore = () => {
@@ -40,7 +40,7 @@ export const getStore = () => {
     transforms: [immutableTransform()],
     key: 'root',
     storage,
-    whitelist: ['app', 'dashboard', 'metatrader'],
+    whitelist: ['app', 'dashboard'],
   }
   const persistedReducer = persistReducer(persistConfig, rootReducer)
 

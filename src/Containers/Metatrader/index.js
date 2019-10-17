@@ -11,20 +11,20 @@ import {
   addNewSignal,
   getMetatraderAccessToken,
   getSignalById,
-} from '@src/redux/metatrader/actions'
+} from 'src/redux/metatrader/actions'
 import {
   openLoginWebViewSelector,
   subscribedSignalListSelector,
-} from '@src/redux/metatrader/selectors'
+} from 'src/redux/metatrader/selectors'
 
 import FeatherIcon from 'react-native-vector-icons/Feather'
-import GradientBackground from '@src/Components/GradientBackground'
-import InputBox from '@src/Components/InputBox'
+import GradientBackground from 'src/Components/GradientBackground'
+import InputBox from 'src/Components/InputBox'
 import { SafeAreaView } from 'react-navigation'
 import SignalIdInputView from './SignalIdInputView'
 import { connect } from 'react-redux'
 import styles from './styles'
-import theme from '@src/theme'
+import theme from 'src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 

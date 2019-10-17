@@ -8,7 +8,7 @@ import {
 import React, { Component } from 'react'
 
 import styles from './styles'
-import theme from '@src/theme'
+import theme from 'src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 

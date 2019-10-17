@@ -3,7 +3,7 @@
   "plugins": [
     ["babel-plugin-module-resolver", {
       "alias": {
-        "^@src/(.*)": "./src/\\1",
+        "^src/(.*)": "./src/\\1",
         "^@root/(.*)": "./src/\\1",
       },
     }]

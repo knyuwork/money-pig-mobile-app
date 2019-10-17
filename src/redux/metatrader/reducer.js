@@ -5,7 +5,12 @@ import { handleActions } from 'redux-actions'
 
 const INITIAL_STATE = {
   openLoginWebView: false,
-  subscribedSignalList: [],
+  subscribedSignalList: [
+    {
+      type: 'signal',
+      id: 'test',
+    },
+  ],
 }
 
 const newSignal = {

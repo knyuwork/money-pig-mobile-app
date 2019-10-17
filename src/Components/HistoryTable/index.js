@@ -5,7 +5,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 import styles from './styles'
-import theme from '@src/theme'
+import theme from 'src/theme'
 
 type Props = {
   history: Array<Object>,

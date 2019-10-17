@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 import ModalDropdown from 'react-native-modal-dropdown'
 import UIActions from '../../redux/userInterface/actions'
 import { connect } from 'react-redux'
-import { getProductListById } from '@src/firebase/DatabaseHelper'
+import { getProductListById } from 'src/firebase/DatabaseHelper'
 
 const { openChatroomPartnerModal } = UIActions
 

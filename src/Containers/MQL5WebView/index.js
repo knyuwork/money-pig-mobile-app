@@ -3,10 +3,10 @@ import {
   getMetatraderAccessToken,
   getSignal,
   mql5WebViewClosed,
-} from '@src/redux/metatrader/actions'
+} from 'src/redux/metatrader/actions'
 
 import { Dimensions } from 'react-native'
-import GradientBackground from '@src/Components/GradientBackground'
+import GradientBackground from 'src/Components/GradientBackground'
 import { SafeAreaView } from 'react-navigation'
 import { WebView } from 'react-native-webview'
 import { connect } from 'react-redux'
