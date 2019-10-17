@@ -39,9 +39,10 @@ export function* getSignalById({ payload: { signalId } }) {
       R.map(row => R.split(';')(row)),
       R.split(/\r\n|\r|\n/)
     )(data)
-    yield call(DatabaseHelper.setMQL5Signal, userId, signalId, signalData)
-    yield put(getSignalByIdSucceed(signalData))
+    // yield call(DatabaseHelper.setMQL5Signal, userId, signalId, signalData)
+    yield put(getSignalByIdSucceed(signalId, signalData))
   } catch (error) {
-    yield put(getSignalByIdNeedLogin())
+    console.log(error)
+    // yield put(getSignalByIdNeedLogin())
   }
 }

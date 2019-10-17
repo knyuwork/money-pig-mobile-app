@@ -38,7 +38,8 @@ export const getSignalById = createAction(
 
 export const getSignalByIdSucceed = createAction(
   ACTION_TYPES.GET_SIGNAL_BY_ID_SUCCEED,
-  signalData => ({
+  (signalId, signalData) => ({
+    signalId,
     signalData,
   })
 )

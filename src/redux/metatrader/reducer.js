@@ -5,20 +5,16 @@ import { handleActions } from 'redux-actions'
 
 const INITIAL_STATE = {
   openLoginWebView: false,
-  subscribedSignalList: [
-    {
-      type: 'signal',
-      id: 'test',
-    },
-  ],
+  subscribedSignalList: [],
 }
 
 const newSignal = {
   type: 'signal',
   id: null,
+  data: null,
 }
 
-const appReducer = handleActions(
+const metatraderReducer = handleActions(
   {
     [ACTION_TYPES.GET_METATRADER_ACCESS_TOKEN_SUCCEEDED]: (
       state,
@@ -39,8 +35,22 @@ const appReducer = handleActions(
       ...state,
       subscribedSignalList: R.append(newSignal)(state.subscribedSignalList),
     }),
+    [ACTION_TYPES.GET_SIGNAL_BY_ID_SUCCEED]: (
+      state,
+      { payload: { signalId, signalData } }
+    ) => {
+      const { subscribedSignalList } = state
+      const signalIndex = R.findIndex(R.propEq('id', signalId))(
+        subscribedSignalList
+      )
+      subscribedSignalList[signalIndex].data = signalData
+      return {
+        ...state,
+        subscribedSignalList,
+      }
+    },
   },
   INITIAL_STATE
 )
 
-export default appReducer
+export default metatraderReducer

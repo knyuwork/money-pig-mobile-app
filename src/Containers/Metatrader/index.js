@@ -22,6 +22,7 @@ import GradientBackground from 'src/Components/GradientBackground'
 import InputBox from 'src/Components/InputBox'
 import { SafeAreaView } from 'react-navigation'
 import SignalIdInputView from './SignalIdInputView'
+import SignalOverview from './SignalOverview'
 import { connect } from 'react-redux'
 import styles from './styles'
 import theme from 'src/theme'
@@ -59,18 +60,11 @@ class Metatrader extends Component<Props> {
     this.props.getSignalById(signalId)
   }
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item }, index) => {
+    console.log(item)
     if (item.type === 'new') {
-      const { totalAmount, today, yesterday, lastWeek, lastMonth } = item
       return (
-        <View
-          style={{
-            width: SCREEN_WIDTH,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingBottom: 8,
-          }}
-        >
+        <View style={styles.signalItemWrapper}>
           <TouchableOpacity
             style={[
               styles.carouselItemContainer,
@@ -89,15 +83,12 @@ class Metatrader extends Component<Props> {
       )
     } else {
       return (
-        <View
-          style={{
-            width: SCREEN_WIDTH,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingBottom: 8,
-          }}
-        >
-          <SignalIdInputView onSubmit={this.getSignalById} />
+        <View style={styles.signalItemWrapper}>
+          {item.id ? (
+            <SignalOverview />
+          ) : (
+            <SignalIdInputView onSubmit={this.getSignalById} />
+          )}
         </View>
       )
     }

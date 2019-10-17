@@ -25,4 +25,10 @@ export default StyleSheet.create({
     width: SCREEN_WIDTH / 1.2,
     ...shadowBox,
   },
+  signalItemWrapper: {
+    width: SCREEN_WIDTH,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 8,
+  },
 })
