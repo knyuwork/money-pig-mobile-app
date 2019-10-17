@@ -1,13 +1,12 @@
-import * as R from 'ramda'
-
-import { call, put } from 'redux-saga/effects'
-import { getSignalByIdNeedLogin, getSignalByIdSucceed } from '../actions'
-
+import api from '@src/Helpers/api'
 import AuthHelper from '@src/Helpers/firebase/AuthHelper'
 import DatabaseHelper from '@src/Helpers/firebase/DatabaseHelper'
-import api from '@src/Helpers/api'
+import * as R from 'ramda'
+import { call, put } from 'redux-saga/effects'
 
-export function* getSignal({ payload: { signalId } }) {
+import { getSignalByIdNeedLogin, getSignalByIdSucceed } from '../actions'
+
+export function* getSignalById({ payload: { signalId } }) {
   try {
     const userId = AuthHelper.getCurrentUser().uid
     const { data } = yield call(api.getSignalTradingCSV, signalId)

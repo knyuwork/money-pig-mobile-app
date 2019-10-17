@@ -6,7 +6,7 @@ export default {
       try {
         firebase
           .database()
-          .ref(`User/${userId}/metatrader/signals/${signalId}`)
+          .ref(`User/${userId}/metatrader/signals/${signalId}/openTrades`)
           .set(signalData, err => {
             if (err) {
               reject(err)
