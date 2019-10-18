@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import {
   Dimensions,
   FlatList,
@@ -6,26 +7,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import React, { Component } from 'react'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import { SafeAreaView } from 'react-navigation'
+import { connect } from 'react-redux'
+import GradientBackground from 'src/Components/GradientBackground'
+import InputBox from 'src/Components/InputBox'
 import {
   addNewSignal,
   getMetatraderAccessToken,
   getSignalById,
+  getSignals,
 } from 'src/redux/metatrader/actions'
 import {
   openLoginWebViewSelector,
   subscribedSignalListSelector,
 } from 'src/redux/metatrader/selectors'
+import theme from 'src/theme'
 
-import FeatherIcon from 'react-native-vector-icons/Feather'
-import GradientBackground from 'src/Components/GradientBackground'
-import InputBox from 'src/Components/InputBox'
-import { SafeAreaView } from 'react-navigation'
 import SignalIdInputView from './SignalIdInputView'
 import SignalOverview from './SignalOverview'
-import { connect } from 'react-redux'
 import styles from './styles'
-import theme from 'src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -33,6 +34,7 @@ type Props = {
   getMetatraderAccessToken: () => void,
   getSignalById: () => void,
   addNewSignal: () => void,
+  getSignals: () => void,
   subscribedSignalList: Array<{ signalId: string, type: 'new' | 'signal' }>,
   openLoginWebView: boolean,
   navigation: Object,
@@ -41,6 +43,9 @@ type Props = {
 class Metatrader extends Component<Props> {
   state = {
     result: 'nothing',
+  }
+  componentDidMount() {
+    this.props.getSignals()
   }
 
   handleLogin = () => {
@@ -55,52 +60,21 @@ class Metatrader extends Component<Props> {
     }
   }
 
-  getSignalById = (signalId = '508078') => {
-    // console.log(this.props)
+  getSignalById = signalId => {
     this.props.getSignalById(signalId)
   }
 
   renderItem = ({ item }, index) => {
-    console.log(item)
-    if (item.type === 'new') {
-      return (
-        <View style={styles.signalItemWrapper}>
-          <TouchableOpacity
-            style={[
-              styles.carouselItemContainer,
-              { justifyContent: 'center', alignItems: 'center' },
-            ]}
-            onPress={() => this.props.addNewSignal()}
-          >
-            <FeatherIcon
-              name={'plus-circle'}
-              color={theme.color.font2}
-              size={32}
-            />
-            <Text style={{ color: theme.color.font2 }}>新增 signal</Text>
-          </TouchableOpacity>
-        </View>
-      )
-    } else {
-      return (
-        <View style={styles.signalItemWrapper}>
-          {item.id ? (
-            <SignalOverview />
-          ) : (
-            <SignalIdInputView onSubmit={this.getSignalById} />
-          )}
-        </View>
-      )
-    }
+    return (
+      <View style={styles.signalItemWrapper}>
+        <SignalOverview signal={item} />
+      </View>
+    )
   }
 
   render() {
     const { subscribedSignalList } = this.props
-    const carouselData =
-      subscribedSignalList.length === 0 ||
-      subscribedSignalList[subscribedSignalList.length - 1].id
-        ? [...subscribedSignalList, { type: 'new', id: -1 }]
-        : subscribedSignalList
+    console.log(subscribedSignalList)
     return (
       <SafeAreaView
         style={{
@@ -117,13 +91,17 @@ class Metatrader extends Component<Props> {
             }
           }
         >
-          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-            <FlatList
-              style={{ flex: 1 }}
-              data={carouselData}
-              renderItem={this.renderItem}
-              keyExtractor={item => item.id}
-            />
+          <FlatList
+            style={{ flex: 1 }}
+            data={subscribedSignalList}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.id}
+          />
+          <KeyboardAvoidingView
+            behavior="height"
+            style={{ backgroundColor: theme.color.background1 }}
+          >
+            <SignalIdInputView onSubmit={this.getSignalById} />
           </KeyboardAvoidingView>
         </GradientBackground>
       </SafeAreaView>
@@ -136,5 +114,5 @@ export default connect(
     openLoginWebView: openLoginWebViewSelector(state),
     subscribedSignalList: subscribedSignalListSelector(state),
   }),
-  { getMetatraderAccessToken, getSignalById, addNewSignal }
+  { getMetatraderAccessToken, getSignalById, addNewSignal, getSignals }
 )(Metatrader)

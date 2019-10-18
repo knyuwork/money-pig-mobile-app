@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import {
   Dimensions,
   Text,
@@ -5,15 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import React, { Component } from 'react'
+import theme from 'src/theme'
 
 import styles from './styles'
-import theme from 'src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 type Props = {
-  onSubmit: () => void,
+  signal: Object,
 }
 
 type States = {
@@ -32,7 +32,6 @@ class SignalIdInputView extends Component<Props, States> {
   }
 
   render() {
-    const { onSubmit } = this.props
     const { inputValue } = this.state
     return (
       <View

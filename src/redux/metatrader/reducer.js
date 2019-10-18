@@ -1,17 +1,11 @@
 import * as R from 'ramda'
+import { handleActions } from 'redux-actions'
 
 import { ACTION_TYPES } from './actions'
-import { handleActions } from 'redux-actions'
 
 const INITIAL_STATE = {
   openLoginWebView: false,
   subscribedSignalList: [],
-}
-
-const newSignal = {
-  type: 'signal',
-  id: null,
-  data: null,
 }
 
 const metatraderReducer = handleActions(
@@ -31,24 +25,10 @@ const metatraderReducer = handleActions(
       ...state,
       openLoginWebView: false,
     }),
-    [ACTION_TYPES.ADD_NEW_SIGNAL]: state => ({
+    [ACTION_TYPES.GET_SIGNALS_SUCCEED]: (state, { payload: { signals } }) => ({
       ...state,
-      subscribedSignalList: R.append(newSignal)(state.subscribedSignalList),
+      subscribedSignalList: signals,
     }),
-    [ACTION_TYPES.GET_SIGNAL_BY_ID_SUCCEED]: (
-      state,
-      { payload: { signalId, signalData } }
-    ) => {
-      const { subscribedSignalList } = state
-      const signalIndex = R.findIndex(R.propEq('id', signalId))(
-        subscribedSignalList
-      )
-      subscribedSignalList[signalIndex].data = signalData
-      return {
-        ...state,
-        subscribedSignalList,
-      }
-    },
   },
   INITIAL_STATE
 )

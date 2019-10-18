@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import {
   Dimensions,
   Text,
@@ -5,10 +6,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import React, { Component } from 'react'
+import theme from 'src/theme'
 
 import styles from './styles'
-import theme from 'src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -37,8 +37,9 @@ class SignalIdInputView extends Component<Props, States> {
     return (
       <View
         style={[
-          styles.carouselItemContainer,
+          // styles.carouselItemContainer,
           {
+            padding: 16,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
@@ -48,11 +49,12 @@ class SignalIdInputView extends Component<Props, States> {
         <TextInput
           ref={ref => (this.inputRef = ref)}
           style={{
-            paddingHorizontal: 4,
+            backgroundColor: 'white',
+            paddingHorizontal: 8,
             borderRadius: 8,
             height: 40,
             borderWidth: 0.1,
-            width: SCREEN_WIDTH / 3,
+            width: (SCREEN_WIDTH * 3) / 4,
           }}
           onChangeText={this.handleChangeText}
           placeholder={'請輸入 Signal Id'}
@@ -72,7 +74,7 @@ class SignalIdInputView extends Component<Props, States> {
               color: 'white',
             }}
           >
-            提交
+            新增
           </Text>
         </TouchableOpacity>
       </View>

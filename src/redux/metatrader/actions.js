@@ -9,6 +9,8 @@ export const ACTION_TYPES = {
   GET_SIGNAL_BY_ID: `${PREFIX}/GET_SIGNAL_BY_ID`,
   GET_SIGNAL_BY_ID_NEED_LOGIN: `${PREFIX}/GET_SIGNAL_BY_ID_NEED_LOGIN`,
   GET_SIGNAL_BY_ID_SUCCEED: `${PREFIX}/GET_SIGNAL_BY_ID_SUCCEED`,
+  GET_SIGNALS: `${PREFIX}/GET_SIGNALS`,
+  GET_SIGNALS_SUCCEED: `${PREFIX}/GET_SIGNALS_SUCCEED`,
   MQL5_WEBVIEW_CLOSED: `${PREFIX}/MQL5_WEBVIEW_CLOSED`,
   ADD_NEW_SIGNAL: `${PREFIX}/ADD_NEW_SIGNAL`,
 }
@@ -46,6 +48,13 @@ export const getSignalByIdSucceed = createAction(
 
 export const getSignalByIdNeedLogin = createAction(
   ACTION_TYPES.GET_SIGNAL_BY_ID_NEED_LOGIN
+)
+
+export const getSignals = createAction(ACTION_TYPES.GET_SIGNALS)
+
+export const getSignalsSucceed = createAction(
+  ACTION_TYPES.GET_SIGNALS_SUCCEED,
+  signals => ({ signals })
 )
 
 export const mql5WebViewClosed = createAction(ACTION_TYPES.MQL5_WEBVIEW_CLOSED)
