@@ -16,18 +16,20 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 type Props = {
   signal: Object,
-}
-
-type States = {
-  inputValue: string,
+  onRefresh: (signalId: string) => void,
 }
 
 class SignalIdInputView extends Component<Props, States> {
-  handleRefresh = () => {}
+  handleRefresh = () => {
+    const {
+      signal: { id },
+    } = this.props
+    this.props.onRefresh(id)
+  }
 
   render() {
     const {
-      signal: { id, updatedAt, buysSum, sellsSum },
+      signal: { id, updatedAt, buysSum, sellsSum, avgBuyPrice, avgSellPrice },
     } = this.props
     return (
       <View
@@ -44,7 +46,7 @@ class SignalIdInputView extends Component<Props, States> {
           <Text style={styles.signalIdText}>Signal: {id}</Text>
           <>
             <Text style={styles.signalIdText}>
-              {moment(updatedAt).format('DD/MM/YY HH:MM')}
+              {moment(updatedAt * 1000).format('DD/MM/YYYY HH:mm')}
             </Text>
             <TouchableOpacity onPress={this.handleRefresh}>
               <FontAwesomeIcon name={'refresh'} size={16} color={'grey'} />
@@ -57,8 +59,8 @@ class SignalIdInputView extends Component<Props, States> {
             <View>
               <Text style={{ fontSize: 16 }}>{buysSum}</Text>
               <Text style={{ color: theme.color.font1 }}>volume</Text>
-              <Text style={{ fontSize: 16 }}>{buysSum}</Text>
-              <Text style={{ color: theme.color.font1 }}>volume</Text>
+              <Text style={{ fontSize: 16 }}>{avgBuyPrice}</Text>
+              <Text style={{ color: theme.color.font1 }}>Avg. Price</Text>
             </View>
           </View>
           <View style={styles.partialOverview}>
@@ -66,8 +68,8 @@ class SignalIdInputView extends Component<Props, States> {
             <View>
               <Text style={{ fontSize: 16 }}>{sellsSum}</Text>
               <Text style={{ color: theme.color.font1 }}>volume</Text>
-              <Text style={{ fontSize: 16 }}>{buysSum}</Text>
-              <Text style={{ color: theme.color.font1 }}>volume</Text>
+              <Text style={{ fontSize: 16 }}>{avgSellPrice}</Text>
+              <Text style={{ color: theme.color.font1 }}>Avg. Price</Text>
             </View>
           </View>
         </View>

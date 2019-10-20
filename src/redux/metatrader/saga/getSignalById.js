@@ -8,6 +8,7 @@ import DatabaseHelper from 'src/Helpers/firebase/DatabaseHelper'
 import api from 'src/Helpers/api'
 import { getSignals } from './getSignals'
 import moment from 'moment'
+import { processSignal } from 'src/Helpers/utils'
 
 const header = [
   'time',
@@ -17,24 +18,22 @@ const header = [
   'price',
   'stopLoss',
   'takeProfit',
-  'price',
+  'currentPrice',
   'commission',
   'swap',
   'profit',
 ]
 
 const parseSignalCSV = csvData => {
-  let signalData = {}
+  var signalData = {}
   R.compose(
-    R.map(row => {
-      signalData = R.assoc(row.time, row, signalData)
-    }),
     R.map(row => {
       const output = {}
       R.mapObjIndexed((value, index) => {
-        output[header[index]] = value
+        output[header[index]] = isNaN(value) ? value : parseFloat(value)
       })(row)
-      output.time = moment(output.time).unix() * 1000
+      output.time = moment(output.time, 'YYYY.MM.DD HH:mm:ss').unix()
+      signalData = R.assoc(output.time, output, signalData)
       return output
     }),
     R.filter(row => !row[1].includes('Limit')),
@@ -51,11 +50,27 @@ export function* getSignalById({ payload: { signalId } }) {
     const userId = AuthHelper.getCurrentUser().uid
     const { data } = yield call(api.getSignalTradingCSV, signalId)
     const signalData = parseSignalCSV(data)
-    yield call(DatabaseHelper.updateMQL5Signal, userId, signalId, signalData)
+
+    const updatedAt = moment().unix()
+    const signals = Object.values(signalData)
+    const processedSignal = processSignal(signals)
+
+    const overview = {
+      updatedAt,
+      ...processedSignal,
+    }
+    const update = {
+      openTrades: signalData,
+      [`pastOverview/${updatedAt}`]: {
+        [updatedAt]: overview,
+      },
+      currentOverview: overview,
+    }
+    yield call(DatabaseHelper.updateMQL5Signal, userId, signalId, update)
     yield call(getSignals)
-    // yield put(getSignalByIdSucceed(signalId, signalData))
+    yield put(getSignalByIdSucceed(signalId, signalData))
   } catch (error) {
     console.log(error)
-    // yield put(getSignalByIdNeedLogin())
+    yield put(getSignalByIdNeedLogin())
   }
 }

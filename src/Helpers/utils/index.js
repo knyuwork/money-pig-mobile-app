@@ -1,3 +1,5 @@
+export * from './metatrader'
+
 export const extractMQL5CurrentTradeTable = (data, tableIndex) => {
   const first = data.substring(tableIndex)
   const targetTable = first.substring(0, first.indexOf('</table>'))

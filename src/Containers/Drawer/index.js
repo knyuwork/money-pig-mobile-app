@@ -6,7 +6,6 @@
  * @flow
  */
 
-import React, { Component } from 'react'
 import {
   Dimensions,
   Image,
@@ -16,15 +15,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
-import Icon from 'react-native-vector-icons/AntDesign'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
 
-import logo from '../../../assets/logo.png'
 import { AuthHelper } from '../../Helpers/firebase'
-import { signOut } from '../../redux/auth/actions'
+import Icon from 'react-native-vector-icons/AntDesign'
+import LinearGradient from 'react-native-linear-gradient'
 import { checkIsSignedIn } from '../../redux/auth/selectors'
+import { connect } from 'react-redux'
+import logo from '../../../assets/logo.png'
+import { signOut } from '../../redux/auth/actions'
 import theme from '../../theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
@@ -85,17 +85,19 @@ class Drawer extends Component<Props> {
     const { showAuth } = this.state
     const { items, isSignedIn } = this.props
 
-    const preAuthDrawerWhiteList = ['login']
-    const postAuthDrawerWhiteList = ['logout']
+    // const preAuthDrawerWhiteList = ['login']
+    // const postAuthDrawerWhiteList = ['logout', 'metaTraderNavigator']
+
+    const mainItemsBlackList = isSignedIn
+      ? ['login', 'logout']
+      : ['login', 'logout', 'metaTraderNavigator']
+
     const authDrawerWhiteList = isSignedIn ? ['logout'] : ['login']
     const authItems = items.filter(item =>
       authDrawerWhiteList.includes(item.key)
     )
     const mainItems = items.filter(
-      item =>
-        ![...preAuthDrawerWhiteList, ...postAuthDrawerWhiteList].includes(
-          item.key
-        )
+      item => !mainItemsBlackList.includes(item.key)
     )
 
     const drawItemsProps = {

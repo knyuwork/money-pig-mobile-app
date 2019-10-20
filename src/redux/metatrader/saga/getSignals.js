@@ -10,7 +10,6 @@ export function* getSignals() {
   try {
     const userId = AuthHelper.getCurrentUser().uid
     const res = yield call(DatabaseHelper.getMQL5Signals, userId)
-    console.log(res)
     const signals = R.mapObjIndexed(({ currentOverview }, signalId) => ({
       id: signalId,
       ...currentOverview,

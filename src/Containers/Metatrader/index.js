@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import {
   Dimensions,
   FlatList,
@@ -7,11 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import FeatherIcon from 'react-native-vector-icons/Feather'
-import { SafeAreaView } from 'react-navigation'
-import { connect } from 'react-redux'
-import GradientBackground from 'src/Components/GradientBackground'
-import InputBox from 'src/Components/InputBox'
+import React, { Component } from 'react'
 import {
   addNewSignal,
   getMetatraderAccessToken,
@@ -22,11 +17,16 @@ import {
   openLoginWebViewSelector,
   subscribedSignalListSelector,
 } from 'src/redux/metatrader/selectors'
-import theme from 'src/theme'
 
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import GradientBackground from 'src/Components/GradientBackground'
+import InputBox from 'src/Components/InputBox'
+import { SafeAreaView } from 'react-navigation'
 import SignalIdInputView from './SignalIdInputView'
 import SignalOverview from './SignalOverview'
+import { connect } from 'react-redux'
 import styles from './styles'
+import theme from 'src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -67,14 +67,13 @@ class Metatrader extends Component<Props> {
   renderItem = ({ item }, index) => {
     return (
       <View style={styles.signalItemWrapper}>
-        <SignalOverview signal={item} />
+        <SignalOverview signal={item} onRefresh={this.getSignalById} />
       </View>
     )
   }
 
   render() {
     const { subscribedSignalList } = this.props
-    console.log(subscribedSignalList)
     return (
       <SafeAreaView
         style={{
