@@ -19,9 +19,9 @@ export default StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     // alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     backgroundColor: '#fff',
-    height: SCREEN_HEIGHT / 4.8,
+    // height: SCREEN_HEIGHT / 4,
     width: SCREEN_WIDTH / 1.2,
     ...shadowBox,
   },
@@ -30,5 +30,29 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 8,
+  },
+  signalIdText: {
+    color: theme.color.font1,
+    fontStyle: 'italic',
+  },
+  buysTitle: {
+    color: 'blue',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  sellsTitle: {
+    color: 'red',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  buysText: {
+    color: 'blue',
+  },
+  sellsText: {
+    color: 'red',
+  },
+  partialOverview: {
+    justifyContent: 'flex-start',
+    flex: 1,
   },
 })

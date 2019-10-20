@@ -36,6 +36,16 @@ class HistoryTable extends Component<Props> {
 
     return (
       <View style={styles.historyRow}>
+        <TouchableOpacity
+          style={{ marginRight: 8 }}
+          onPress={() => this.onRecordDelete(item)}
+        >
+          <EntypoIcon
+            name={'circle-with-minus'}
+            size={18}
+            color={theme.color.font5}
+          />
+        </TouchableOpacity>
         <Icon size={16} style={styles.historyFont} name={typeToIconMap[type]} />
         <Text style={styles.historyFont}>
           {moment(createdTs).format('MM/DD')}
@@ -46,13 +56,6 @@ class HistoryTable extends Component<Props> {
         <Text style={[{ flex: 1 }, styles.historyFont]}>
           +$ {amount.toFixed(2)}
         </Text>
-        <TouchableOpacity onPress={() => this.onRecordDelete(item)}>
-          <EntypoIcon
-            name={'circle-with-minus'}
-            size={18}
-            color={theme.color.font5}
-          />
-        </TouchableOpacity>
       </View>
     )
   }

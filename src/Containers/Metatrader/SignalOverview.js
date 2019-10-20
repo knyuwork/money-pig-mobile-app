@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import {
   Dimensions,
   Text,
@@ -6,9 +5,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import theme from 'src/theme'
+import React, { Component } from 'react'
 
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+import moment from 'moment'
 import styles from './styles'
+import theme from 'src/theme'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -21,59 +23,54 @@ type States = {
 }
 
 class SignalIdInputView extends Component<Props, States> {
-  state = {
-    inputValue: '',
-  }
-
-  handleChangeText = inputValue => {
-    this.setState({
-      inputValue,
-    })
-  }
+  handleRefresh = () => {}
 
   render() {
-    const { inputValue } = this.state
+    const {
+      signal: { id, updatedAt, buysSum, sellsSum },
+    } = this.props
     return (
       <View
         style={[
           styles.carouselItemContainer,
-          {
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
+          // {
+          //   flexDirection: 'row',
+          //   justifyContent: 'center',
+          //   alignItems: 'center',
+          // },
         ]}
       >
-        <TextInput
-          ref={ref => (this.inputRef = ref)}
-          style={{
-            paddingHorizontal: 4,
-            borderRadius: 8,
-            height: 40,
-            borderWidth: 0.1,
-            width: SCREEN_WIDTH / 3,
-          }}
-          onChangeText={this.handleChangeText}
-          placeholder={'請輸入 Signal Id'}
-        />
-        <TouchableOpacity
-          style={{
-            backgroundColor: theme.color.font2,
-            paddingVertical: 8,
-            paddingHorizontal: 12,
-            borderRadius: 8,
-            marginLeft: 8,
-          }}
-          onPress={() => onSubmit(inputValue)}
-        >
-          <Text
-            style={{
-              color: 'white',
-            }}
-          >
-            提交
-          </Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={styles.signalIdText}>Signal: {id}</Text>
+          <>
+            <Text style={styles.signalIdText}>
+              {moment(updatedAt).format('DD/MM/YY HH:MM')}
+            </Text>
+            <TouchableOpacity onPress={this.handleRefresh}>
+              <FontAwesomeIcon name={'refresh'} size={16} color={'grey'} />
+            </TouchableOpacity>
+          </>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={styles.partialOverview}>
+            <Text style={styles.buysTitle}>Buys</Text>
+            <View>
+              <Text style={{ fontSize: 16 }}>{buysSum}</Text>
+              <Text style={{ color: theme.color.font1 }}>volume</Text>
+              <Text style={{ fontSize: 16 }}>{buysSum}</Text>
+              <Text style={{ color: theme.color.font1 }}>volume</Text>
+            </View>
+          </View>
+          <View style={styles.partialOverview}>
+            <Text style={styles.sellsTitle}>Sells</Text>
+            <View>
+              <Text style={{ fontSize: 16 }}>{sellsSum}</Text>
+              <Text style={{ color: theme.color.font1 }}>volume</Text>
+              <Text style={{ fontSize: 16 }}>{buysSum}</Text>
+              <Text style={{ color: theme.color.font1 }}>volume</Text>
+            </View>
+          </View>
+        </View>
       </View>
     )
   }

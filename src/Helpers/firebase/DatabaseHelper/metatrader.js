@@ -1,6 +1,21 @@
-import moment from 'moment'
 import * as R from 'ramda'
+
 import firebase from 'react-native-firebase'
+import moment from 'moment'
+
+const calculateTotalSellsSum = sells =>
+  R.compose(
+    sum => sum.toFixed(2),
+    R.sum,
+    R.map(sell => sell.volume)
+  )(sells)
+
+const calculateTotalBuysSum = buys =>
+  R.compose(
+    sum => sum.toFixed(2),
+    R.sum,
+    R.map(buy => buy.volume)
+  )(buys)
 
 export default {
   getMQL5Signals: userId =>
@@ -14,25 +29,21 @@ export default {
     const signals = Object.values(signalData)
     const buys = R.filter(({ type }) => type === 'Buy')(signals)
     const sells = R.filter(({ type }) => type === 'Sell')(signals)
-    const buysSum = R.compose(
-      // Math.
-      R.sum,
-      R.map(buy => buy.volume)
-    )(buys)
-    const sellsSum = R.compose(
-      R.sum,
-      R.map(sell => sell.volume)
-    )(sells)
-    const history = {
+
+    const buysSum = calculateTotalBuysSum(buys)
+    const sellsSum = calculateTotalSellsSum(sells)
+
+    const overview = {
       updatedAt,
       buysSum,
       sellsSum,
     }
     const update = {
       openTrades: signalData,
-      historys: {
-        [moment().format('x')]: history,
+      [`pastOverview/${updatedAt}`]: {
+        [updatedAt]: overview,
       },
+      currentOverview: overview,
     }
     return firebase
       .database()
