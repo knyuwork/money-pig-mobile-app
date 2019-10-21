@@ -44,14 +44,21 @@ class SignalIdInputView extends Component<Props, States> {
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={styles.signalIdText}>Signal: {id}</Text>
-          <>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={styles.signalIdText}>
               {moment(updatedAt * 1000).format('DD/MM/YYYY HH:mm')}
             </Text>
-            <TouchableOpacity onPress={this.handleRefresh}>
-              <FontAwesomeIcon name={'refresh'} size={16} color={'grey'} />
+            <TouchableOpacity
+              style={{ marginLeft: 8 }}
+              onPress={this.handleRefresh}
+            >
+              <FontAwesomeIcon
+                name={'refresh'}
+                size={20}
+                color={theme.color.font1}
+              />
             </TouchableOpacity>
-          </>
+          </View>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={styles.partialOverview}>
