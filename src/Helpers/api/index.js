@@ -19,18 +19,15 @@ export default {
       .catch(err => console.log(err))
   },
   getMetatraderSignal: signalId =>
-    metatraderApiInstance.get(`/signals/${signalId}`, {
-      headers: {
-        authorization:
-          'Bearer MCGAQACQYNAGRUKVZJHXQMSHPBWYJYGMNRMCEZIVZCTKTNGAEGLWJFJZKYKOEDGZ',
-      },
-    }),
+    metatraderApiInstance.get(`/signals/${signalId}`),
   getSignalTradingCSV: signalId =>
-    metatraderApiInstance.get(`/signals/${signalId}/export/trading`, {
-      // responseType: 'blob',
-      headers: {
-        authorization:
-          'Bearer MCGAQACQYNAGRUKVZJHXQMSHPBWYJYGMNRMCEZIVZCTKTNGAEGLWJFJZKYKOEDGZ',
-      },
-    }),
+    metatraderApiInstance
+      .get(`/signals/${signalId}/export/trading`)
+      .then(res => {
+        if (res.data.includes('HTML')) {
+          throw new Error('NEED_LOGIN')
+        } else {
+          return res
+        }
+      }),
 }

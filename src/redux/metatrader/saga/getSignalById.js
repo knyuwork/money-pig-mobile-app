@@ -1,14 +1,13 @@
+import moment from 'moment'
 import * as R from 'ramda'
-
 import { call, put } from 'redux-saga/effects'
-import { getSignalByIdNeedLogin, getSignalByIdSucceed } from '../actions'
-
+import api from 'src/Helpers/api'
 import AuthHelper from 'src/Helpers/firebase/AuthHelper'
 import DatabaseHelper from 'src/Helpers/firebase/DatabaseHelper'
-import api from 'src/Helpers/api'
-import { getSignals } from './getSignals'
-import moment from 'moment'
 import { processSignal } from 'src/Helpers/utils'
+
+import { getSignalByIdNeedLogin, getSignalByIdSucceed } from '../actions'
+import { getSignals } from './getSignals'
 
 const header = [
   'time',
@@ -61,16 +60,14 @@ export function* getSignalById({ payload: { signalId } }) {
     }
     const update = {
       openTrades: signalData,
-      [`pastOverview/${updatedAt}`]: {
-        [updatedAt]: overview,
-      },
+      [`pastOverview/${updatedAt}`]: overview,
       currentOverview: overview,
     }
+    console.log(update)
     yield call(DatabaseHelper.updateMQL5Signal, userId, signalId, update)
     yield call(getSignals)
-    yield put(getSignalByIdSucceed(signalId, signalData))
+    // yield put(getSignalByIdSucceed(signalId, signalData))
   } catch (error) {
     console.log(error)
-    yield put(getSignalByIdNeedLogin())
   }
 }
