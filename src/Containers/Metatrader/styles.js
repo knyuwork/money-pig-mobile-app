@@ -33,6 +33,7 @@ export default StyleSheet.create({
   },
   signalIdText: {
     color: theme.color.font1,
+    fontSize: 14,
     fontStyle: 'italic',
   },
   buysTitle: {
