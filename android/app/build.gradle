@@ -137,8 +137,8 @@ android {
     applicationId "com.knyu.moneypig"
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode 5
-    versionName "1.4"
+    versionCode 6
+    versionName "2.0.0"
     ndk {
       abiFilters "armeabi-v7a", "x86"
     }
