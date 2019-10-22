@@ -24,7 +24,7 @@ export default {
     metatraderApiInstance
       .get(`/signals/${signalId}/export/trading`)
       .then(res => {
-        if (res.data.includes('HTML')) {
+        if (res.data.includes('html')) {
           throw new Error('NEED_LOGIN')
         } else {
           return res

@@ -63,11 +63,10 @@ export function* getSignalById({ payload: { signalId } }) {
       [`pastOverview/${updatedAt}`]: overview,
       currentOverview: overview,
     }
-    console.log(update)
     yield call(DatabaseHelper.updateMQL5Signal, userId, signalId, update)
     yield call(getSignals)
     // yield put(getSignalByIdSucceed(signalId, signalData))
   } catch (error) {
-    console.log(error)
+    yield put(getSignalByIdNeedLogin())
   }
 }
