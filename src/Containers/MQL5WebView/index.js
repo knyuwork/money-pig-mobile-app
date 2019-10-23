@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
+import { Dimensions } from 'react-native'
+import { WebView } from 'react-native-webview'
+import { SafeAreaView } from 'react-navigation'
+import { connect } from 'react-redux'
 import {
   getMetatraderAccessToken,
   getSignal,
   mql5WebViewClosed,
 } from 'src/redux/metatrader/actions'
-
-import { Dimensions } from 'react-native'
-import GradientBackground from 'src/Components/GradientBackground'
-import { SafeAreaView } from 'react-navigation'
-import { WebView } from 'react-native-webview'
-import { connect } from 'react-redux'
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 type Props = {
@@ -18,10 +16,6 @@ type Props = {
   navigation: Object,
 }
 class MQL5WebView extends Component<Props> {
-  state = {
-    result: 'nothing',
-  }
-
   componentWillUnmount() {
     this.props.mql5WebViewClosed()
   }
@@ -35,10 +29,9 @@ class MQL5WebView extends Component<Props> {
   }
 
   render() {
-    const { result } = this.state
-    const jsCode = `
-      window.ReactNativeWebView.postMessage()
-    `
+    const jsCode = `(function() {
+      window.ReactNativeWebView.postMessage(JSON.stringify(window.location));
+  })();`
     return (
       <SafeAreaView
         style={{
@@ -59,6 +52,5 @@ class MQL5WebView extends Component<Props> {
 
 export default connect(
   null,
-  // { getMetatraderAccessToken }
   { getMetatraderAccessToken, getSignal, mql5WebViewClosed }
 )(MQL5WebView)

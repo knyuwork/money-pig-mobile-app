@@ -27,7 +27,7 @@
     "replace-in-file": "^3.4.2"
   },
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --variant=debug",
     "android:release": "react-native run-android --variant=release",
     "ios": "react-native run-ios --simulator=\"iPhone X\"",
     "apk": "cd android && ./gradlew assembleRelease",

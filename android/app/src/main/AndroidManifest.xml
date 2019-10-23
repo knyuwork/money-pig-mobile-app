@@ -20,7 +20,9 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-            <data android:scheme="moneypig" />
+        </intent-filter>
+        <intent-filter>
+          <data android:scheme="moneypig" />
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
